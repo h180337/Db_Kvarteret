@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {Fragment, useState, useRef} from 'react';
+import React, {Fragment, useState, useRef, useEffect} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {IPersonel} from "../../../app/models/personel";
@@ -8,6 +8,7 @@ import {CSVLink} from "react-csv";
 
 interface IProps {
     pesonell: IPersonel[];
+    
 }
 
 const columns = [
@@ -23,9 +24,22 @@ const columns = [
         )
     }
 ];
+const headers = [
+    { label: "First Name", key: "fornavn" },
+    { label: "Last Name", key: "etternavn" },
+    { label: "Email", key: "epost" },
+    { label: "Phone", key: "telefon" },
+    { label: "Address", key: "gateadresse" },
+    { label: "Status", key: "arb_status" }
+];
 
 const PersonellTable: React.FC<IProps> = ({pesonell}) => {
-    const [cvsData, setCvsData] = useState([]);
+    const [csvData, setCsvData] = useState()
+    useEffect(() =>{
+        if (pesonell.length !== 0){
+            setCsvData(pesonell);
+        }
+    }, [pesonell])
     return (
         <Fragment>
             <Segment clearing>
@@ -42,8 +56,8 @@ const PersonellTable: React.FC<IProps> = ({pesonell}) => {
                     color='blue'
                     as={CSVLink}
                     data={pesonell}
+                    headers={headers}
                 > CSV DownLoad</Button>
-                
                 
             </Segment>
         </Fragment>
