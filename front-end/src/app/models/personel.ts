@@ -8,7 +8,7 @@ export interface IPersonel {
     telefon: string,
     gateadresse: string,
     postnummerid: string,
-    opprettet: Date,
-    fodselsdato: Date
+    opprettet: string,
+    fodselsdato: string,
     arb_status: string
 }
