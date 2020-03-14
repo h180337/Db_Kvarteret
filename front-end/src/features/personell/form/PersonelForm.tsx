@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {FormEvent, useContext, useEffect, useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {Button, Form, Segment} from 'semantic-ui-react';
 import {IPersonel} from '../../../app/models/personel'
 import {v4 as uuid} from 'uuid';

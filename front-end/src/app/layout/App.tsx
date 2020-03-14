@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import axios from 'axios';
 import {Container} from 'semantic-ui-react';
 import {IPersonel} from '../models/personel'
@@ -34,10 +34,19 @@ const App = () => {
         setSelectedUser(person);
         setEditMode(false);
     }
+    
+    const deletePersonHandler = (id: string)=>{
+        setPersonell([...pesonell.filter(a => a.id !== id)]);
+    }
 
     useEffect(() => {
         axios.get<IPersonel[]>('http://localhost:5000/api/personel').then(response => {
-            setPersonell(response.data);
+            let personell: IPersonel[] = [];
+            response.data.forEach(person => {
+                person.opprettet = person.opprettet.split('T')[0];
+                personell.push(person)
+            })
+            setPersonell(personell);
         });
     }, []);
 
@@ -54,6 +63,7 @@ const App = () => {
                  setEditMode={setEditMode}
                  createUserHandler={createUserHandler}
                  editUserHandler={editUserHandler}
+                 deletePersonHandler={deletePersonHandler}
              />
            </Container>
         </Fragment>

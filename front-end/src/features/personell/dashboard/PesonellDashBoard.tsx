@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, {Fragment} from 'react';
-import {Container, Grid, List} from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
 import {IPersonel} from '../../../app/models/personel'
 import PersonellTable from "./PersonellTable";
 import Profile from '../Profile/Profile';
@@ -15,6 +15,7 @@ interface IProps {
     editMode: boolean;
     createUserHandler: (person: IPersonel) => void;
     editUserHandler: (person: IPersonel) => void;
+    deletePersonHandler: (id: string) => void;
 }
 
 const PesonellDashBoard: React.FC<IProps> = (
@@ -25,7 +26,8 @@ const PesonellDashBoard: React.FC<IProps> = (
         editMode,
         setSelectedUser,
         createUserHandler,
-        editUserHandler}) => {
+        editUserHandler,
+        deletePersonHandler}) => {
     return (
         <Fragment>
             <Grid>
@@ -33,6 +35,7 @@ const PesonellDashBoard: React.FC<IProps> = (
                     <PersonellTable 
                         pesonell={pesonell}
                         selectUser={selectUser}
+                        deletePersonHandler={deletePersonHandler}
                     />
                 </Grid.Column>
                 <Grid.Column width={4}>

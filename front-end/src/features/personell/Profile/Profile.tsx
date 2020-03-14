@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 import {IPersonel} from '../../../app/models/personel'
 
 
@@ -17,7 +17,7 @@ const Profile: React.FC<IProps> = ({selectedUser,setEditMode, setSelectedUser}) 
             <Card.Content>
                 <Card.Header>{`${selectedUser.fornavn} ${selectedUser.etternavn}`}</Card.Header>
                 <Card.Meta>
-                    <span className='date'>{selectedUser.opprettet}</span>
+                    <span className='date'>Joined: {selectedUser.opprettet}</span>
                 </Card.Meta>
                 <Card.Description>
                     something something

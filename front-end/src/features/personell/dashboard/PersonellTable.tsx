@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {Fragment, useState, useRef, useEffect} from 'react';
+import React, {Fragment} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {IPersonel} from "../../../app/models/personel";
@@ -9,6 +9,8 @@ import {CSVLink} from "react-csv";
 interface IProps {
     pesonell: IPersonel[];
     selectUser: (id: string) => void;
+    deletePersonHandler: (id: string) => void;
+
 }
 
 
@@ -21,13 +23,7 @@ const headers = [
     { label: "Status", key: "arb_status" }
 ];
 
-const PersonellTable: React.FC<IProps> = ({pesonell, selectUser}) => {
-    const [csvData, setCsvData] = useState()
-    useEffect(() =>{
-        if (pesonell.length !== 0){
-            setCsvData(pesonell);
-        }
-    }, [pesonell])
+const PersonellTable: React.FC<IProps> = ({pesonell, selectUser, deletePersonHandler}) => {
 
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
@@ -44,11 +40,21 @@ const PersonellTable: React.FC<IProps> = ({pesonell, selectUser}) => {
                     color='blue'/>
             )
         }
+        ,
+        {
+            Header: 'Delete', Cell: (props: any) => (
+                <Button
+                    onClick={()=>deletePersonHandler(props.original.id)}
+                    content='Delete'
+                    color='red'/>
+            )
+        }
     ];
     return (
         <Fragment>
             <Segment clearing>
                 <ReactTable
+                    style={{marginTop: '10px'}}
                     className='center'
                     data={pesonell}
                     columns={columns}
