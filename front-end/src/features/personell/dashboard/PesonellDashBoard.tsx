@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {Fragment} from 'react';
+import React, {Fragment, SyntheticEvent} from 'react';
 import {Grid} from 'semantic-ui-react'
 import {IPersonel} from '../../../app/models/personel'
 import PersonellTable from "./PersonellTable";
@@ -15,7 +15,9 @@ interface IProps {
     editMode: boolean;
     createUserHandler: (person: IPersonel) => void;
     editUserHandler: (person: IPersonel) => void;
-    deletePersonHandler: (id: string) => void;
+    deletePersonHandler: (e:SyntheticEvent<HTMLButtonElement>, id: string) => void;
+    submitting: boolean;
+    target: string;
 }
 
 const PesonellDashBoard: React.FC<IProps> = (
@@ -27,7 +29,9 @@ const PesonellDashBoard: React.FC<IProps> = (
         setSelectedUser,
         createUserHandler,
         editUserHandler,
-        deletePersonHandler}) => {
+        deletePersonHandler,
+        submitting,
+        target}) => {
     return (
         <Fragment>
             <Grid>
@@ -36,6 +40,8 @@ const PesonellDashBoard: React.FC<IProps> = (
                         pesonell={pesonell}
                         selectUser={selectUser}
                         deletePersonHandler={deletePersonHandler}
+                        submitting={submitting}
+                        target={target}
                     />
                 </Grid.Column>
                 <Grid.Column width={4}>
@@ -52,6 +58,7 @@ const PesonellDashBoard: React.FC<IProps> = (
                         selectedUser={selectedUser!}
                         createUserHandler={createUserHandler}
                         editUserHandler={editUserHandler}
+                        submitting={submitting}
                     />}
                 </Grid.Column>
             </Grid>

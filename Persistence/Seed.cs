@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain;
+// droping the date base cd into main folder and type "dotnet ef database drop -p Persistence/ -s API/" in the terminal
 
 namespace Persistence
 {

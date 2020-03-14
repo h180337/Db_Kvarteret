@@ -9,9 +9,10 @@ interface IProps {
     selectedUser: (IPersonel);
     createUserHandler: (person: IPersonel) => void;
     editUserHandler: (person: IPersonel) => void;
+    submitting: boolean
 }
 
-const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHandler, editUserHandler }) => {
+const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHandler, editUserHandler, submitting }) => {
 
     /* if we have a user, populate the inputs with date from the user. if no user give back a blank input */
     const initializeForm = () => {
@@ -106,6 +107,7 @@ const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHa
                     placeholder='Birth Date'
                     value={person.fodselsdato}/>
                 <Button
+                    loading={submitting}
                     positive
                     floated='right'
                     type='submit'
