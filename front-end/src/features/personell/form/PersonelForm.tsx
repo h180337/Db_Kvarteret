@@ -1,19 +1,17 @@
 // @ts-ignore
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useContext, useState} from 'react';
 import {Button, Form, Segment} from 'semantic-ui-react';
 import {IPersonel} from '../../../app/models/personel'
 import {v4 as uuid} from 'uuid';
+import usersStore from "../../../app/stores/userStore";
+import { observer } from 'mobx-react-lite';
 
-interface IProps {
-    setEditMode: (editMode: boolean) => void;
-    selectedUser: (IPersonel);
-    createUserHandler: (person: IPersonel) => void;
-    editUserHandler: (person: IPersonel) => void;
-    submitting: boolean
-}
 
-const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHandler, editUserHandler, submitting }) => {
 
+const PersonelForm: React.FC = () => {
+    const userStore = useContext(usersStore);
+    const {createUser, selectedUser, editUser, submitting, cancelFormOpen} = userStore;
+    
     /* if we have a user, populate the inputs with date from the user. if no user give back a blank input */
     const initializeForm = () => {
         if (selectedUser) {
@@ -53,9 +51,9 @@ const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHa
                 id: uuid(),
                 opprettet: today
             }
-            createUserHandler(newPerson);
+            createUser(newPerson);
         }else {
-            editUserHandler(person);
+            editUser(person);
         }
     }
 
@@ -117,7 +115,7 @@ const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHa
                     color='green'
                     style={{marginTop: '10px'}}/>
                 <Button
-                    onClick={() => setEditMode(false)}
+                    onClick={cancelFormOpen}
                     floated='right'
                     content='Cancel'
                     color='grey'
@@ -127,4 +125,4 @@ const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHa
     );
 }
 
-export default PersonelForm;
+export default observer(PersonelForm);

@@ -1,33 +1,28 @@
 // @ts-ignore
-import React, {Fragment, SyntheticEvent} from 'react';
+import React, {Fragment, useContext} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
-import {IPersonel} from "../../../app/models/personel";
 import {Button, Segment} from 'semantic-ui-react';
 import {CSVLink} from "react-csv";
+import {observer} from 'mobx-react-lite'
+import usersStore from "../../../app/stores/userStore";
 
-interface IProps {
-    pesonell: IPersonel[];
-    selectUser: (id: string) => void;
-    deletePersonHandler: (e:SyntheticEvent<HTMLButtonElement>,id: string) => void;
-    submitting: boolean;
-    target: string;
+const PersonellTable: React.FC = () => {
+
+    const userStore = useContext(usersStore);
+    const {usersAsArray, selectUser, target, submitting, deleteUser} = userStore;
+    
     
 
-}
-
-
-const headers = [
-    { label: "First Name", key: "fornavn" },
-    { label: "Last Name", key: "etternavn" },
-    { label: "Email", key: "epost" },
-    { label: "Phone", key: "telefon" },
-    { label: "Address", key: "gateadresse" },
-    { label: "Status", key: "arb_status" }
-];
-
-const PersonellTable: React.FC<IProps> = ({pesonell, selectUser, deletePersonHandler, submitting,target}) => {
-
+    const headers = [
+        { label: "First Name", key: "fornavn" },
+        { label: "Last Name", key: "etternavn" },
+        { label: "Email", key: "epost" },
+        { label: "Phone", key: "telefon" },
+        { label: "Address", key: "gateadresse" },
+        { label: "Status", key: "arb_status" }
+    ];
+    
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
         {Header: 'LastName', accessor: 'etternavn'},
@@ -49,7 +44,7 @@ const PersonellTable: React.FC<IProps> = ({pesonell, selectUser, deletePersonHan
                 <Button
                     name={props.original.id}
                     loading={target === props.original.id && submitting}
-                    onClick={(event)=>deletePersonHandler(event, props.original.id)}
+                    onClick={(event)=>deleteUser(event, props.original.id)}
                     content='Delete'
                     color='red'/>
             )
@@ -61,7 +56,7 @@ const PersonellTable: React.FC<IProps> = ({pesonell, selectUser, deletePersonHan
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={pesonell}
+                    data={usersAsArray}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
@@ -71,7 +66,7 @@ const PersonellTable: React.FC<IProps> = ({pesonell, selectUser, deletePersonHan
                     style={{marginTop: '10px'}}
                     color='blue'
                     as={CSVLink}
-                    data={pesonell}
+                    data={usersAsArray}
                     headers={headers}
                 > CSV DownLoad</Button>
                 
@@ -80,4 +75,4 @@ const PersonellTable: React.FC<IProps> = ({pesonell, selectUser, deletePersonHan
     );
 }
 
-export default PersonellTable;
+export default observer(PersonellTable);

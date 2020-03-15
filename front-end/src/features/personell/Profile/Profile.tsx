@@ -1,23 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Card, Image, Button } from 'semantic-ui-react';
-import {IPersonel} from '../../../app/models/personel'
+import usersStore from "../../../app/stores/userStore";
+import {observer} from "mobx-react-lite";
 
-
-interface IProps {
-    selectedUser: IPersonel
-    setEditMode: (editMode: boolean) => void;
-    setSelectedUser:(person: IPersonel | null) => void
-
-}
-
-const Profile: React.FC<IProps> = ({selectedUser,setEditMode, setSelectedUser}) => {
+const Profile: React.FC = () => {
+    const userStore = useContext(usersStore);
+    const {selectedUser: user, openEditFrom, cancelSelectedUser} = userStore;
     return (
         <Card fluid>
             <Image src='assets/Profile.png' wrapped ui={false} />
             <Card.Content>
-                <Card.Header>{`${selectedUser.fornavn} ${selectedUser.etternavn}`}</Card.Header>
+                <Card.Header>{`${user!.fornavn} ${user!.etternavn}`}</Card.Header>
                 <Card.Meta>
-                    <span className='date'>Joined: {selectedUser.opprettet}</span>
+                    <span className='date'>Joined: {user!.opprettet}</span>
                 </Card.Meta>
                 <Card.Description>
                     something something
@@ -26,12 +21,12 @@ const Profile: React.FC<IProps> = ({selectedUser,setEditMode, setSelectedUser}) 
             <Card.Content extra>
                 <Button.Group widths={3}>
                     <Button basic color='blue' content='Profile'/>
-                    <Button onClick={() => setEditMode(true)} basic color='grey' content='Edit'/>
-                    <Button basic color='red'  content='Cancel' onClick={() => setSelectedUser(null)}/>
+                    <Button onClick={() => openEditFrom(user!.id)} basic color='grey' content='Edit'/>
+                    <Button basic color='red'  content='Cancel' onClick={cancelSelectedUser}/>
                 </Button.Group>
             </Card.Content>
         </Card>
     );
 }
 
-export default Profile;
+export default observer(Profile);

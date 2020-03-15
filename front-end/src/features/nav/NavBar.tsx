@@ -1,28 +1,29 @@
-import React from 'react';
-import {Menu, Container, Button} from 'semantic-ui-react';
+import React, {useContext} from 'react';
+import {Button, Container, Menu} from 'semantic-ui-react';
+import {observer} from 'mobx-react-lite';
+import usersStore from "../../app/stores/userStore";
 
-interface IProps {
-    openCreateFormHandler: () => void;
-}
 
-const NavBar: React.FC<IProps>= ({openCreateFormHandler}) => {
+const NavBar: React.FC = () => {
+    const userStore = useContext(usersStore);
+    const {openCreateFrom} = userStore
     return (
         <Menu fixed='top' inverted>
             <Container>
                 <Menu.Item header>
-                    <img src='/assets/LogoKvarteret.png' alt='Logo' style={{marginRight:'10px'}}/>
+                    <img src='/assets/LogoKvarteret.png' alt='Logo' style={{marginRight: '10px'}}/>
                     Db Kvarteret
                 </Menu.Item>
-            <Menu.Item
-                name='Users'
-            />
+                <Menu.Item
+                    name='Users'
+                />
             <Menu.Item
                 name='Organisations'
             />
                 <Menu.Item>
-                    <Button 
+                    <Button
                         positive content='Create user'
-                        onClick={openCreateFormHandler}
+                        onClick={openCreateFrom}
                     />
                 </Menu.Item>
                 <Menu.Item>
@@ -36,4 +37,4 @@ const NavBar: React.FC<IProps>= ({openCreateFormHandler}) => {
     );
 }
 
-export default NavBar;
+export default observer(NavBar);
