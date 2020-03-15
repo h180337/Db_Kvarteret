@@ -46,10 +46,12 @@ const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHa
     
     // submit changes to the db
     const submitHandler = () =>{
+        let today = new Date().toISOString().slice(0, 10)
         if (person.id.length === 0){
             let newPerson = {
                 ...person,
-                id: uuid()
+                id: uuid(),
+                opprettet: today
             }
             createUserHandler(newPerson);
         }else {
@@ -103,7 +105,7 @@ const PersonelForm: React.FC<IProps> = ({setEditMode, selectedUser, createUserHa
                 <Form.Input
                     onChange={inputChangeHandler}
                     name='fodselsdato'
-                    type='date'
+                    type='datetime-local'
                     placeholder='Birth Date'
                     value={person.fodselsdato}/>
                 <Button

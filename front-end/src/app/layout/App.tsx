@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState, SyntheticEvent} from 'react';
+import React, {Fragment, useEffect, useState, SyntheticEvent, useContext} from 'react';
 import {Container} from 'semantic-ui-react';
 import {IPersonel} from '../models/personel'
 import NavBar from '../../features/nav/NavBar';
@@ -6,10 +6,12 @@ import './styles.css'
 import PesonellDashBoard from "../../features/personell/dashboard/PesonellDashBoard";
 import agent from '../api/agent'
 import LoadingComponent from "./LoadingComponent";
+import usersStore from '../stores/userStore';
 
 
 const App = () => {
 
+    const userStore = useContext(usersStore)
     const [pesonell, setPersonell] = useState<IPersonel[]>([]);
     const [selectedUser, setSelectedUser] = useState<IPersonel | null>(null);
     const [editMode, setEditMode] = useState(false);
@@ -98,4 +100,4 @@ const App = () => {
     )
 }
 
-export default App;
+export default (App);
