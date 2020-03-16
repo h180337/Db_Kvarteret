@@ -8,18 +8,17 @@ configure({enforceActions: "always"})
 
 class UserStore {
     @observable userRegistry = new Map();
-    @observable users: IPersonel[] = [];
     @observable loadingInitial = false;
-    @observable selectedUser: IPersonel | undefined = undefined;
-    @observable editMode = false;
+    @observable user: IPersonel | null = null;
     @observable submitting = false;
     @observable target = '';
 
-
+    //convert the userRegistry into a Array
     @computed get usersAsArray() {
         return Array.from(this.userRegistry.values());
     }
 
+    //Loads all the users into the userRegistry map and reformat the date props
     @action loadUsers = async () => {
         this.loadingInitial = true;
         try {
@@ -39,14 +38,44 @@ class UserStore {
             console.log(e)
         }
     }
+    
+    //gets the user from the Registry if allready loaded, else goes to the api and gets the user
+    @action loadUser = async (id: string) => {
+        let user = this.getUser(id);
+        if (user){
+            this.user = user;
+        }else {
+            this.loadingInitial = true;
+            try {
+                user = await agent.Users.details(id);
+                runInAction('getting User', () =>{
+                    this.user = user;
+                    this.loadingInitial = false;
+                });
+            }catch (e) {
+                runInAction('getting user error', () =>{
+                    this.loadingInitial = false;
+                })
+                console.log(e);
+            }
+        }
+    }
+    //helper for loadUser
+    getUser = (id: string) =>{
+        return this.userRegistry.get(id);
+    }
+    
+    @action clearUser =() =>{
+        this.user = null;
+    }
 
+    //submits a new user to the Db by calling the API
     @action createUser = async (user: IPersonel) => {
         this.submitting = true;
         try {
             await agent.Users.create(user);
             runInAction('createUser', () => {
                 this.userRegistry.set(user.id, user)
-                this.editMode = false;
                 this.submitting = false;
             });
         } catch (e) {
@@ -57,14 +86,14 @@ class UserStore {
         }
     }
 
+    //submits changes to a user by calling the API
     @action editUser = async (user: IPersonel) => {
         this.submitting = true;
         try {
             await agent.Users.update(user);
             runInAction('editUser', () => {
                 this.userRegistry.set(user.id, user);
-                this.selectedUser = user;
-                this.editMode = false;
+                this.user = user;
                 this.submitting = false;
             });
         } catch (e) {
@@ -74,7 +103,8 @@ class UserStore {
             console.log(e);
         }
     }
-
+    
+    // call to the API for Removing a User
     @action deleteUser = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
         this.submitting = true;
         this.target = event.currentTarget.name;
@@ -92,29 +122,6 @@ class UserStore {
             });
             console.log(e)
         }
-    }
-
-    @action openEditFrom = (id: string) => {
-        this.selectedUser = this.userRegistry.get(id);
-        this.editMode = true;
-    }
-
-    @action cancelSelectedUser = () => {
-        this.selectedUser = undefined;
-    }
-
-    @action cancelFormOpen = () => {
-        this.editMode = false;
-    }
-
-    @action openCreateFrom = () => {
-        this.editMode = true;
-        this.selectedUser = undefined;
-    }
-
-    @action selectUser = (id: string) => {
-        this.selectedUser = this.userRegistry.get(id);
-        this.editMode = false;
     }
 }
 

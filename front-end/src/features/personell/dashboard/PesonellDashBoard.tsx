@@ -1,16 +1,19 @@
-// @ts-ignore
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useEffect} from 'react';
 import {Grid} from 'semantic-ui-react'
 import PersonellTable from "./PersonellTable";
-import Profile from '../Profile/Profile';
-import PersonelForm from "../form/PersonelForm";
 import {observer} from 'mobx-react-lite'
-import usersStore from '../../../app/stores/userStore';
+import usersStore from "../../../app/stores/userStore";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 const PesonellDashBoard: React.FC = () => {
-    
     const userStore = useContext(usersStore);
-    const {editMode, selectedUser} = userStore;
+
+    useEffect(() => {
+        userStore.loadUsers();
+    }, [userStore]);
+
+    if (userStore.loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
+    
     return (
         <Fragment>
             <Grid>
@@ -18,9 +21,7 @@ const PesonellDashBoard: React.FC = () => {
                     <PersonellTable/>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    {selectedUser && !editMode && 
-                    <Profile/>}
-                    {editMode && <PersonelForm/>}
+                   <h2>Filters</h2>
                 </Grid.Column>
             </Grid>
             

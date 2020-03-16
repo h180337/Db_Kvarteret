@@ -6,11 +6,12 @@ import {Button, Segment} from 'semantic-ui-react';
 import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite'
 import usersStore from "../../../app/stores/userStore";
+import {Link} from "react-router-dom";
 
 const PersonellTable: React.FC = () => {
 
     const userStore = useContext(usersStore);
-    const {usersAsArray, selectUser, target, submitting, deleteUser} = userStore;
+    const {usersAsArray, target, submitting, deleteUser} = userStore;
     
     
 
@@ -22,7 +23,7 @@ const PersonellTable: React.FC = () => {
         { label: "Address", key: "gateadresse" },
         { label: "Status", key: "arb_status" }
     ];
-    
+   
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
         {Header: 'LastName', accessor: 'etternavn'},
@@ -33,7 +34,8 @@ const PersonellTable: React.FC = () => {
         {
             Header: 'View', Cell: (props: any) => (
                 <Button
-                    onClick={()=>selectUser(props.original.id)}
+                    as={Link}
+                    to={`/users/${props.original.id}`}
                     content='View'
                     color='blue'/>
             )

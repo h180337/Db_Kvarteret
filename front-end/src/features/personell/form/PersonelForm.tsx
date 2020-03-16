@@ -1,40 +1,46 @@
 // @ts-ignore
-import React, {FormEvent, useContext, useState} from 'react';
+import React, {FormEvent, useContext, useState, useEffect} from 'react';
 import {Button, Form, Segment} from 'semantic-ui-react';
 import {IPersonel} from '../../../app/models/personel'
 import {v4 as uuid} from 'uuid';
 import usersStore from "../../../app/stores/userStore";
 import { observer } from 'mobx-react-lite';
+import { RouteComponentProps } from 'react-router-dom';
 
+interface ProfileParams {
+    id:string;
+}
 
-
-const PersonelForm: React.FC = () => {
+const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, history}) => {
     const userStore = useContext(usersStore);
-    const {createUser, selectedUser, editUser, submitting, cancelFormOpen} = userStore;
+    const {createUser, user: initialFormState, editUser, submitting,loadUser, clearUser} = userStore;
     
-    /* if we have a user, populate the inputs with date from the user. if no user give back a blank input */
-    const initializeForm = () => {
-        if (selectedUser) {
-            return selectedUser
-        } else {
-            return {
-                id: '',
-                fornavn: '',
-                etternavn: '',
-                brukerkonto: '',
-                kjonn: '',
-                epost: '',
-                telefon: '',
-                arb_status: '',
-                fodselsdato: '',
-                gateadresse: '',
-                postnummerid: '',
-                opprettet: ''
-            }
-        }
-    }
+    const [person, setPerson] = useState<IPersonel>({
+        id: '',
+        fornavn: '',
+        etternavn: '',
+        brukerkonto: '',
+        kjonn: '',
+        epost: '',
+        telefon: '',
+        arb_status: '',
+        fodselsdato: '',
+        gateadresse: '',
+        postnummerid: '',
+        opprettet: ''
+    });
 
-    const [person, setPerson] = useState<IPersonel>(initializeForm);
+    useEffect(() =>{
+        if (match.params.id && person.id.length === 0){
+            loadUser(match.params.id)
+                .then(() =>{
+                    initialFormState && setPerson(initialFormState)
+                });
+        }
+        return () =>{
+            clearUser();
+        }
+    },[loadUser, match.params.id, clearUser, initialFormState, person.id.length]);
 
     /* uses the event at current target to let react know that we are typing in the form inputs */
     const inputChangeHandler = (event: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -51,9 +57,14 @@ const PersonelForm: React.FC = () => {
                 id: uuid(),
                 opprettet: today
             }
-            createUser(newPerson);
+            createUser(newPerson).then(()=>{
+                history.push(`/users/${newPerson.id}`);
+            });
+            
         }else {
-            editUser(person);
+            editUser(person).then(()=>{
+                history.push(`/users/${person.id}`);
+            });
         }
     }
 
@@ -115,7 +126,7 @@ const PersonelForm: React.FC = () => {
                     color='green'
                     style={{marginTop: '10px'}}/>
                 <Button
-                    onClick={cancelFormOpen}
+                    onClick={() =>{history.push(`/users/${person.id}`)}}
                     floated='right'
                     content='Cancel'
                     color='grey'

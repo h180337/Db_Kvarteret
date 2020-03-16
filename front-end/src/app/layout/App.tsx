@@ -1,31 +1,32 @@
-import React, {Fragment, useEffect, useContext} from 'react';
+import React, {Fragment} from 'react';
 import {Container} from 'semantic-ui-react';
 import NavBar from '../../features/nav/NavBar';
 import './styles.css'
-import PesonellDashBoard from "../../features/personell/dashboard/PesonellDashBoard";
-import LoadingComponent from "./LoadingComponent";
-import usersStore from '../stores/userStore';
 import {observer} from 'mobx-react-lite'
+import {Route, RouteComponentProps, withRouter} from 'react-router-dom';
+import HomePage from '../../features/home/HomePage';
+import PesonellDashBoard from '../../features/personell/dashboard/PesonellDashBoard';
+import PersonelForm from '../../features/personell/form/PersonelForm';
+import UserProfile from "../../features/personell/Profile/UserProfile";
 
 
-const App = () => {
-
-    const userStore = useContext(usersStore);
+const App: React.FC<RouteComponentProps> = ({location}) => {
     
-    useEffect(() => {
-        userStore.loadUsers();
-    }, [userStore]);
-        
-        if (userStore.loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
-
     return (
         <Fragment>
-           <NavBar/>
-           <Container style={{marginTop: '7em'}}>
-             <PesonellDashBoard/>
-           </Container>
+            <Route path='/' exact component={HomePage}/>
+            <Route path={'/(.+)'} render={() => (
+                <Fragment>
+                    <NavBar/>
+                    <Container style={{marginTop: '7em'}}>
+                        <Route path='/users' exact component={PesonellDashBoard}/>
+                        <Route path='/users/:id' exact component={UserProfile}/>
+                        <Route key={location.key} path={['/createUser', '/manage/:id']} exact component={PersonelForm}/>
+                    </Container>
+                </Fragment>
+            )}/>
         </Fragment>
     )
 }
 
-export default observer(App);
+export default withRouter(observer(App));
