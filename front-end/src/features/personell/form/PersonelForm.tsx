@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, {FormEvent, useContext, useState, useEffect} from 'react';
-import {Button, Form, Segment} from 'semantic-ui-react';
+import {Button, Form, Segment, Grid} from 'semantic-ui-react';
 import {IPersonel} from '../../../app/models/personel'
 import {v4 as uuid} from 'uuid';
 import usersStore from "../../../app/stores/userStore";
@@ -69,70 +69,75 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
     }
 
     return (
-        <Segment clearing>
-            <Form onSubmit={submitHandler}>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='fornavn'
-                    placeholder='First Name'
-                    value={person.fornavn}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='etternavn'
-                    placeholder='Last Name'
-                    value={person.etternavn}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='kjonn'
-                    placeholder='Gender'
-                    value={person.kjonn}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='brukerkonto'
-                    placeholder='User Account Name'
-                    value={person.brukerkonto}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='telefon'
-                    placeholder='Phone Number'
-                    value={person.telefon}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='epost'
-                    placeholder='Email'
-                    value={person.epost}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='gateadresse'
-                    placeholder='Address'
-                    value={person.gateadresse}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='postnummerid'
-                    placeholder='Postnummer'
-                    value={person.postnummerid}/>
-                <Form.Input
-                    onChange={inputChangeHandler}
-                    name='fodselsdato'
-                    type='datetime-local'
-                    placeholder='Birth Date'
-                    value={person.fodselsdato}/>
-                <Button
-                    loading={submitting}
-                    positive
-                    floated='right'
-                    type='submit'
-                    content='Submit'
-                    color='green'
-                    style={{marginTop: '10px'}}/>
-                <Button
-                    onClick={() =>{history.push(`/users/${person.id}`)}}
-                    floated='right'
-                    content='Cancel'
-                    color='grey'
-                    style={{marginTop: '10px'}}/>
-            </Form>
-        </Segment>
+        <Grid>
+            <Grid.Column width={10}>
+                <Segment clearing>
+                    <Form onSubmit={submitHandler}>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='fornavn'
+                            placeholder='First Name'
+                            value={person.fornavn}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='etternavn'
+                            placeholder='Last Name'
+                            value={person.etternavn}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='kjonn'
+                            placeholder='Gender'
+                            value={person.kjonn}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='brukerkonto'
+                            placeholder='User Account Name'
+                            value={person.brukerkonto}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='telefon'
+                            placeholder='Phone Number'
+                            value={person.telefon}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='epost'
+                            placeholder='Email'
+                            value={person.epost}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='gateadresse'
+                            placeholder='Address'
+                            value={person.gateadresse}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='postnummerid'
+                            placeholder='Postnummer'
+                            value={person.postnummerid}/>
+                        <Form.Input
+                            onChange={inputChangeHandler}
+                            name='fodselsdato'
+                            type='datetime-local'
+                            placeholder='Birth Date'
+                            value={person.fodselsdato}/>
+                        <Button
+                            loading={submitting}
+                            positive
+                            floated='right'
+                            type='submit'
+                            content='Submit'
+                            color='green'
+                            style={{marginTop: '10px'}}/>
+                        <Button
+                            onClick={() =>{history.push(`/users/${person.id}`)}}
+                            floated='right'
+                            content='Cancel'
+                            color='grey'
+                            style={{marginTop: '10px'}}/>
+                    </Form>
+                </Segment>
+            </Grid.Column>
+        </Grid>
+      
     );
 }
 

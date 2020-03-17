@@ -1,11 +1,12 @@
 // @ts-ignore
 import React, {Fragment, useContext, useEffect} from 'react';
-import {Grid, Image, List, Segment, Button} from 'semantic-ui-react';
-import {RouteComponentProps} from 'react-router-dom';
+import {Button, Grid, Segment} from 'semantic-ui-react';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import usersStore from "../../../app/stores/userStore";
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import {Link} from 'react-router-dom'
-import { observer } from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
+import ProfileHeader from './ProfileHeader';
+import ProfileContent from './ProfileContent';
 
 interface MyProfileParamas {
     id: string;
@@ -14,7 +15,7 @@ interface MyProfileParamas {
 const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, history}) => {
     const userStore = useContext(usersStore);
     const {
-        loadUser, 
+        loadUser,
         loadingInitial, 
         user
     } = userStore;
@@ -28,45 +29,28 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
     return (
         <Fragment>
             <Segment clearing>
-                <Button content='Delete' floated='right' color='red'/>
                 <Grid>
-                    <Grid.Column width={4} style={{marginTop: '20px'}}>
-                        <Image src='/assets/UserProfile.jpeg' size='medium' alt='Prifile image'/>
-
-                        <List>
-                            <List.Item>
-                                <List.Header>{user.fornavn} {user.etternavn}</List.Header>A lovely city
-                            </List.Item>
-                            <List.Item>
-                                <List.Header>Chicago</List.Header>
-                                Also quite a lovely city
-                            </List.Item>
-                            <List.Item>
-                                <List.Header>Los Angeles</List.Header>
-                                Sometimes can be a lovely city
-                            </List.Item>
-                            <List.Item>
-                                <List.Header>San Francisco</List.Header>
-                                What a lovely city
-                            </List.Item>
-                        </List>
-                    </Grid.Column>
-                    <Grid.Column width={8}>
-
+                    <Grid.Column>
+                        <Button content='Delete' floated='right' color='red'/>
+                        <ProfileHeader/>
                     </Grid.Column>
                 </Grid>
-                <Button 
-                    content='Go back' 
-                    floated='right'
-                    onClick={() => history.push('/users')}
-                />
-                <Button 
-                    content='Edit' 
-                    color='green' 
-                    floated='right'
-                    as={Link}
-                    to={`/manage/${user.id}`}
-                />
+            </Segment>
+            <ProfileContent/>
+
+            <Segment clearing>
+                <Button.Group floated='right'>
+                    <Button
+                        content='Go back'
+                        onClick={() => history.push('/users')}
+                    />
+                    <Button
+                        content='Edit'
+                        color='green'
+                        as={Link}
+                        to={`/manage/${user.id}`}
+                    />
+                </Button.Group>
             </Segment>
         </Fragment>
     );
