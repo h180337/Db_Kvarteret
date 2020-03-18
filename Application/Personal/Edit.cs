@@ -1,6 +1,9 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -28,6 +31,21 @@ namespace Application.Personal
             public string postnummerid { get; set; }
         }
 
+        //FormValidation
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.fornavn).NotEmpty();
+                RuleFor(x => x.etternavn).NotEmpty();
+                RuleFor(x => x.kjonn).NotEmpty();
+                RuleFor(x => x.epost).NotEmpty();
+                RuleFor(x => x.telefon).NotEmpty();
+                RuleFor(x => x.gateadresse).NotEmpty();
+                RuleFor(x => x.postnummerid).NotEmpty();
+
+            }
+        }
         public class Handler : IRequestHandler<Command>
 
         {
@@ -44,7 +62,7 @@ namespace Application.Personal
 
                 if (personael == null)
                 {
-                    throw new Exception("Could not find Person");
+                    throw new RestException(HttpStatusCode.NotFound, new {personel = "Not found"});
                 }
 
                 personael.fornavn = request.fornavn ?? personael.fornavn;

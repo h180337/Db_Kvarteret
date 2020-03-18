@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -34,6 +35,26 @@ namespace Application.Personal
 
             public string postnummerid { get; set; }
         }
+
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.fornavn).NotEmpty();
+                RuleFor(x => x.etternavn).NotEmpty();
+                RuleFor(x => x.brukerkonto).NotEmpty();
+                RuleFor(x => x.kjonn).NotEmpty();
+                RuleFor(x => x.epost).NotEmpty();
+                RuleFor(x => x.telefon).NotEmpty();
+                RuleFor(x => x.arb_status).NotEmpty();
+                RuleFor(x => x.opprettet).NotEmpty();
+                RuleFor(x => x.fodselsdato).NotEmpty();
+                RuleFor(x => x.gateadresse).NotEmpty();
+                RuleFor(x => x.postnummerid).NotEmpty();
+
+            }
+        }
+        
 
         public class Handler : IRequestHandler<Command>
         {
