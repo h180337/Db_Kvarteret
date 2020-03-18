@@ -29,6 +29,7 @@ namespace Application.Personal
             public string gateadresse { get; set; }
 
             public string postnummerid { get; set; }
+
         }
 
         //FormValidation
@@ -67,12 +68,12 @@ namespace Application.Personal
 
                 personael.fornavn = request.fornavn ?? personael.fornavn;
                 personael.etternavn = request.etternavn ?? personael.etternavn;
-                personael.kjonn = request.fornavn ?? personael.kjonn;
+                personael.kjonn = request.kjonn ?? personael.kjonn;
                 personael.epost = request.epost ?? personael.epost;
                 personael.telefon = request.telefon ?? personael.telefon;
                 personael.gateadresse = request.gateadresse ?? personael.gateadresse;
                 personael.postnummerid = request.postnummerid ?? personael.postnummerid;
-                personael.kjonn = request.kjonn ?? personael.kjonn;
+                
 
                 
                 

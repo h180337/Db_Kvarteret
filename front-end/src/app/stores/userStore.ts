@@ -2,6 +2,8 @@ import {action, computed, configure, observable, runInAction} from 'mobx'
 import {createContext, SyntheticEvent} from 'react'
 import {IPersonel} from '../models/personel'
 import agent from "../api/agent";
+import {history} from '../..'
+import { toast } from 'react-toastify';
 
 
 configure({enforceActions: "always"})
@@ -20,23 +22,22 @@ class UserStore {
 
     //Loads all the users into the userRegistry map and reformat the date props
     @action loadUsers = async () => {
-        this.loadingInitial = true;
-        try {
-            const users = await agent.Users.list();
-            runInAction('loading users', () => {
-                users.forEach(user => {
-                    user.opprettet = user.opprettet.split('T')[0];
-                    user.fodselsdato = user.fodselsdato.split('T')[0];
-                    this.userRegistry.set(user.id, user);
+            this.loadingInitial = true;
+            try {
+                const users = await agent.Users.list();
+                runInAction('loading users', () => {
+                    users.forEach(user => {
+                        user.opprettet = user.opprettet.split('T')[0];
+                        user.fodselsdato = new Date(user.fodselsdato!);
+                        this.userRegistry.set(user.id, user);
+                    });
+                    this.loadingInitial = false
                 });
-                this.loadingInitial = false
-            });
-        } catch (e) {
-            runInAction('loading users error', () => {
-                this.loadingInitial = false;
-            });
-            console.log(e)
-        }
+            } catch (e) {
+                runInAction('loading users error', () => {
+                    this.loadingInitial = false;
+                });
+                console.log(e)}
     }
     
     //gets the user from the Registry if allready loaded, else goes to the api and gets the user
@@ -44,14 +45,18 @@ class UserStore {
         let user = this.getUser(id);
         if (user){
             this.user = user;
+            return user;
         }else {
             this.loadingInitial = true;
             try {
                 user = await agent.Users.details(id);
                 runInAction('getting User', () =>{
+                    user.fodselsdato = new Date(user.fodselsdato);
                     this.user = user;
+                    this.userRegistry.set(user.id, user);
                     this.loadingInitial = false;
                 });
+                return user;
             }catch (e) {
                 runInAction('getting user error', () =>{
                     this.loadingInitial = false;
@@ -78,10 +83,12 @@ class UserStore {
                 this.userRegistry.set(user.id, user)
                 this.submitting = false;
             });
+            history.push(`/users/${user.id}`)
         } catch (e) {
             runInAction('create user error', () => {
                 this.submitting = false;
             });
+            toast.error('Problem submitting data')
             console.log(e)
         }
     }
@@ -96,10 +103,12 @@ class UserStore {
                 this.user = user;
                 this.submitting = false;
             });
+            history.push(`/users/${user.id}`)
         } catch (e) {
             runInAction('editUser error', () => {
                 this.submitting = false;
             })
+            toast.error('Problem submitting data')
             console.log(e);
         }
     }
