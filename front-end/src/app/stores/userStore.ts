@@ -26,9 +26,10 @@ class UserStore {
             try {
                 const users = await agent.Users.list();
                 runInAction('loading users', () => {
+                    console.log(users)
                     users.forEach(user => {
-                        user.opprettet = user.opprettet.split('T')[0];
-                        user.fodselsdato = new Date(user.fodselsdato!);
+                        user.created = user.created.split('T')[0];
+                        user.dateOfBirth = new Date(user.dateOfBirth!);
                         this.userRegistry.set(user.id, user);
                     });
                     this.loadingInitial = false
@@ -51,7 +52,7 @@ class UserStore {
             try {
                 user = await agent.Users.details(id);
                 runInAction('getting User', () =>{
-                    user.fodselsdato = new Date(user.fodselsdato);
+                    user.dateOfBirth = new Date(user.dateOfBirth!);
                     this.user = user;
                     this.userRegistry.set(user.id, user);
                     this.loadingInitial = false;

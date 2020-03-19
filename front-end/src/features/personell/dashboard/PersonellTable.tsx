@@ -18,19 +18,19 @@ const PersonellTable: React.FC = () => {
     const headers = [
         { label: "First Name", key: "fornavn" },
         { label: "Last Name", key: "etternavn" },
-        { label: "Email", key: "epost" },
-        { label: "Phone", key: "telefon" },
-        { label: "Address", key: "gateadresse" },
-        { label: "Status", key: "arb_status" }
+        { label: "Email", key: "email" },
+        { label: "Phone", key: "phoneNumber" },
+        { label: "Address", key: "streetAddress" },
+        { label: "Status", key: "workstatus" }
     ];
    
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
         {Header: 'LastName', accessor: 'etternavn'},
-        {Header: 'Email', accessor: 'epost'},
-        {Header: 'Phone', accessor: 'telefon'},
-        {Header: 'Address', accessor: 'gateadresse'},
-        {Header: 'Status', accessor: 'arb_status'},
+        {Header: 'Email', accessor: 'email'},
+        {Header: 'Phone', accessor: 'phoneNumber'},
+        {Header: 'Address', accessor: 'streetAddress'},
+        {Header: 'Status', accessor: 'workstatus'},
         {
             Header: 'View', Cell: (props: any) => (
                 <Button

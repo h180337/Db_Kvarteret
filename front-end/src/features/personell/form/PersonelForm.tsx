@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, Grid, Segment} from 'semantic-ui-react';
-import {PersonFormValues, IPersonFormValues} from '../../../app/models/personel'
+import {PersonFormValues} from '../../../app/models/personel'
 import usersStore from "../../../app/stores/userStore";
 import {observer} from 'mobx-react-lite';
 import {RouteComponentProps} from 'react-router-dom';
@@ -18,13 +18,13 @@ const validate = combineValidators({
     fornavn: isRequired({message: 'First name is required'}),
     etternavn: isRequired({message: 'First name is required'}),
     kjonn: isRequired({message: 'Gender is required'}),
-    brukerkonto: isRequired({message: 'Account name is required'}),
-    arb_status: isRequired({message: 'Work status is required'}),
-    telefon: isRequired({message: 'PhoneNr is required'}),
-    epost: isRequired({message: 'Email is required'}),
-    gateadresse: isRequired({message: 'Address is required'}),
-    postnummerid: isRequired({message: 'Area code is required'}),
-    fodselsdato: isRequired({message: 'Birth date is required'})
+    userName: isRequired({message: 'Account name is required'}),
+    workstatus: isRequired({message: 'Work status is required'}),
+    phoneNumber: isRequired({message: 'PhoneNr is required'}),
+    email: isRequired({message: 'Email is required'}),
+    streetAddress: isRequired({message: 'Address is required'}),
+    areaCode: isRequired({message: 'Area code is required'}),
+    dateOfBirth: isRequired({message: 'Birth date is required'})
     
 
 })
@@ -60,10 +60,11 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
             let newPerson = {
                 ...person,
                 id: uuid(),
-                opprettet: today,
+                created: today,
             }
             createUser(newPerson);
         } else {
+            console.log(person)
             editUser(person);
         }
     }
@@ -99,46 +100,46 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                 />
                                 
                                 <Field
-                                    name='brukerkonto'
+                                    name='userName'
                                     placeholder='User Account Name'
-                                    value={person.brukerkonto}
+                                    value={person.userName}
                                     component={TextInput}
                                 />
                                 <Field
-                                name='arb_status'
+                                name='workstatus'
                                 placeholder='Work Status'
-                                value={person.arb_status}
+                                value={person.workstatus}
                                 options={workStatus}
                                 component={SelectInput}
                             />
                                 <Field
-                                    name='telefon'
+                                    name='phoneNumber'
                                     placeholder='Phone Number'
-                                    value={person.telefon}
+                                    value={person.phoneNumber}
                                     component={TextInput}
                                 />
                                 <Field
-                                    name='epost'
+                                    name='email'
                                     placeholder='Email'
-                                    value={person.epost}
+                                    value={person.email}
                                     component={TextInput}
                                 />
                                 <Field
-                                    name='gateadresse'
+                                    name='streetAddress'
                                     placeholder='Address'
-                                    value={person.gateadresse}
+                                    value={person.streetAddress}
                                     component={TextInput}
                                 />
                                 <Field
-                                    name='postnummerid'
+                                    name='areaCode'
                                     placeholder='Area code'
-                                    value={person.postnummerid}
+                                    value={person.areaCode}
                                     component={TextInput}
                                 />
                                 <Field
-                                    name='fodselsdato'
+                                    name='dateOfBirth'
                                     placeholder='Birth Date'
-                                    value={person.fodselsdato}
+                                    value={person.dateOfBirth}
                                     component={DateInput}
                                     date={true}
                                 />

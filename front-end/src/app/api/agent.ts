@@ -37,11 +37,11 @@ const requests = {
 };
 
 const Users = {
-    list: (): Promise<IPersonel[]> => requests.get('/personel'),
-    details: (id: string) => requests.get(`/personel/${id}`),
+    list: (): Promise<IPersonel[]> => requests.get('/users'),
+    details: (id: string) => requests.get(`/users/${id}`),
     create: (user: IPersonel) => requests.post('/personel', user),
-    update: (user: IPersonel) => requests.put(`/personel/${user.id}`, user),
-    delete: (id: string) => requests.del(`/personel/${id}`)
+    update: (user: IPersonel) => requests.put(`/users/${user.id}`, user),
+    delete: (id: string) => requests.del(`/users/${id}`)
 }
 
 export default {
