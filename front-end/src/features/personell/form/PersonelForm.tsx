@@ -16,7 +16,17 @@ import {workStatus} from '../../../app/common/options/workStatusOptions'
 
 const validate = combineValidators({
     fornavn: isRequired({message: 'First name is required'}),
-    etternavn: isRequired('Last Name')
+    etternavn: isRequired({message: 'First name is required'}),
+    kjonn: isRequired({message: 'Gender is required'}),
+    brukerkonto: isRequired({message: 'Account name is required'}),
+    arb_status: isRequired({message: 'Work status is required'}),
+    telefon: isRequired({message: 'PhoneNr is required'}),
+    epost: isRequired({message: 'Email is required'}),
+    gateadresse: isRequired({message: 'Address is required'}),
+    postnummerid: isRequired({message: 'Area code is required'}),
+    fodselsdato: isRequired({message: 'Birth date is required'})
+    
+
 })
 
 
@@ -121,7 +131,7 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                 />
                                 <Field
                                     name='postnummerid'
-                                    placeholder='Postnummer'
+                                    placeholder='Area code'
                                     value={person.postnummerid}
                                     component={TextInput}
                                 />
