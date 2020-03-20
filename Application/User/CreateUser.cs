@@ -98,7 +98,8 @@ namespace Application.User
                     streetAddress = request.streetAddress,
                     created = request.created,
                     dateOfBirth = request.dateOfBirth,
-                    workstatus = request.workstatus
+                    workstatus = request.workstatus,
+                    
                 };
 
                 var results = await _userManager.CreateAsync(user, request.Password);

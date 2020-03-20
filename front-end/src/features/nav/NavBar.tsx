@@ -1,10 +1,15 @@
-import React from 'react';
-import {Button, Container, Menu} from 'semantic-ui-react';
+import React, {useContext} from 'react';
+import {Button, Container, Dropdown, Image, Menu} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite';
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import {RootStoreContext} from "../../app/stores/rootStore";
 
 
 const NavBar: React.FC = () => {
+
+    const rootStore = useContext(RootStoreContext);
+    const {LogiedInuser, logout} = rootStore.userStore
+
     return (
         <Menu fixed='top' inverted>
             <Container>
@@ -33,6 +38,19 @@ const NavBar: React.FC = () => {
                 <Menu.Item>
                     <Button positive content='Create Groupe'/>
                 </Menu.Item>
+
+                {LogiedInuser &&
+                <Menu.Item position='right'>
+                    <Image avatar spaced='right' src={'/assets/UserProfile.jpeg'}/>
+                    <Dropdown pointing='top left' text={LogiedInuser.userName}>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={Link} to={`/profile/username`} text='My profile' icon='user'/>
+                            <Dropdown.Item onClick={logout} text='Logout' icon='power'/>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Item>
+
+                }
             </Container>
         </Menu>
     );

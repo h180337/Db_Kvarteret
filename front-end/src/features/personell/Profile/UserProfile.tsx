@@ -2,23 +2,23 @@
 import React, {Fragment, useContext, useEffect} from 'react';
 import {Button, Grid, Segment} from 'semantic-ui-react';
 import {Link, RouteComponentProps} from 'react-router-dom';
-import usersStore from "../../../app/stores/userStore";
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import {observer} from 'mobx-react-lite';
 import ProfileHeader from './ProfileHeader';
 import ProfileContent from './ProfileContent';
+import {RootStoreContext} from "../../../app/stores/rootStore";
 
 interface MyProfileParamas {
     id: string;
 }
 
 const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, history}) => {
-    const userStore = useContext(usersStore);
+    const rootStore = useContext(RootStoreContext);
     const {
         loadUser,
         loadingInitial, 
         user
-    } = userStore;
+    } = rootStore.userStore;
 
     useEffect(() => {
         loadUser(match.params.id);

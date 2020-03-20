@@ -10,7 +10,8 @@ export interface IPersonel {
     areaCode: string,
     created: string,
     dateOfBirth: Date,
-    workstatus: string
+    workstatus: string,
+    token: string
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{

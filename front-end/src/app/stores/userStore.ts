@@ -1,19 +1,60 @@
-import {action, computed, configure, observable, runInAction} from 'mobx'
-import {createContext, SyntheticEvent} from 'react'
-import {IPersonel} from '../models/personel'
+import {action, computed, observable, runInAction} from 'mobx'
+import {SyntheticEvent} from 'react'
+import {IPersonel, IPersonFormValues} from '../models/personel'
 import agent from "../api/agent";
 import {history} from '../..'
 import { toast } from 'react-toastify';
+import {RootStore} from './rootStore'
 
 
-configure({enforceActions: "always"})
-
-class UserStore {
+export default class UserStore {
+    
+    rootStore: RootStore;
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore
+    }
+    
     @observable userRegistry = new Map();
     @observable loadingInitial = false;
     @observable user: IPersonel | null = null;
+    @observable LogiedInuser: IPersonel | null = null;
     @observable submitting = false;
     @observable target = '';
+    
+    @computed get isLoggedIn() {return !this.user}
+    
+    @action login = async (values:IPersonFormValues) => {
+        try {
+            
+            const user = await agent.Users.login(values);
+            runInAction(() =>{
+                this.LogiedInuser = user;
+            })
+            this.rootStore.commonStore.setToken(user.token);
+            this.rootStore.modalStore.closeModal();
+            history.push('/users')
+            
+        }catch (e) {
+            throw e.response;
+        }
+}
+
+    @action getLogedInUser = async () =>{
+        try {
+            const user = await agent.Users.currentUser();
+            runInAction(() =>{
+                this.LogiedInuser = user;
+            })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action logout = () =>{
+        this.rootStore.commonStore.setToken(null);
+        this.LogiedInuser = null;
+        history.push('/')
+    }
 
     //convert the userRegistry into a Array
     @computed get usersAsArray() {
@@ -26,7 +67,6 @@ class UserStore {
             try {
                 const users = await agent.Users.list();
                 runInAction('loading users', () => {
-                    console.log(users)
                     users.forEach(user => {
                         user.created = user.created.split('T')[0];
                         user.dateOfBirth = new Date(user.dateOfBirth!);
@@ -135,7 +175,6 @@ class UserStore {
     }
 }
 
-export default createContext(new UserStore());
 
     
 

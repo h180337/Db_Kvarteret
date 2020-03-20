@@ -2,7 +2,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, Grid, Segment} from 'semantic-ui-react';
 import {PersonFormValues} from '../../../app/models/personel'
-import usersStore from "../../../app/stores/userStore";
 import {observer} from 'mobx-react-lite';
 import {RouteComponentProps} from 'react-router-dom';
 import {Field, Form as FinalForm} from 'react-final-form'
@@ -13,6 +12,7 @@ import DateInput from '../../../app/common/form/DateInput';
 import {v4 as uuid} from 'uuid';
 import {combineValidators, isRequired} from 'revalidate';
 import {workStatus} from '../../../app/common/options/workStatusOptions'
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 const validate = combineValidators({
     fornavn: isRequired({message: 'First name is required'}),
@@ -35,8 +35,8 @@ interface ProfileParams {
 }
 
 const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, history}) => {
-    const userStore = useContext(usersStore);
-    const {createUser, user: initialFormState, editUser, submitting, loadUser, clearUser} = userStore;
+    const rootStore = useContext(RootStoreContext);
+    const {createUser, editUser, submitting, loadUser} = rootStore.userStore;
 
     const [person, setPerson] = useState(new PersonFormValues());
     const [loading, setLoading] = useState(false)

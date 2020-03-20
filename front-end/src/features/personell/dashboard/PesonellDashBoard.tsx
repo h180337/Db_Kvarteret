@@ -2,17 +2,18 @@ import React, {Fragment, useContext, useEffect} from 'react';
 import {Grid} from 'semantic-ui-react'
 import PersonellTable from "./PersonellTable";
 import {observer} from 'mobx-react-lite'
-import usersStore from "../../../app/stores/userStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import {RootStoreContext} from "../../../app/stores/rootStore";
 
 const PesonellDashBoard: React.FC = () => {
-    const userStore = useContext(usersStore);
+    const rootStore = useContext(RootStoreContext);
+    const {loadUsers, loadingInitial} = rootStore.userStore
 
     useEffect(() => {
-        userStore.loadUsers();
-    }, [userStore]);
+        loadUsers();
+    }, [loadUsers]);
 
-    if (userStore.loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
+    if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
     
     return (
         <Fragment>

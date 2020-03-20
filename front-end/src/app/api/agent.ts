@@ -1,9 +1,17 @@
 import axios, {AxiosResponse} from 'axios';
-import {IPersonel} from '../models/personel'
+import {IPersonel, IPersonFormValues} from '../models/personel'
 import {history} from '../..';
 import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
+
+axios.interceptors.request.use((config) =>{
+    const token = window.localStorage.getItem('jwt');
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+}, error => {
+    return Promise.reject(error);
+})
 
 axios.interceptors.response.use(undefined, error => {
     if (error.message === 'Network Error' && !error.response){
@@ -19,7 +27,6 @@ axios.interceptors.response.use(undefined, error => {
     if (status === 500){
         toast.error('Server error - check the terminal for more info!');
     }
-    
     throw error;
 });
 
@@ -38,8 +45,10 @@ const requests = {
 
 const Users = {
     list: (): Promise<IPersonel[]> => requests.get('/users'),
+    currentUser:(): Promise<IPersonel> => requests.get('/users/user'),
+    login:(user: IPersonFormValues): Promise<IPersonel> => requests.post('/users/login', user),
     details: (id: string) => requests.get(`/users/${id}`),
-    create: (user: IPersonel) => requests.post('/personel', user),
+    create: (user: IPersonel) => requests.post('/users/createuser', user),
     update: (user: IPersonel) => requests.put(`/users/${user.id}`, user),
     delete: (id: string) => requests.del(`/users/${id}`)
 }

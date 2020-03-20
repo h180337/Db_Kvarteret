@@ -5,13 +5,13 @@ import 'react-table-6/react-table.css';
 import {Button, Segment} from 'semantic-ui-react';
 import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite'
-import usersStore from "../../../app/stores/userStore";
 import {Link} from "react-router-dom";
+import {RootStoreContext} from "../../../app/stores/rootStore";
 
 const PersonellTable: React.FC = () => {
 
-    const userStore = useContext(usersStore);
-    const {usersAsArray, target, submitting, deleteUser} = userStore;
+    const rootStore = useContext(RootStoreContext);
+    const {usersAsArray, target, submitting, deleteUser} = rootStore.userStore;
     
     
 
