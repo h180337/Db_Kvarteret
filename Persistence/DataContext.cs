@@ -13,5 +13,7 @@ namespace Persistence
         //table name inside sqlite
         public DbSet<Personal> Personal { get; set; }
         
+        public DbSet<Group> Groups { get; set; }
+        
     }
 }

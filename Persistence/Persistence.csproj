@@ -9,6 +9,18 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="obj\**" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
