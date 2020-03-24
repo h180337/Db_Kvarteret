@@ -1,7 +1,12 @@
 import React from 'react';
 import {Grid, Header, Item} from "semantic-ui-react";
+import {IPersonel} from '../../../app/models/personel'
+ 
+interface IProps {
+    user: IPersonel;
+}
 
-const ProfileHeader = () => {
+const ProfileHeader: React.FC<IProps> = ({user}) => {
     return (
         <Grid>
             <Grid.Column width={12} style={{marginTop: '20px'}}>
@@ -9,7 +14,7 @@ const ProfileHeader = () => {
                     <Item>
                         <Item.Image avatar src='/assets/UserProfile.jpeg' size='small' alt='Prifile image'/>
                         <Item.Content verticalAlign='middle'>
-                            <Header as='h1'> User Name</Header>
+                            <Header as='h1'> {`${user.fornavn} ${user.etternavn}`}</Header>
                         </Item.Content>
                     </Item>
                 </Item.Group>

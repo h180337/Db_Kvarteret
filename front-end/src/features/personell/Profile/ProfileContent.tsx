@@ -1,10 +1,45 @@
 import React from 'react';
-import { Tab } from 'semantic-ui-react';
+import { Tab, List } from 'semantic-ui-react';
+import {IPersonel} from "../../../app/models/personel";
 
-const ProfileContent = () => {
+interface IProps {
+    user: IPersonel;
+}
+
+const ProfileContent: React.FC<IProps> = ({user}) => {
+    
+    const about = (
+        <div>
+            <List>
+                <List.Item>
+                    <List.Icon name='marker' />
+                    <List.Content>{`${user.streetAddress}, ${user.areaCode}`}</List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Icon name='mail' />
+                    <List.Content>
+                        {user.email}
+                    </List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Icon name='phone' />
+                    <List.Content>
+                        {user.phoneNumber}
+                    </List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Icon name='non binary transgender' />
+                    <List.Content>
+                        {user.kjonn}
+                    </List.Content>
+                </List.Item>
+            </List>
+        </div>
+    )
+    
  
     const panes = [
-        {menuItem: 'About', render: () => <Tab.Pane>About</Tab.Pane>},
+        {menuItem: 'Info', render: () => <Tab.Pane>{about}</Tab.Pane>},
         {menuItem: 'History', render: () => <Tab.Pane>History</Tab.Pane>},
         {menuItem: 'Courses', render: () => <Tab.Pane>Courses</Tab.Pane>},
         {menuItem: 'Skills', render: () => <Tab.Pane>Skills</Tab.Pane>},

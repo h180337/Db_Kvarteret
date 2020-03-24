@@ -34,11 +34,11 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
                 <Grid>
                     <Grid.Column>
                         <Button content='Delete' floated='right' color='red'/>
-                        <ProfileHeader/>
+                        <ProfileHeader user={user}/>
                     </Grid.Column>
                 </Grid>
             </Segment>
-            <ProfileContent/>
+            <ProfileContent user={user}/>
 
             <Segment clearing>
                 <Button.Group floated='right'>
