@@ -4,3 +4,5 @@ obj
 .DS_store/
 appsettings.json
 *.db
+.vscode/launch.json
+.vscode/tasks.json
