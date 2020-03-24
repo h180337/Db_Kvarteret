@@ -97,6 +97,39 @@ namespace Persistence
                 context.Organisations.AddRange(organisations);
                 context.SaveChanges();
             }
+            
+             if (!context.Groups.Any()) 
+            {
+                var groups = new List<Group> 
+                {
+                    new Group 
+                    {
+                        navn = "TestGruppen",
+                        beskrivelse = "Gruppen som tester nummer 1",
+                        aktiv = 1,
+                        aktiv_til_og_med = 10031994,
+                        opprettet = 1020303
+                    },
+                    new Group
+                    {
+                        navn = "TestGruppen2",
+                        beskrivelse = "Gruppen som tester nummer 2",
+                        aktiv = 1,
+                        aktiv_til_og_med = 10031994,
+                        opprettet = 1020303
+                    },
+                    new Group
+                    {
+                        navn = "TestGruppen3",
+                        beskrivelse = "Gruppen som tester nummer 3",
+                        aktiv = 0,
+                        aktiv_til_og_med = 10031994,
+                        opprettet = 1020303
+                    }
+                };
+                context.Groups.AddRange(groups);
+                context.SaveChanges();
+            }
         }
     }
 }
