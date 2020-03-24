@@ -8,14 +8,14 @@ using Persistence;
 
 namespace Application.Personal
 {
-    public class Profile
+    public class Details
     {
-        public class Query : IRequest<Domain.Personal>
+        public class Query : IRequest<Domain.Organisation>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Domain.Personal>
+        public class Handler : IRequestHandler<Query, Domain.Organisation>
         {
             private readonly DataContext _context;
 
@@ -24,15 +24,15 @@ namespace Application.Personal
                 _context = context;
             }
 
-            public async Task<Domain.Personal> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Domain.Organisation> Handle(Query request, CancellationToken cancellationToken)
             {
-                var personel = await _context.Personal.FindAsync(request.Id);
+                var organisation = await _context.Organisations.FindAsync(request.Id);
                 
-                if (personel == null)
+                if (organisation == null)
                 {
                     throw new RestException(HttpStatusCode.NotFound, new {personel = "Not found"});
                 }
-                return personel;
+                return organisation;
             }
         }
     }

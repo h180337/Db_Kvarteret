@@ -26,7 +26,7 @@ namespace Persistence
                         Email = "epost@epost.test",
                         workstatus = "active",
                         created = DateTime.Now.AddMonths(-2),
-                        dateOfBirth = DateTime.Now.AddMonths(-2),
+                        dateOfBirth = DateTime.Now.AddMonths(-24),
                         streetAddress = "gateadresse",
                         areaCode = "12332",
                         PhoneNumber = "2312322",
@@ -68,153 +68,33 @@ namespace Persistence
             }
 
 
-            if (!context.Personal.Any())
+            if (!context.Organisations.Any())
             {
-                var personell = new List<Personal>()
+                var organisations = new List<Organisation>()
                 {
-                    new Personal
+                    new Organisation
                     {
-                        fornavn = "Ørjan",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Man",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "12332",
-                        telefon = "2312322",
+                        name = "Det Akademiske Kvarter",
+                        description = "Knaksje den beste organisasjonen i landet",
                     },
-                    new Personal
+                    new Organisation
                     {
-                        fornavn = "eli",
-                        etternavn = "jansen",
-                        brukerkonto = "elij",
-                        kjonn = "Woman",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "1234",
-                        telefon = "32134231",
+                        name = "BSI",
+                        description = "Say no more",
                     },
-                    new Personal
+                    new Organisation
                     {
-                        fornavn = "gree",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Woman",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "43234",
-                        telefon = "43524433"
+                        name = "AUFs studenter Bergen",
+                        description = "Say even less",
                     },
-                    new Personal
+                    new Organisation
                     {
-                        fornavn = "per",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Man",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "45331",
-                        telefon = "534213456"
+                        name = "bstv",
+                        description = "Tv i 2020?",
                     },
-                    new Personal
-                    {
-                        fornavn = "pål",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Man",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-23),
-                        fodselsdato = DateTime.Now.AddMonths(-12),
-                        gateadresse = "gateadresse",
-                        postnummerid = "65565",
-                        telefon = "91233202"
-                    },
-                    new Personal
-                    {
-                        fornavn = "ask",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Man",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "87654",
-                        telefon = "91233202"
-                    },
-                    new Personal
-                    {
-                        fornavn = "samsk",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Woman",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "87654",
-                        telefon = "91233202"
-                    },
-                    new Personal
-                    {
-                        fornavn = "dask",
-                        etternavn = "jansen",
-                        brukerkonto = "orjanen",
-                        kjonn = "Man",
-                        epost = "epost@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "566457",
-                        telefon = "91233202"
-                    },
-                    new Personal
-                    {
-                        fornavn = "test",
-                        etternavn = "jansen",
-                        brukerkonto = "tesss",
-                        kjonn = "Man",
-                        epost = "eree@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "564567",
-                        telefon = "91233202"
-                    },
-                    new Personal
-                    {
-                        fornavn = "task",
-                        etternavn = "teast",
-                        brukerkonto = "orjansadfen",
-                        kjonn = "Woman",
-                        epost = "rrrrr@epost.test",
-                        arb_status = "active",
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        fodselsdato = DateTime.Now.AddMonths(-2),
-                        gateadresse = "gateadresse",
-                        postnummerid = "657567",
-                        telefon = "91233202"
-                    }
                 };
 
-                context.Personal.AddRange(personell);
+                context.Organisations.AddRange(organisations);
                 context.SaveChanges();
             }
         }

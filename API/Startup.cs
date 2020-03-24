@@ -1,7 +1,7 @@
 using System.Text;
 using API.Middleware;
 using Application.Interfaces;
-using Application.Personal;
+using Application.Organisation;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;

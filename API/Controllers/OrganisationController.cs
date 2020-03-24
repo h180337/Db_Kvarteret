@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.Organisation;
 using Application.Personal;
 using Domain;
 using MediatR;
@@ -8,19 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class PersonelController: BaseController
+    public class OrganisationController: BaseController
     {
         
-        [HttpGet("users")]
-        public async Task<ActionResult<List<Personal>>> List()
+        [HttpGet]
+        public async Task<ActionResult<List<Organisation>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Personal>> Profile(Guid id)
+        public async Task<ActionResult<Organisation>> Profile(Guid id)
         {
-            return await Mediator.Send(new Profile.Query {Id = id});
+            return await Mediator.Send(new Details.Query {Id = id});
         }
 
         [HttpPost]

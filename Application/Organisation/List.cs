@@ -5,15 +5,15 @@ using System.Collections.Generic;
  using Microsoft.EntityFrameworkCore;
  using Persistence;
  
- namespace Application.Personal
+namespace Application.Organisation
  {
      public class List
      {
-         public class Query : IRequest<List<Domain.Personal>>
+         public class Query : IRequest<List<Domain.Organisation>>
          {
          }
  
-         public class Handler : IRequestHandler<Query, List<Domain.Personal>>
+         public class Handler : IRequestHandler<Query, List<Domain.Organisation>>
          
          {
              private readonly DataContext _context;
@@ -23,9 +23,9 @@ using System.Collections.Generic;
                  _context = context;
              }
  
-             public async Task<List<Domain.Personal>> Handle(Query request, CancellationToken cancellationToken)
+             public async Task<List<Domain.Organisation>> Handle(Query request, CancellationToken cancellationToken)
              {
-                 var users = await _context.Personal.ToListAsync();
+                 var users = await _context.Organisations.ToListAsync();
                  return users;
              }
          }
