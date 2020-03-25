@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from 'axios';
 import {IPersonel, IPersonFormValues} from '../models/personel'
+import {IOrganisation} from '../models/organisations'
 import {history} from '../..';
 import { toast } from 'react-toastify';
 
@@ -53,6 +54,15 @@ const Users = {
     delete: (id: string) => requests.del(`/users/${id}`)
 }
 
+const Organisation = {
+    list: (): Promise<IOrganisation[]> => requests.get('/organisation'),
+    details: (id: string) => requests.get(`/organisation/${id}`),
+    create: (organisation: IOrganisation) => requests.post('/organisation/creatorganisation', organisation),
+    update: (organisation: IOrganisation) => requests.put(`/organisation/${organisation.id}`, organisation),
+    delete: (id: string) => requests.del(`/organisation/${id}`)
+}
+
 export default {
-    Users
+    Users,
+    Organisation
 }

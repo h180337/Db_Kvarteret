@@ -14,6 +14,8 @@ import LoginForm from '../../features/personell/form/LoginForm';
 import {RootStoreContext} from "../stores/rootStore";
 import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
+import OrganisationDashBoard from "../../features/Organisations/dashboard/OrganisationDashBoard";
+import OrganisationDetails from "../../features/Organisations/details/OrganisationDetails";
 
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
@@ -44,6 +46,8 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                         <Switch>
                             <Route path='/users' exact component={PesonellDashBoard}/>
                             <Route path='/users/:id' exact component={UserProfile}/>
+                            <Route path='/organisation' exact component={OrganisationDashBoard}/>
+                            <Route path='/organisation/:id' exact component={OrganisationDetails}/>
                             <Route key={location.key} path={['/createUser', '/manage/:id']} exact
                                    component={PersonelForm}/>
                             <Route path='/login' component={LoginForm}/>
