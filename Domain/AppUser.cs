@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain
@@ -20,5 +22,7 @@ namespace Domain
         public string streetAddress { get; set; }
         
         public string areaCode { get; set; }
+
+        public ICollection<UserGroup> UserGroups { get; set; }
     }
 }
