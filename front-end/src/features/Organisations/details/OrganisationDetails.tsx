@@ -6,6 +6,8 @@ import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {RouteComponentProps} from "react-router-dom";
 import { observer } from 'mobx-react-lite';
+import OrganisationDetailedSidebar from './OrganisationDetailedSidebar';
+import GroupsTable from './GroupsTable'
 
 interface OranisationParamas {
     id: string;
@@ -29,11 +31,12 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
        <Grid>
            <Grid.Column width={10}>
                <OrganisationDetailedHeader organiasation={organiasation}/>
-               <OrganisationDetailedInfo/>
+               <OrganisationDetailedInfo organiasation={organiasation}/>
            </Grid.Column>
            <Grid.Column width={6}>
-                SomthingSomthing
+                <OrganisationDetailedSidebar/>
            </Grid.Column>
+           <GroupsTable/>
        </Grid>
     );
 }

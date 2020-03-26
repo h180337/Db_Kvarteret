@@ -16,6 +16,7 @@ import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
 import OrganisationDashBoard from "../../features/Organisations/dashboard/OrganisationDashBoard";
 import OrganisationDetails from "../../features/Organisations/details/OrganisationDetails";
+import OrganisationForm from '../../features/Organisations/form/OrganisationForm';
 
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
@@ -48,6 +49,8 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                             <Route path='/users/:id' exact component={UserProfile}/>
                             <Route path='/organisation' exact component={OrganisationDashBoard}/>
                             <Route path='/organisation/:id' exact component={OrganisationDetails}/>
+                            <Route key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
+                                   component={OrganisationForm}/>
                             <Route key={location.key} path={['/createUser', '/manage/:id']} exact
                                    component={PersonelForm}/>
                             <Route path='/login' component={LoginForm}/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Header, Image, Item, Segment} from 'semantic-ui-react'
 import {IOrganisation} from "../../../app/models/organisations";
+import {Link} from "react-router-dom";
 
 interface IProps {
     organiasation: IOrganisation;
@@ -25,7 +26,7 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({organiasation}) => {
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
-                <Image src={`/assets/organis.jpg`} fluid style={activityImageStyle}/>
+                <Image  src={`/assets/organis.jpg`} fluid style={activityImageStyle}/>
                 <Segment basic style={activityImageTextStyle}>
                     <Item.Group>
                         <Item>
@@ -35,19 +36,19 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({organiasation}) => {
                                     content={organiasation.name}
                                     style={{color: 'white'}}
                                 />
-                                <p>AllMighty Leader</p>
-                                <p>
-                                    School <strong>Uib</strong>
-                                </p>
                             </Item.Content>
                         </Item>
                     </Item.Group>
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
-                <Button color='orange' floated='right'>
-                    Manage
-                </Button>
+                <Button
+                    floated='right'
+                    content='Edit'
+                    color='orange'
+                    as={Link}
+                    to={`/manageorganisation/${organiasation.id}`}
+                />
             </Segment>
         </Segment.Group>
 
