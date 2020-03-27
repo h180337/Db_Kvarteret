@@ -25,7 +25,7 @@ interface OrganiasationParams {
 
 const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({match, history}) => {
     const rootStore = useContext(RootStoreContext);
-    const {loadOrg, submitting} = rootStore.organiastionStore;
+    const {loadOrg, submitting, createOrganisation, editOrganisation} = rootStore.organiastionStore;
     
     const [organisation, setOrganiastion] = useState(new OrganisationFormValues());
     const [loading, setLoading] = useState(false)
@@ -42,6 +42,19 @@ const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({m
                 });
         }
     }, [match.params.id, loadOrg] );
+
+    const handleFinalFormSubmit = (value:any) => {
+        const {...organisation} = value;
+        if (!organisation.id) {
+            let newOrganisation = {
+                ...organisation,
+                id: uuid()
+            }
+            createOrganisation(newOrganisation);
+        } else {
+            editOrganisation(organisation);
+        }
+    }
     
 
     return (
@@ -51,7 +64,7 @@ const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({m
                     <FinalForm
                         validate={validate}
                         initialValues={organisation}
-                        onSubmit={()=>{}}
+                        onSubmit={handleFinalFormSubmit}
                         render={({handleSubmit, invalid, pristine}) => (
                             <Form onSubmit={handleSubmit} loading={loading}>
                                 <Field

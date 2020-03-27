@@ -3,6 +3,8 @@ import {action, computed, observable, runInAction} from "mobx";
 import agent from "../api/agent";
 import {IOrganisation} from "../models/organisations";
 import {IPersonel} from "../models/personel";
+import {history} from "../../index";
+import {toast} from "react-toastify";
 
 export default class OrganisationStore {
     rootStore: RootStore;
@@ -62,6 +64,44 @@ export default class OrganisationStore {
                 })
                 console.log(e);
             }
+        }
+    }
+
+    @action createOrganisation = async (org: IOrganisation) => {
+        this.submitting = true;
+        try {
+            await agent.Organisation.create(org);
+            runInAction('createOrg', () => {
+                this.organiasationsRegistry.set(org.id, org)
+                this.submitting = false;
+            });
+            history.push(`/organisation/${org.id}`)
+        } catch (e) {
+            runInAction('create Org error', () => {
+                this.submitting = false;
+            });
+            toast.error('Problem submitting data')
+            console.log(e)
+        }
+    }
+
+
+    @action editOrganisation = async (org: IOrganisation) => {
+        this.submitting = true;
+        try {
+            await agent.Organisation.update(org);
+            runInAction('editOrg', () => {
+                this.organiasationsRegistry.set(org.id, org);
+                this.organiasation = org;
+                this.submitting = false;
+            });
+            history.push(`/organisation/${org.id}`)
+        } catch (e) {
+            runInAction('editorganisation error', () => {
+                this.submitting = false;
+            })
+            toast.error('Problem submitting data')
+            console.log(e);
         }
     }
 }

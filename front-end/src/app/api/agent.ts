@@ -57,7 +57,7 @@ const Users = {
 const Organisation = {
     list: (): Promise<IOrganisation[]> => requests.get('/organisation'),
     details: (id: string) => requests.get(`/organisation/${id}`),
-    create: (organisation: IOrganisation) => requests.post('/organisation/creatorganisation', organisation),
+    create: (organisation: IOrganisation) => requests.post('/organisation', organisation),
     update: (organisation: IOrganisation) => requests.put(`/organisation/${organisation.id}`, organisation),
     delete: (id: string) => requests.del(`/organisation/${id}`)
 }
