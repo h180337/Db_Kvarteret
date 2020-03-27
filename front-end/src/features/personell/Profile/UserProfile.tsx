@@ -17,7 +17,10 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
     const {
         loadUser,
         loadingInitial, 
-        user
+        user,
+        target,
+        deleteUser,
+        submitting
     } = rootStore.userStore;
 
     useEffect(() => {
@@ -33,7 +36,15 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
             <Segment clearing>
                 <Grid>
                     <Grid.Column>
-                        <Button content='Delete' floated='right' color='red'/>
+                        <Button
+                            floated='right'
+                            content='Delete'
+                            color='red'
+                            as={Link}
+                            loading={target === user.id && submitting}
+                            onClick={(event) => deleteUser(event, user.id)}
+                            to={'/users'}
+                        />
                         <ProfileHeader user={user}/>
                     </Grid.Column>
                 </Grid>

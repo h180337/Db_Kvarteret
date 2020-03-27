@@ -17,7 +17,8 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
     const {
         loadOrg,
         loadingInitial,
-        organiasation
+        organiasation,
+        
     } = rootStore.organiastionStore;
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
     return (
        <Grid>
            <Grid.Column width={10}>
-               <OrganisationDetailedHeader organiasation={organiasation}/>
+               <OrganisationDetailedHeader id={match.params.id}/>
                <OrganisationDetailedInfo organiasation={organiasation}/>
            </Grid.Column>
            <Grid.Column width={6}>

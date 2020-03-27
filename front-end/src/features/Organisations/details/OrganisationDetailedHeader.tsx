@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, Header, Image, Item, Segment} from 'semantic-ui-react'
 import {IOrganisation} from "../../../app/models/organisations";
-import {Link} from "react-router-dom";
+import {Link, RouteComponentProps} from "react-router-dom";
+import {RootStoreContext} from "../../../app/stores/rootStore";
 
 interface IProps {
-    organiasation: IOrganisation;
+    id: string;
 }
 
 const activityImageStyle = {
@@ -21,8 +22,15 @@ const activityImageTextStyle = {
 };
 
 
-const OrganisationDetailedHeader: React.FC<IProps> = ({organiasation}) => {
+const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
+    const rootStore = useContext(RootStoreContext);
+    const {
+        organiasation,
+        submitting,
+        deleteOrganisation,
+        target
 
+    } = rootStore.organiastionStore;
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
@@ -33,7 +41,7 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({organiasation}) => {
                             <Item.Content>
                                 <Header
                                     size='huge'
-                                    content={organiasation.name}
+                                    content={organiasation!.name}
                                     style={{color: 'white'}}
                                 />
                             </Item.Content>
@@ -44,10 +52,19 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({organiasation}) => {
             <Segment clearing attached='bottom'>
                 <Button
                     floated='right'
+                    content='Delete'
+                    color='red'
+                    as={Link}
+                    loading={target === id && submitting}
+                    onClick={(event => {deleteOrganisation(event, id)})}
+                    to={'/organisation'}
+                />
+                <Button
+                    floated='right'
                     content='Edit'
                     color='orange'
                     as={Link}
-                    to={`/manageorganisation/${organiasation.id}`}
+                    to={`/manageorganisation/${organiasation!.id}`}
                 />
             </Segment>
         </Segment.Group>

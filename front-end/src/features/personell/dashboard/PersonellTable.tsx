@@ -40,17 +40,6 @@ const PersonellTable: React.FC = () => {
                     color='blue'/>
             )
         }
-        ,
-        {
-            Header: 'Delete', Cell: (props: any) => (
-                <Button
-                    name={props.original.id}
-                    loading={target === props.original.id && submitting}
-                    onClick={(event)=>deleteUser(event, props.original.id)}
-                    content='Delete'
-                    color='red'/>
-            )
-        }
     ];
     return (
         <Fragment>

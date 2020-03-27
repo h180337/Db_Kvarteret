@@ -5,6 +5,7 @@ import {IOrganisation} from "../models/organisations";
 import {IPersonel} from "../models/personel";
 import {history} from "../../index";
 import {toast} from "react-toastify";
+import {SyntheticEvent} from "react";
 
 export default class OrganisationStore {
     rootStore: RootStore;
@@ -16,7 +17,9 @@ export default class OrganisationStore {
     @observable organiasationsRegistry = new Map();
     @observable organiasation: IOrganisation | null = null;
     @observable submitting = false;
-    
+    @observable target = '';
+
+
     //convert the userRegistry into a Array
     @computed get organisationsAsArray() {
         return Array.from(this.organiasationsRegistry.values());
@@ -102,6 +105,25 @@ export default class OrganisationStore {
             })
             toast.error('Problem submitting data')
             console.log(e);
+        }
+    }
+
+    @action deleteOrganisation = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        try {
+            await agent.Organisation.delete(id);
+            runInAction('Delete Org', () => {
+                this.organiasationsRegistry.delete(id);
+                this.submitting = false;
+                this.target = '';
+            });
+        } catch (e) {
+            runInAction('delete Org error', () => {
+                this.submitting = false;
+                this.target = '';
+            });
+            console.log(e)
         }
     }
 }
