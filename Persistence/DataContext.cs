@@ -15,6 +15,8 @@ namespace Persistence
 
         public DbSet<Group> Groups { get; set; }
 
+        public DbSet<Course> Courses { get; set; }
+
         public DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
