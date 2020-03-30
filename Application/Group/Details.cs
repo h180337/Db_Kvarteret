@@ -3,25 +3,30 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
+using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Group
 {
     public class Details
     {
-        public class Query : IRequest<Domain.Group>
+        public class Query : IRequest<GroupDto>
         {
             public Guid Id {get; set;}
         }
-        public class Handler : IRequestHandler<Query, Domain.Group>
+        public class Handler : IRequestHandler<Query, GroupDto>
         {
             private readonly DataContext _context;
+            private readonly IMapper _mapper;
 
-            public Handler(DataContext dataContext) {
+            public Handler(DataContext dataContext, IMapper mapper)
+            {
                 _context = dataContext;
+                _mapper = mapper;
             }
-            public async Task<Domain.Group> Handle(Query request,
+            public async Task<GroupDto> Handle(Query request,
             CancellationToken cancellationToken)
             {
                 var group = await _context.Groups.FindAsync(request.Id);
@@ -31,7 +36,11 @@ namespace Application.Group
                 {
                     throw new RestException(HttpStatusCode.NotFound, new {group = "Not found"});
                 }
-                return group;
+
+                var groupToReturn = _mapper.Map<Domain.Group, GroupDto>(group);
+
+                return groupToReturn;
+
             }
         }
     }

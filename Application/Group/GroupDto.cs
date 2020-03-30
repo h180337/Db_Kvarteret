@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text.Json.Serialization;
 
-namespace Domain
+namespace Application.Group
 {
-    public class Group
+    public class GroupDto
     {
         public Guid Id { get; set; }
         
@@ -20,6 +19,7 @@ namespace Domain
         
         public int opprettet { get; set; }
 
-        public virtual ICollection<UserGroup> UserGroups { get; set; }
+        [JsonPropertyName("members")]
+        public ICollection<GroupMemberDto> UserGroups { get; set; }
     }
 }
