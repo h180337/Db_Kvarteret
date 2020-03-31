@@ -19,6 +19,7 @@ namespace Persistence
                 {
                     new AppUser
                     {
+                        Id = "c",
                         fornavn = "Ørjan",
                         etternavn = "jansen",
                         UserName = "orjanen",
@@ -33,6 +34,7 @@ namespace Persistence
                     },
                     new AppUser
                     {
+                        Id = "b",
                         fornavn = "Kjetil",
                         etternavn = "dumdum",
                         UserName = "dum",
@@ -47,6 +49,7 @@ namespace Persistence
                     },
                     new AppUser
                     {
+                        Id = "a",
                         fornavn = "Jane",
                         etternavn = "ta",
                         UserName = "ta",
@@ -108,7 +111,22 @@ namespace Persistence
                         beskrivelse = "Gruppen som tester nummer 1",
                         aktiv = 1,
                         aktiv_til_og_med = 10031994,
-                        opprettet = 1020303
+                        opprettet = 1020303,
+                        UserGroups = new List<UserGroup>
+                        {
+                            new UserGroup
+                            {
+                                AppUserId = "c",
+                                GroupAdmin = true,
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                            new UserGroup
+                            {
+                                AppUserId = "a",
+                                GroupAdmin = false,
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                        }
                     },
                     new Group
                     {
@@ -116,7 +134,16 @@ namespace Persistence
                         beskrivelse = "Gruppen som tester nummer 2",
                         aktiv = 1,
                         aktiv_til_og_med = 10031994,
-                        opprettet = 1020303
+                        opprettet = 1020303,
+                        UserGroups = new List<UserGroup>
+                        {
+                            new UserGroup
+                            {
+                                AppUserId = "b",
+                                GroupAdmin = true,
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            }
+                        }
                     },
                     new Group
                     {
@@ -124,7 +151,28 @@ namespace Persistence
                         beskrivelse = "Gruppen som tester nummer 3",
                         aktiv = 0,
                         aktiv_til_og_med = 10031994,
-                        opprettet = 1020303
+                        opprettet = 1020303,
+                        UserGroups = new List<UserGroup>
+                        {
+                            new UserGroup
+                            {
+                                AppUserId = "c",
+                                GroupAdmin = true,
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                            new UserGroup
+                            {
+                                AppUserId = "a",
+                                GroupAdmin = false,
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                            new UserGroup
+                            {
+                                AppUserId = "b",
+                                GroupAdmin = false,
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            }
+                        }
                     }
                 };
                 context.Groups.AddRange(groups);

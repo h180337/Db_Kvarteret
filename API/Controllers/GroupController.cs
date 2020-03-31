@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Group;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -29,12 +30,23 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}/addGroupMember/{userid}")]
+        [Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> AddGroupMember(Guid id, Guid userid)
         {
             return await Mediator.Send(new AddtoGroup.Command {GroupId = id, UserId = userid});
         }
-
+        
+        [HttpPut("{id}")]
+        [Authorize(Policy = "isAdmin")]
+        public async Task<ActionResult<Unit>> Edit(Guid id ,Edit.Command command)
+        {
+            command.Id = id;
+            return await Mediator.Send(command);
+        }
+        
+        
         [HttpDelete("{id}/remove/{userid}")]
+        [Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> RemoveMember(Guid id, Guid userId)
         {
             return await Mediator.Send(new RemoveFromGroup.Command{GroupId = id, UserId = userId});
