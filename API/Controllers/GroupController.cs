@@ -33,5 +33,11 @@ namespace API.Controllers
         {
             return await Mediator.Send(new AddtoGroup.Command {GroupId = id, UserId = userid});
         }
+
+        [HttpDelete("{id}/remove/{userid}")]
+        public async Task<ActionResult<Unit>> RemoveMember(Guid id, Guid userId)
+        {
+            return await Mediator.Send(new RemoveFromGroup.Command{GroupId = id, UserId = userId});
+        }
     }
 }
