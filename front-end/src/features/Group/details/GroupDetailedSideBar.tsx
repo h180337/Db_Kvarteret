@@ -1,8 +1,22 @@
 import React, {Fragment} from 'react';
 import {Button, Image, Item, List, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
+import { observer } from 'mobx-react-lite';
 
-const GroupDetailedSideBar = () => {
+interface IProps {
+    users: any[];
+}
+
+const GroupDetailedSideBar: React.FC<IProps> = ({users}) => {
+    
+    const admins:any []= [];
+    
+    users.forEach(user => {
+        if (user.isAdmin){
+            admins.push(user)
+        }
+    })
+    
     return (
         <Fragment>
             <Segment.Group>
@@ -16,18 +30,20 @@ const GroupDetailedSideBar = () => {
                 >
                     Admins
                 </Segment>
+                
                 <Segment attached clearing>
                     <List relaxed divided>
-                        <Item style={{ position: 'relative' }}>
-
-                            <Image size='tiny' src={'/assets/Profile.png'} />
-                            <Item.Content verticalAlign='middle'>
-                                <Item.Header as='h3'>
-                                    <Link to={`#`}>Bob</Link>
-                                </Item.Header>
-                            </Item.Content>
-                            <Button floated='right' color='red' content='Remove' />
-                        </Item>
+                        {admins.map(admin => (
+                            <Item key={admin.id} style={{ position: 'relative' }}>
+                                <Image size='tiny' src={'/assets/Profile.png'} />
+                                <Item.Content verticalAlign='middle'>
+                                    <Item.Header as='h3'>
+                                        <Link to={`/users/${admin.id}`}>{`${admin.fornavn} ${admin.etternavn}`}</Link>
+                                    </Item.Header>
+                                </Item.Content>
+                                <Button floated='right' color='red' content='Remove' />
+                            </Item>
+                        ))}
                     </List>
                 </Segment>
                 <Segment clearing>
@@ -40,4 +56,4 @@ const GroupDetailedSideBar = () => {
     );
 }
 
-export default GroupDetailedSideBar;
+export default observer(GroupDetailedSideBar);

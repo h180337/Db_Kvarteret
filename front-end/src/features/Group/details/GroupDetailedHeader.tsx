@@ -51,20 +51,25 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
             </Segment>
             <Segment clearing attached='bottom'>
                 <Button
+                    floated='left'
+                    content='Add new members'
+                    color='green'
+                   
+                />
+                <Button
                     floated='right'
                     content='Delete'
                     color='red'
-                    as={Link}
+                    
                     loading={target === group!.id && submitting}
                     //onClick={(event => {deleteOrganisation(event, id)})}
-                    to={'/organisation'}
+                    
                 />
                 <Button
                     floated='right'
                     content='Edit'
                     color='orange'
-                    as={Link}
-                    to={`/managegroup/${group!.id}`}
+                   
                 />
             </Segment>
         </Segment.Group>

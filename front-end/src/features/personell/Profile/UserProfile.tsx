@@ -27,8 +27,6 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
         loadUser(match.params.id);
     }, [loadUser, match.params.id]);
     
-    console.log(match.params.id)
-    
     if (loadingInitial) return <LoadingComponent inverted content='Loading user'/>
     
     if (!user) return <h2>User not found</h2>

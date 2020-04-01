@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {Grid} from "semantic-ui-react";
+import {Grid, Segment} from "semantic-ui-react";
 import GroupDetailedHeader from './GroupDetailedHeader';
 import GroupDetailedInfo from './GroupDetailedInfo';
 import GroupDetailedSideBar from "./GroupDetailedSideBar";
@@ -29,20 +29,19 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
     }, [loadGroup, match.params.id]);
 
     if (loadingInitial) return <LoadingComponent inverted content='Loading group'/>
-
-
+    
     if (!group) return <h2>group not found</h2>
     
-    Object.values(group.members).map((mem:any) => console.log(mem.id))
     return (
         <Grid>
             <Grid.Column width={10}>
                 <GroupDetailedHeader id={match.params.id}/>
                 <GroupDetailedInfo group={group}/>
+                <Segment><h2>Group Members</h2></Segment>
                 <PersonellTable users={group.members}/>
             </Grid.Column>
             <Grid.Column width={6}>
-                <GroupDetailedSideBar/>
+                <GroupDetailedSideBar users={group.members}/>
             </Grid.Column>
         </Grid>
     );
