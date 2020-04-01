@@ -60,7 +60,8 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
             let newPerson = {
                 ...person,
                 id: uuid(),
-                created: today
+                created: today,
+                password: 'Pa$$sw0rd'
             }
             createUser(newPerson);
         } else {

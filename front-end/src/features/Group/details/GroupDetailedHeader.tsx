@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
-import {Button, Header, Image, Item, Segment} from 'semantic-ui-react'
+import {Button, Header, Image, Item, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
+import { observer } from 'mobx-react-lite';
+
 
 interface IProps {
     id: string;
@@ -20,27 +22,26 @@ const activityImageTextStyle = {
     color: 'white'
 };
 
-
-const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
+const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
     const rootStore = useContext(RootStoreContext);
     const {
-        organiasation,
+        group,
         submitting,
-        deleteOrganisation,
-        target
+        target,
 
-    } = rootStore.organiastionStore;
+    } = rootStore.groupStore;
+    
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
-                <Image  src={`/assets/organis.jpg`} fluid style={activityImageStyle}/>
+                <Image src={`/assets/GroupImage.png`} fluid style={activityImageStyle}/>
                 <Segment basic style={activityImageTextStyle}>
                     <Item.Group>
                         <Item>
                             <Item.Content>
                                 <Header
                                     size='huge'
-                                    content={organiasation!.name}
+                                    content={group!.navn}
                                     style={{color: 'white'}}
                                 />
                             </Item.Content>
@@ -54,8 +55,8 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
                     content='Delete'
                     color='red'
                     as={Link}
-                    loading={target === id && submitting}
-                    onClick={(event => {deleteOrganisation(event, id)})}
+                    loading={target === group!.id && submitting}
+                    //onClick={(event => {deleteOrganisation(event, id)})}
                     to={'/organisation'}
                 />
                 <Button
@@ -63,12 +64,11 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
                     content='Edit'
                     color='orange'
                     as={Link}
-                    to={`/manageorganisation/${organiasation!.id}`}
+                    to={`/managegroup/${group!.id}`}
                 />
             </Segment>
         </Segment.Group>
-
-    );
+    )
 }
 
-export default OrganisationDetailedHeader;
+export default observer(GroupDetailedHeader);

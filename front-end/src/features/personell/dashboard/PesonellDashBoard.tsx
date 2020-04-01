@@ -7,7 +7,7 @@ import {RootStoreContext} from "../../../app/stores/rootStore";
 
 const PesonellDashBoard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const {loadUsers, loadingInitial} = rootStore.userStore
+    const {loadUsers, loadingInitial, usersAsArray} = rootStore.userStore
 
     useEffect(() => {
         loadUsers();
@@ -19,7 +19,7 @@ const PesonellDashBoard: React.FC = () => {
         <Fragment>
             <Grid>
                 <Grid.Column width={12}>
-                    <PersonellTable/>
+                    <PersonellTable users={usersAsArray}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                    <h2>Filters</h2>

@@ -1,4 +1,3 @@
-import {IPersonel} from "./personel";
 
 export interface IOrganisation {
     id: string,
@@ -6,7 +5,7 @@ export interface IOrganisation {
     description: string
 }
 
-export interface IOrganisationFormValues extends Partial<IPersonel>{
+export interface IOrganisationFormValues extends Partial<IOrganisation>{
 
 }
 

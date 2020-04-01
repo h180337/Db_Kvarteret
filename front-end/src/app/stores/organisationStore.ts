@@ -2,7 +2,6 @@ import {RootStore} from "./rootStore";
 import {action, computed, observable, runInAction} from "mobx";
 import agent from "../api/agent";
 import {IOrganisation} from "../models/organisations";
-import {IPersonel} from "../models/personel";
 import {history} from "../../index";
 import {toast} from "react-toastify";
 import {SyntheticEvent} from "react";
@@ -54,7 +53,7 @@ export default class OrganisationStore {
         }else {
             this.loadingInitial = true;
             try {
-                organiasation = await agent.Users.details(id);
+                organiasation = await agent.Organisation.details(id);
                 runInAction('getting User', () =>{
                     this.organiasation = organiasation;
                     this.organiasationsRegistry.set(organiasation.id, organiasation);

@@ -25,9 +25,9 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
         loadOrg(match.params.id);
     }, [loadOrg, match.params.id]);
 
-    if (loadingInitial) return <LoadingComponent inverted content='Loading user'/>
+    if (loadingInitial) return <LoadingComponent inverted content='Loading organisation'/>
 
-    if (!organiasation) return <h2>User not found</h2>
+    if (!organiasation) return <h2>organisation not found</h2>
     return (
        <Grid>
            <Grid.Column width={10}>

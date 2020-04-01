@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { Segment, List, Item, Image, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import React, {Fragment} from 'react';
+import {Button, Image, Item, List, Segment} from "semantic-ui-react";
+import {Link} from "react-router-dom";
 
-const OrganisationDetailedSidebar = () => {
+const GroupDetailedSideBar = () => {
     return (
         <Fragment>
             <Segment.Group>
@@ -37,8 +37,7 @@ const OrganisationDetailedSidebar = () => {
                 </Segment>
             </Segment.Group>
         </Fragment>
-
     );
 }
 
-export default OrganisationDetailedSidebar;
+export default GroupDetailedSideBar;

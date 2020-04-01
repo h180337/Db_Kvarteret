@@ -98,7 +98,9 @@ namespace Application.User
                     streetAddress = request.streetAddress,
                     created = request.created,
                     dateOfBirth = request.dateOfBirth,
-                    workstatus = request.workstatus
+                    workstatus = request.workstatus,
+                    
+                    
 
                 };
 

@@ -6,15 +6,14 @@ import {Button, Segment} from 'semantic-ui-react';
 import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite'
 import {Link} from "react-router-dom";
-import {RootStoreContext} from "../../../app/stores/rootStore";
+import { IPersonel } from '../../../app/models/personel';
 
-const PersonellTable: React.FC = () => {
+interface IProps {
+    users: any;
+}
 
-    const rootStore = useContext(RootStoreContext);
-    const {usersAsArray, target, submitting, deleteUser} = rootStore.userStore;
+const PersonellTable: React.FC<IProps> = ({users}) => {
     
-    
-
     const headers = [
         { label: "First Name", key: "fornavn" },
         { label: "Last Name", key: "etternavn" },
@@ -47,7 +46,7 @@ const PersonellTable: React.FC = () => {
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={usersAsArray}
+                    data={users}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
@@ -57,7 +56,7 @@ const PersonellTable: React.FC = () => {
                     style={{marginTop: '10px'}}
                     color='blue'
                     as={CSVLink}
-                    data={usersAsArray}
+                    data={users}
                     headers={headers}
                 > CSV DownLoad</Button>
                 

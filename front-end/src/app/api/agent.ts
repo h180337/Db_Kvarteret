@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from 'axios';
 import {IPersonel, IPersonFormValues} from '../models/personel'
+import {IGroup} from '../models/group'
 import {IOrganisation} from '../models/organisations'
 import {history} from '../..';
 import { toast } from 'react-toastify';
@@ -33,6 +34,7 @@ axios.interceptors.response.use(undefined, error => {
 
 const responseBody = (response: AxiosResponse) => response.data;
 
+//TODO Remove when developenent are finsih 
 const sleep = (ms: number) => (response: AxiosResponse) =>
     new Promise<AxiosResponse>(resolve => setTimeout(() => resolve(response), ms));
 
@@ -62,7 +64,18 @@ const Organisation = {
     delete: (id: string) => requests.del(`/organisation/${id}`)
 }
 
+const Groups = {
+    list: (): Promise<IGroup[]> => requests.get('/group'),
+    details: (id: string) => requests.get(`/group/${id}`),
+    create: (group: IGroup) => requests.post('/group', group),
+    update: (group: IGroup) => requests.put(`/group/${group.id}`, group),
+    delete: (id: string) => requests.del(`/group/${id}`),
+    addUser: (group: IGroup, user: IPersonel) => requests.post(`/group/${group.id}/addgroupmember/${user.id}`, user),
+    removeUser: (group: IGroup, user: IPersonel) => requests.del(`/group/${group.id}/addgroupmember/${user.id}`)
+}
+
 export default {
     Users,
-    Organisation
+    Organisation,
+    Groups
 }
