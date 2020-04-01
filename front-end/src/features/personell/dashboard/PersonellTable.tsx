@@ -1,26 +1,25 @@
 // @ts-ignore
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {Button, Segment} from 'semantic-ui-react';
 import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite'
 import {Link} from "react-router-dom";
-import { IPersonel } from '../../../app/models/personel';
 
 interface IProps {
     users: any;
 }
 
 const PersonellTable: React.FC<IProps> = ({users}) => {
-    
+
     const headers = [
-        { label: "First Name", key: "fornavn" },
-        { label: "Last Name", key: "etternavn" },
-        { label: "Email", key: "email" },
-        { label: "Phone", key: "phoneNumber" },
-        { label: "Address", key: "streetAddress" },
-        { label: "Status", key: "workstatus" }
+        {label: "First Name", key: "fornavn"},
+        {label: "Last Name", key: "etternavn"},
+        {label: "Email", key: "email"},
+        {label: "Phone", key: "phoneNumber"},
+        {label: "Address", key: "streetAddress"},
+        {label: "Status", key: "workstatus"}
     ];
    
     const columns = [
@@ -31,13 +30,13 @@ const PersonellTable: React.FC<IProps> = ({users}) => {
         {Header: 'Address', accessor: 'streetAddress'},
         {Header: 'Status', accessor: 'workstatus'},
         {
-            Header: 'View', Cell: (props: any) => (
-                <Button
-                    as={Link}
-                    to={`/users/${props.original.id}`}
-                    content='View'
-                    color='blue'/>
-            )
+            Header: 'View', Cell: (props: any) =>
+                (<Button
+                        as={Link}
+                        to={`/users/${props.original.id}`}
+                        content='View'
+                        color='blue'/>
+                )
         }
     ];
     return (

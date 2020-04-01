@@ -13,7 +13,7 @@ namespace Application.User
     {
         public class Query : IRequest<User>
         {
-            public Guid Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, User>
@@ -47,8 +47,7 @@ namespace Application.User
                     created = user.created,
                     dateOfBirth = user.dateOfBirth,
                     streetAddress = user.streetAddress,
-                    areaCode = user.areaCode,
-                    Token = "Kommer"
+                    areaCode = user.areaCode
                 };
             }
         }

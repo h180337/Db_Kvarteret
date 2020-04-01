@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Profile(Guid id)
+        public async Task<ActionResult<User>> Profile(string id)
         {
             return await Mediator.Send(new UserProfile.Query {Id = id});
         }

@@ -33,7 +33,7 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
 
     if (!group) return <h2>group not found</h2>
     
-    Object.values(group.members).map((mem:any) => console.log(mem.username))
+    Object.values(group.members).map((mem:any) => console.log(mem.id))
     return (
         <Grid>
             <Grid.Column width={10}>
