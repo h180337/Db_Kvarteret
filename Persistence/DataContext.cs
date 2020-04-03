@@ -19,6 +19,8 @@ namespace Persistence
 
         public DbSet<UserGroup> UserGroups { get; set; }
 
+        public DbSet<UserCourse> UserCourses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -35,6 +37,19 @@ namespace Persistence
                 .HasOne(a => a.Group)
                 .WithMany(u => u.UserGroups)
                 .HasForeignKey(a => a.GroupId);
+
+            builder.Entity<UserCourse>(x => x.HasKey(ua =>
+                new {ua.AppUserId, ua.CourseId}));
+
+            builder.Entity<UserCourse>()
+                .HasOne(u => u.AppUser)
+                .WithMany(a => a.UserCourses)
+                .HasForeignKey(u => u.AppUserId);
+            
+            builder.Entity<UserCourse>()
+                .HasOne(a => a.Course)
+                .WithMany(u => u.UserCourses)
+                .HasForeignKey(a => a.CourseId);
         }
     }
 }

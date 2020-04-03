@@ -24,5 +24,7 @@ namespace Domain
         public string areaCode { get; set; }
 
         public virtual ICollection<UserGroup> UserGroups { get; set; }
+        
+        public virtual ICollection<UserCourse> UserCourses { get; set; }
     }
 }

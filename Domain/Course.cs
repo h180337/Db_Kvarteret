@@ -12,6 +12,8 @@ using System;
          public string beskrivelse { get; set; }
          
          public int opprettet { get; set; }
+
+         public virtual ICollection<UserCourse> UserCourses { get; set; }
  
      }
  }
