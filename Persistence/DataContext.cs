@@ -26,26 +26,26 @@ namespace Persistence
             base.OnModelCreating(builder);
 
             builder.Entity<UserGroup>(x => x.HasKey(ua =>
-                new {ua.AppUserId, ua.GroupId}));
+                new { ua.AppUserId, ua.GroupId }));
 
             builder.Entity<UserGroup>()
                 .HasOne(u => u.AppUser)
                 .WithMany(a => a.UserGroups)
                 .HasForeignKey(u => u.AppUserId);
-            
+
             builder.Entity<UserGroup>()
                 .HasOne(a => a.Group)
                 .WithMany(u => u.UserGroups)
                 .HasForeignKey(a => a.GroupId);
 
             builder.Entity<UserCourse>(x => x.HasKey(ua =>
-                new {ua.AppUserId, ua.CourseId}));
+                new { ua.AppUserId, ua.CourseId }));
 
             builder.Entity<UserCourse>()
                 .HasOne(u => u.AppUser)
                 .WithMany(a => a.UserCourses)
                 .HasForeignKey(u => u.AppUserId);
-            
+
             builder.Entity<UserCourse>()
                 .HasOne(a => a.Course)
                 .WithMany(u => u.UserCourses)

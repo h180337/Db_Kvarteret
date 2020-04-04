@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using AutoMapper;
-using Domain;
 using MediatR;
 using Persistence;
 using Microsoft.EntityFrameworkCore;

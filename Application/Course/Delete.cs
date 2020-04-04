@@ -6,7 +6,7 @@ using Application.Errors;
 using MediatR;
 using Persistence;
 
-namespace Application.Group
+namespace Application.Course
 {
     public class Delete
     {
@@ -28,14 +28,14 @@ namespace Application.Group
             public async Task<Unit> Handle(Command request,
             CancellationToken cancellationToken)
             {
-                var group = await _context.Groups.FindAsync(request.Id);
+                var course = await _context.Courses.FindAsync(request.Id);
 
-                if (group == null)
+                if (course == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new { group = "Not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { course = "Not found" });
                 }
 
-                _context.Remove(group);
+                _context.Remove(course);
 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)

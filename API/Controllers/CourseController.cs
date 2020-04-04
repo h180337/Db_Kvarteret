@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Course;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -11,15 +12,28 @@ namespace API.Controllers
     public class CourseController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Course>>> List()
+        public async Task<ActionResult<List<CourseDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> Profile(Guid id)
+        public async Task<ActionResult<CourseDto>> Profile(Guid id)
         {
-            return await Mediator.Send(new Application.Course.Details.Query {Id = id});
+            return await Mediator.Send(new Application.Course.Details.Query { Id = id });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Create(Create.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+
+        [HttpPost("{id}/addCourseMember/{userid}")]
+        [Authorize(Policy = "isAdmin")]
+        public async Task<ActionResult<Unit>> AddCourseMember(Guid id, Guid userid)
+        {
+            return await Mediator.Send(new AddToCourse.Command { CourseId = id, UserId = userid });
         }
     }
 }

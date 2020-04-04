@@ -12,7 +12,7 @@ namespace Application.Course
 {
     public class Create
     {
-         public class Command : IRequest
+        public class Command : IRequest
         {
             public Guid Id { get; set; }
 
@@ -57,7 +57,6 @@ namespace Application.Course
 
                 var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
                                                                           _userAccessor.GetCurrentUsername());
-
                 var admin = new UserCourse
                 {
                     AppUser = user,
@@ -67,7 +66,6 @@ namespace Application.Course
                 };
 
                 _context.UserCourses.Add(admin);
-                
 
                 var success = await _context.SaveChangesAsync() > 0;
 

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-namespace Domain
+namespace Application.Course
 {
-    public class Course
+    public class CourseDto
     {
         public Guid Id { get; set; }
 
@@ -13,7 +14,7 @@ namespace Domain
 
         public int opprettet { get; set; }
 
-        public virtual ICollection<UserCourse> UserCourses { get; set; }
-
+        [JsonPropertyName("members")]
+        public ICollection<CourseMemberDto> UserCourses { get; set; }
     }
 }

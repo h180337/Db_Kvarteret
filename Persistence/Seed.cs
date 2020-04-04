@@ -66,7 +66,7 @@ namespace Persistence
 
                 foreach (var user in users)
                 {
-                   await userManager.CreateAsync(user, "Pa$$w0rd");
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
             }
 
@@ -100,12 +100,12 @@ namespace Persistence
                 context.Organisations.AddRange(organisations);
                 context.SaveChanges();
             }
-            
-             if (!context.Groups.Any()) 
+
+            if (!context.Groups.Any())
             {
-                var groups = new List<Group> 
+                var groups = new List<Group>
                 {
-                    new Group 
+                    new Group
                     {
                         navn = "TestGruppen",
                         beskrivelse = "Gruppen som tester nummer 1",
@@ -176,6 +176,71 @@ namespace Persistence
                     }
                 };
                 context.Groups.AddRange(groups);
+                context.SaveChanges();
+            }
+            if (!context.Courses.Any())
+            {
+                var courses = new List<Course>
+                {
+                    new Course
+                    {
+                        navn = "Test kurs",
+                        beskrivelse = "Kurs i .net helvet",
+                        opprettet = 1020303,
+                        UserCourses = new List<UserCourse>
+                        {
+                            new UserCourse
+                            {
+                                AppUserId = "c",
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                            new UserCourse
+                            {
+                                AppUserId = "a",
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                        }
+                    },
+                    new Course
+                    {
+                        navn = "TestGruppen2",
+                        beskrivelse = "Gruppen som tester nummer 2",
+                        opprettet = 1020303,
+                        UserCourses = new List<UserCourse>
+                        {
+                            new UserCourse
+                            {
+                                AppUserId = "b",
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            }
+                        }
+                    },
+                    new Course
+                    {
+                        navn = "TestGruppen3",
+                        beskrivelse = "Gruppen som tester nummer 3",
+                        opprettet = 1020303,
+                        UserCourses = new List<UserCourse>
+                        {
+                            new UserCourse
+                            {
+                                AppUserId = "c",
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                            new UserCourse
+                            {
+                                AppUserId = "a",
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            },
+                            new UserCourse
+                            {
+                                AppUserId = "b",
+                                DateJoined = DateTime.Now.AddMonths(-2)
+                            }
+                        }
+                    }
+                };
+                context.Courses.AddRange(courses);
                 context.SaveChanges();
             }
         }

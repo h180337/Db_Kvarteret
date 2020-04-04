@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
+using AutoMapper;
 using MediatR;
 using Persistence;
 
@@ -10,18 +11,21 @@ namespace Application.Course
 {
     public class Details
     {
-         public class Query : IRequest<Domain.Course>
+         public class Query : IRequest<CourseDto>
         {
             public Guid Id {get; set;}
         }
-        public class Handler : IRequestHandler<Query, Domain.Course>
+        public class Handler : IRequestHandler<Query, CourseDto>
         {
             private readonly DataContext _context;
 
-            public Handler(DataContext dataContext) {
+            private readonly IMapper _mapper;
+
+            public Handler(DataContext dataContext, IMapper mapper) {
                 _context = dataContext;
+                _mapper = mapper;
             }
-            public async Task<Domain.Course> Handle(Query request,
+            public async Task<CourseDto> Handle(Query request,
             CancellationToken cancellationToken)
             {
                 var course = await _context.Courses.FindAsync(request.Id);
@@ -31,7 +35,7 @@ namespace Application.Course
                 {
                     throw new RestException(HttpStatusCode.NotFound, new {course = "Not found"});
                 }
-                return course;
+                return _mapper.Map<Domain.Course, CourseDto>(course);;
             }
         }
     }

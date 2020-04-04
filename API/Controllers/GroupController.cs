@@ -19,7 +19,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GroupDto>> Profile(Guid id)
         {
-            return await Mediator.Send(new Application.Group.Details.Query {Id = id});
+            return await Mediator.Send(new Application.Group.Details.Query { Id = id });
         }
 
 
@@ -33,23 +33,23 @@ namespace API.Controllers
         [Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> AddGroupMember(Guid id, Guid userid)
         {
-            return await Mediator.Send(new AddtoGroup.Command {GroupId = id, UserId = userid});
+            return await Mediator.Send(new AddtoGroup.Command { GroupId = id, UserId = userid });
         }
-        
+
         [HttpPut("{id}")]
         [Authorize(Policy = "isAdmin")]
-        public async Task<ActionResult<Unit>> Edit(Guid id ,Edit.Command command)
+        public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
         {
             command.Id = id;
             return await Mediator.Send(command);
         }
-        
-        
+
+
         [HttpDelete("{id}/remove/{userid}")]
         [Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> RemoveMember(Guid id, Guid userId)
         {
-            return await Mediator.Send(new RemoveFromGroup.Command{GroupId = id, UserId = userId});
+            return await Mediator.Send(new RemoveFromGroup.Command { GroupId = id, UserId = userId });
         }
     }
 }
