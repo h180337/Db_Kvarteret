@@ -78,12 +78,12 @@ namespace Application.User
             {
                 if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync())
                 {
-                    throw new RestException(HttpStatusCode.BadRequest, new {Email = "Email already exist"});
+                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exist" });
                 }
 
                 if (await _context.Users.Where(x => x.UserName == request.userName).AnyAsync())
                 {
-                    throw new RestException(HttpStatusCode.BadRequest, new {Username = "Username already exist"});
+                    throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exist" });
                 }
 
                 var user = new AppUser
@@ -99,9 +99,6 @@ namespace Application.User
                     created = request.created,
                     dateOfBirth = request.dateOfBirth,
                     workstatus = request.workstatus,
-                    
-                    
-
                 };
 
                 var results = await _userManager.CreateAsync(user, request.Password);
@@ -110,7 +107,7 @@ namespace Application.User
                     return Unit.Value;
                 }
 
-                throw new Exception("problem creating user");
+                throw new Exception("Problem creating user");
             }
         }
     }

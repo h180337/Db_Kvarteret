@@ -39,6 +39,7 @@ namespace Application.Course
                 }
 
                 var user = await _context.Users.FindAsync(request.UserId.ToString());
+                Console.WriteLine(user); 
 
                 if (user == null)
                 {
