@@ -101,6 +101,36 @@ namespace Persistence
                 context.SaveChanges();
             }
 
+             if (!context.Cards.Any())
+            {
+                var cards = new List<Card>()
+                {
+                    new Card
+                    {
+                        KortNummer = "3254543",
+                        Opprettet = DateTime.Now.AddMonths(-2),
+                    },
+                    new Card
+                    {
+                        KortNummer = "1023020",
+                        Opprettet = DateTime.Now.AddMonths(-1),
+                    },
+                    new Card
+                    {
+                        KortNummer = "432576",
+                        Opprettet = DateTime.Now.AddMonths(-3),
+                    },
+                    new Card
+                    {
+                        KortNummer = "123465",
+                        Opprettet = DateTime.Now.AddMonths(-4),
+                    },
+                };
+
+                context.Cards.AddRange(cards);
+                context.SaveChanges();
+            }
+
             if (!context.Groups.Any())
             {
                 var groups = new List<Group>
