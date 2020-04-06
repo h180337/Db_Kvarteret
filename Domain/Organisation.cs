@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -10,6 +12,8 @@ namespace Domain
         public string name { get; set; }
         
         public string description { get; set; }
+
+        public virtual ICollection<GroupsInOrganisation> GroupsInOrganisations { get; set; }
         
     }
 }

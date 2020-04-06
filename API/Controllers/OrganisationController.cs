@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Organisation;
-using Application.Personal;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Organisation>> Profile(Guid id)
+        public async Task<ActionResult<OrganisationDto>> Profile(Guid id)
         {
             return await Mediator.Send(new Details.Query {Id = id});
         }
@@ -28,6 +27,12 @@ namespace API.Controllers
         public async Task<ActionResult<Unit>> Create(Create.Command command)
         {
             return await Mediator.Send(command);
+        }
+        
+        [HttpPost("{OrganisationId}/addGroupToOrganisation/{groupId}")]
+        public async Task<ActionResult<Unit>> AddGroupToOrganisation(Guid OrganisationId, Guid GroupId)
+        {
+            return await Mediator.Send(new AddGroupToOrganisation.Command { OrganisationId = OrganisationId, GroupId = GroupId });
         }
 
         [HttpPut("{id}")]
