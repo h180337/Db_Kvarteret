@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Domain
 {
@@ -12,7 +13,8 @@ namespace Domain
         public string name { get; set; }
         
         public string description { get; set; }
-
+        
+        [JsonIgnore]
         public virtual ICollection<GroupsInOrganisation> GroupsInOrganisations { get; set; }
         
     }
