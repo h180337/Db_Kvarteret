@@ -18,7 +18,9 @@ namespace Application.Organisation
                 .ForMember(d => d.aktiv_til_og_med, o => o.MapFrom(
                     s => s.Group.aktiv_til_og_med))
                 .ForMember(d => d.opprettet, o => o.MapFrom(
-                    s => s.Group.opprettet));
+                    s => s.Group.opprettet))
+                .ForMember(d => d.Id, o => o.MapFrom(
+                    s => s.Group.Id));
         }
     }
 }

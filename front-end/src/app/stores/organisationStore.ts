@@ -46,14 +46,10 @@ export default class OrganisationStore {
     }
     
     @action loadOrg = async (id: string) => {
-        let organiasation = this.getOrganisation(id);
-        if (organiasation){
-            this.organiasation = organiasation;
-            return organiasation;
-        }else {
+       
             this.loadingInitial = true;
             try {
-                organiasation = await agent.Organisation.details(id);
+                const organiasation = await agent.Organisation.details(id);
                 runInAction('getting User', () =>{
                     this.organiasation = organiasation;
                     this.organiasationsRegistry.set(organiasation.id, organiasation);
@@ -66,7 +62,6 @@ export default class OrganisationStore {
                 })
                 console.log(e);
             }
-        }
     }
 
     @action createOrganisation = async (org: IOrganisation) => {
