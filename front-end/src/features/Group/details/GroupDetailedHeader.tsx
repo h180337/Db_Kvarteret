@@ -3,6 +3,8 @@ import {Button, Header, Image, Item, Segment} from "semantic-ui-react";
 import {Link, NavLink} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
+import LoginForm from "../../personell/form/LoginForm";
+import AddGroupMemberForm from "../form/AddGroupMemberForm";
 
 
 interface IProps {
@@ -31,7 +33,8 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
         deleteGroup
 
     } = rootStore.groupStore;
-    
+    const {openModal} = rootStore.modalStore
+
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
@@ -55,7 +58,7 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
                     floated='left'
                     content='Add new members'
                     color='green'
-                   
+                    onClick={() =>openModal(<AddGroupMemberForm groupid={id}/>)}
                 />
                 <Button
                     floated='right'

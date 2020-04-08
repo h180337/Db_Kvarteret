@@ -70,8 +70,8 @@ const Groups = {
     create: (group: IGroup) => requests.post('/group', group),
     update: (group: IGroup) => requests.put(`/group/${group.id}`, group),
     delete: (id: string) => requests.del(`/group/${id}`),
-    addUser: (group: IGroup, user: IPersonel) => requests.post(`/group/${group.id}/addgroupmember/${user.id}`, user),
-    removeUser: (group: IGroup, user: IPersonel) => requests.del(`/group/${group.id}/addgroupmember/${user.id}`)
+    addUser: (groupid: string, userid: string) => requests.post(`/group/${groupid}/addgroupmember/${userid}`, {}),
+    removeUser: (groupid: string, userid: string) => requests.del(`/group/${groupid}/remove/${userid}`)
 }
 
 export default {

@@ -6,9 +6,9 @@ import { observer } from 'mobx-react-lite';
 const ModalContainer = () => {
     
     const rootStore = useContext(RootStoreContext);
-    const {modal: {open, body}, closeModal} = rootStore.modalStore;
+    const {modal: {open, body}, closeModal, size} = rootStore.modalStore;
     return (
-        <Modal open={open} onClose={closeModal} size='mini'>
+        <Modal open={open} onClose={closeModal} size={size}>
             <Modal.Content>
                 {body}
             </Modal.Content>

@@ -8,6 +8,7 @@ export default class ModalStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore
     }
+    @observable size = undefined
     
     @observable.shallow modal = {
         open: false,

@@ -14,7 +14,7 @@ namespace Application.Group
     {
         public class Command : IRequest
         {
-            public Guid UserId { get; set; }
+            public string UserId { get; set; }
             public Guid GroupId { get; set; }
          
         }
@@ -38,7 +38,7 @@ namespace Application.Group
                     throw new RestException(HttpStatusCode.NotFound, new {Group = " could not find group"});
                 }
 
-                var user = await _context.Users.FindAsync(request.UserId.ToString());
+                var user = await _context.Users.FindAsync(request.UserId);
 
                 if (user == null)
                 {
