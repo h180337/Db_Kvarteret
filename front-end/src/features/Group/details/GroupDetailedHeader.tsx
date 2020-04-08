@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Button, Header, Image, Item, Segment} from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
 
@@ -28,6 +28,7 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
         group,
         submitting,
         target,
+        deleteGroup
 
     } = rootStore.groupStore;
     
@@ -60,15 +61,17 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
                     floated='right'
                     content='Delete'
                     color='red'
-                    
+                    as={Link}
                     loading={target === group!.id && submitting}
-                    //onClick={(event => {deleteOrganisation(event, id)})}
-                    
+                    onClick={(event => {deleteGroup(event, id)})}
+                    to={'/organisation'}
                 />
                 <Button
                     floated='right'
                     content='Edit'
                     color='orange'
+                    as={NavLink}
+                    to={`/managegroup/${group!.id}`}
                    
                 />
             </Segment>

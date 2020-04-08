@@ -1,10 +1,10 @@
-import { IPersonel } from "./personel";
 
 export interface IGroup {
     id: string,
     navn: string,
     beskrivelse: string,
-    aktiv: boolean,
+    aktiv: string,
+    opprettet: string
     members: any
 }
 
@@ -16,7 +16,8 @@ export class GroupFormValues implements IGroupFormValues {
     id?: string = undefined;
     navn: string = '';
     beskrivelse: string = '';
-    aktiv: boolean = false;
+    opprettet: string = '';
+    aktiv: string = '';
 
     constructor(init?: IGroupFormValues) {
         Object.assign(this, init);

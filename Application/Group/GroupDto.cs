@@ -13,11 +13,11 @@ namespace Application.Group
         
         public string beskrivelse { get; set; }
         
-        public int aktiv { get; set; }
+        public string aktiv { get; set; }
         
-        public int aktiv_til_og_med { get; set; }
+        public DateTime aktiv_til_og_med { get; set; }
         
-        public int opprettet { get; set; }
+        public DateTime opprettet { get; set; }
 
         [JsonPropertyName("members")]
         public ICollection<GroupMemberDto> UserGroups { get; set; }

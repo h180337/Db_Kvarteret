@@ -77,10 +77,6 @@ namespace Application.User
                 user.streetAddress = request.streetAddress ?? user.streetAddress;
                 user.areaCode = request.areaCode ?? user.areaCode;
                 user.UserName = request.userName ?? user.UserName;
-
-                
-
-                
                 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)

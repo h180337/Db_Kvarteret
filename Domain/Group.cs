@@ -14,11 +14,11 @@ namespace Domain
         
         public string beskrivelse { get; set; }
         
-        public int aktiv { get; set; }
+        public string aktiv { get; set; }
         
-        public int aktiv_til_og_med { get; set; }
+        public DateTime aktiv_til_og_med { get; set; }
         
-        public int opprettet { get; set; }
+        public DateTime opprettet { get; set; }
 
         public virtual ICollection<UserGroup> UserGroups { get; set; }
     }

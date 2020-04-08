@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, Icon, Segment} from "semantic-ui-react";
 import {IGroup} from '../../../app/models/group';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
     group: IGroup
@@ -23,10 +24,10 @@ const GroupDetailedInfo: React.FC<IProps> = ({group}) => {
             <Segment attached>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name={group.aktiv ? 'toggle on' : 'toggle off'} size='large' color='teal'/>
+                        <Icon name={group.aktiv == 'activ' ? 'toggle on' : 'toggle off'} size='large' color='teal'/>
                     </Grid.Column>
                     <Grid.Column width={11}>
-                        {group.aktiv ? "Active" : "Inactive"}
+                        {group.aktiv == 'activ' ? "Active" : "Inactive"}
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -45,4 +46,4 @@ const GroupDetailedInfo: React.FC<IProps> = ({group}) => {
     );
 }
 
-export default GroupDetailedInfo;
+export default observer(GroupDetailedInfo);

@@ -2,6 +2,10 @@ import {RootStore} from "./rootStore";
 import {action, observable, runInAction} from "mobx";
 import { IGroup } from "../models/group";
 import agent from "../api/agent";
+import {IOrganisation} from "../models/organisations";
+import {history} from "../../index";
+import {toast} from "react-toastify";
+import {SyntheticEvent} from "react";
 
 export default class GroupStore {
     rootStore: RootStore;
@@ -45,4 +49,61 @@ export default class GroupStore {
             }
         }
     }
+
+    @action createGroup = async (group: IGroup) => {
+        this.submitting = true;
+        try {
+            await agent.Groups.create(group);
+            runInAction('create Group', () => {
+                this.groupRegistry.set(group.id, group)
+                this.submitting = false;
+            });
+            history.push(`/group/${group.id}`)
+        } catch (e) {
+            runInAction('create group error', () => {
+                this.submitting = false;
+            });
+            toast.error('Problem submitting data')
+            console.log(e)
+        }
+    }
+
+    @action editGroup = async (group: IGroup) => {
+        this.submitting = true;
+        try {
+            await agent.Groups.update(group);
+            runInAction('edit group', () => {
+                this.groupRegistry.set(group.id, group);
+                this.group = group;
+                this.submitting = false;
+            });
+            history.push(`/group/${group.id}`)
+        } catch (e) {
+            runInAction('edit group error', () => {
+                this.submitting = false;
+            })
+            toast.error('Problem submitting data')
+            console.log(e);
+        }
+    }
+    @action deleteGroup = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        console.log(this.target)
+        try {
+            await agent.Groups.delete(id);
+            runInAction('Delete group', () => {
+                this.groupRegistry.delete(id);
+                this.submitting = false;
+                this.target = '';
+            });
+        } catch (e) {
+            runInAction('delete group error', () => {
+                this.submitting = false;
+                this.target = '';
+            });
+            console.log(e)
+        }
+    }
+    
 }

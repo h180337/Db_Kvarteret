@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const PersonellTable: React.FC<IProps> = ({users}) => {
-
+    
     const headers = [
         {label: "First Name", key: "fornavn"},
         {label: "Last Name", key: "etternavn"},
@@ -39,6 +39,9 @@ const PersonellTable: React.FC<IProps> = ({users}) => {
                 )
         }
     ];
+    
+    
+    
     return (
         <Fragment>
             <Segment clearing>

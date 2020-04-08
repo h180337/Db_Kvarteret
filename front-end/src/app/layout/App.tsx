@@ -18,6 +18,7 @@ import OrganisationDashBoard from "../../features/Organisations/dashboard/Organi
 import OrganisationDetails from "../../features/Organisations/details/OrganisationDetails";
 import OrganisationForm from '../../features/Organisations/form/OrganisationForm';
 import GroupDetails from "../../features/Group/details/GroupDetails";
+import GroupForm from '../../features/Group/form/GroupForm';
 
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
@@ -51,6 +52,8 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                             <Route path='/group/:id' exact component={GroupDetails}/>
                             <Route path='/organisation' exact component={OrganisationDashBoard}/>
                             <Route path='/organisation/:id' exact component={OrganisationDetails}/>
+                            <Route key={location.key} path={['/creategroup', '/managegroup/:id']} exact
+                                   component={GroupForm}/>
                             <Route key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
                                    component={OrganisationForm}/>
                             <Route key={location.key} path={['/createUser', '/manage/:id']} exact

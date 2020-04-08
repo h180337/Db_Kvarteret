@@ -43,7 +43,12 @@ const NavBar: React.FC = () => {
                     />
                 </Menu.Item>
                 <Menu.Item>
-                    <Button positive content='Create Group'/>
+                    <Button 
+                        positive 
+                        content='Create Group'
+                        as={NavLink}
+                        to='/creategroup'
+                    />
                 </Menu.Item>
 
                 {LogiedInuser &&

@@ -139,9 +139,9 @@ namespace Persistence
                     {
                         navn = "TestGruppen",
                         beskrivelse = "Gruppen som tester nummer 1",
-                        aktiv = 1,
-                        aktiv_til_og_med = 10031994,
-                        opprettet = 1020303,
+                        aktiv = "active",
+                        aktiv_til_og_med = DateTime.Now.AddMonths(-2),
+                        opprettet = DateTime.Now.AddMonths(-2),
                         UserGroups = new List<UserGroup>
                         {
                             new UserGroup
@@ -162,9 +162,9 @@ namespace Persistence
                     {
                         navn = "TestGruppen2",
                         beskrivelse = "Gruppen som tester nummer 2",
-                        aktiv = 1,
-                        aktiv_til_og_med = 10031994,
-                        opprettet = 1020303,
+                        aktiv = "active",
+                        aktiv_til_og_med = DateTime.Now.AddMonths(-2),
+                        opprettet = DateTime.Now.AddMonths(-2),
                         UserGroups = new List<UserGroup>
                         {
                             new UserGroup
@@ -179,9 +179,9 @@ namespace Persistence
                     {
                         navn = "TestGruppen3",
                         beskrivelse = "Gruppen som tester nummer 3",
-                        aktiv = 0,
-                        aktiv_til_og_med = 10031994,
-                        opprettet = 1020303,
+                        aktiv = "inactive",
+                        aktiv_til_og_med = DateTime.Now.AddMonths(-2),
+                        opprettet = DateTime.Now.AddMonths(-2),
                         UserGroups = new List<UserGroup>
                         {
                             new UserGroup

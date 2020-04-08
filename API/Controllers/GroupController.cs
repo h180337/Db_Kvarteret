@@ -30,14 +30,14 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}/addGroupMember/{userid}")]
-        [Authorize(Policy = "isAdmin")]
+        //[Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> AddGroupMember(Guid id, Guid userid)
         {
             return await Mediator.Send(new AddtoGroup.Command { GroupId = id, UserId = userid });
         }
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "isAdmin")]
+        //[Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
         {
             command.Id = id;
@@ -46,10 +46,16 @@ namespace API.Controllers
 
 
         [HttpDelete("{id}/remove/{userid}")]
-        [Authorize(Policy = "isAdmin")]
+        //[Authorize(Policy = "isAdmin")]
         public async Task<ActionResult<Unit>> RemoveMember(Guid id, Guid userId)
         {
             return await Mediator.Send(new RemoveFromGroup.Command { GroupId = id, UserId = userId });
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(Guid id)
+        {
+            return await Mediator.Send(new Delete.Command {Id = id});
         }
     }
 }

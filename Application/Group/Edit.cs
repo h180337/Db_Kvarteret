@@ -18,11 +18,7 @@ namespace Application.Group
         
         public string beskrivelse { get; set; }
         
-        public int aktiv { get; set; }
-        
-        public int aktiv_til_og_med { get; set; }
-        
-        public int opprettet { get; set; }
+        public string aktiv { get; set; }
         }
         
         
@@ -46,6 +42,7 @@ namespace Application.Group
 
                 group.navn = request.navn ?? group.navn;
                 group.beskrivelse = request.beskrivelse ?? group.beskrivelse;
+                group.aktiv = request.aktiv ?? group.aktiv;
                 // group.aktiv = request.aktiv ??  group.aktiv;
                 // group.aktiv_til_og_med = request.aktiv_til_og_med  group.aktiv_til_og_med;
 

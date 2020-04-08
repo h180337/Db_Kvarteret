@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {Button, Image, Item, List, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import { observer } from 'mobx-react-lite';
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface IProps {
     users: any[];
@@ -11,6 +12,8 @@ const GroupDetailedSideBar: React.FC<IProps> = ({users}) => {
     
     const admins:any []= [];
     
+    if (!users) return <h2>Not able to load admin</h2>
+
     users.forEach(user => {
         if (user.isAdmin){
             admins.push(user)
