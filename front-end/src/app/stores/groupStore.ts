@@ -1,12 +1,10 @@
 import {RootStore} from "./rootStore";
-import {action, computed, observable, runInAction} from "mobx";
+import {action, observable, runInAction} from "mobx";
 import {IGroup} from "../models/group";
 import agent from "../api/agent";
-import {IOrganisation} from "../models/organisations";
 import {history} from "../../index";
 import {toast} from "react-toastify";
 import {SyntheticEvent} from "react";
-import {IPersonel} from "../models/personel";
 
 export default class GroupStore {
     rootStore: RootStore;
@@ -88,20 +86,23 @@ export default class GroupStore {
         }
     }
     
-    @action removeGroupMember = async (groupId: string, userId: string) => {
+    @action removeGroupMember = async (event: SyntheticEvent<HTMLButtonElement>, groupId: string, userId: string) => {
         this.submitting = true;
+        this.target = event.currentTarget.name;
         try {
             await agent.Groups.removeUser(groupId, userId);
             runInAction('remove member', () => {
-                
                 this.submitting = false;
+                this.target = '';
             })
         } catch (e) {
             runInAction('error removing user', () => {
                 this.submitting = false;
-            })
+                this.target = '';
+            });
+            toast.error('error removing the user')
         }
-        toast.error('error removing the user')
+       
 
     }
 

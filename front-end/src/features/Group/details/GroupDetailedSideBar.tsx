@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import {Button, Image, Item, List, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import { observer } from 'mobx-react-lite';
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface IProps {
     users: any[];

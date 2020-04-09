@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import {Button, Segment} from "semantic-ui-react";
 import ReactTable from "react-table-6";
 import {CSVLink} from "react-csv";

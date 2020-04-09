@@ -1,8 +1,7 @@
-import React, {Component, useContext, useState, useEffect} from 'react';
-import {RouteComponentProps, match} from "react-router-dom";
+import React, {useContext, useState, useEffect} from 'react';
+import {RouteComponentProps} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import {GroupFormValues} from '../../../app/models/group';
-import {OrganisationFormValues} from "../../../app/models/organisations";
 import {v4 as uuid} from "uuid";
 import {observer} from "mobx-react-lite";
 import {Button, Form, Grid, Segment} from "semantic-ui-react";
@@ -10,8 +9,6 @@ import {Field, Form as FinalForm} from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import {combineValidators, isRequired} from "revalidate";
-import {workStatus} from "../../../app/common/options/workStatusOptions";
-import SelectInput from "../../../app/common/form/SelectInput";
 
 interface GroupParams {
     id: string;
@@ -22,7 +19,7 @@ const validate = combineValidators({
     beskrivelse: isRequired({message: 'description is required'}),
 });
 
-const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match, history}) => {
+const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) => {
     const rootStore = useContext(RootStoreContext);
     const {loadGroup, submitting, createGroup, editGroup} = rootStore.groupStore
 

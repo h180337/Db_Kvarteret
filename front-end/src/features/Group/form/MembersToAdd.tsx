@@ -3,9 +3,7 @@ import React, {Fragment, useContext, useEffect} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {Button, Segment} from 'semantic-ui-react';
-import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite'
-import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
@@ -22,20 +20,9 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
     useEffect(() => {
         loadUsers();
     }, [loadUsers]);
-
-    let filteredData: any[] = [];
     
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
     
-    const headers = [
-        {label: "First Name", key: "fornavn"},
-        {label: "Last Name", key: "etternavn"},
-        {label: "Email", key: "email"},
-        {label: "Phone", key: "phoneNumber"},
-        {label: "Address", key: "streetAddress"},
-        {label: "Status", key: "workstatus"}
-    ];
-
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
         {Header: 'LastName', accessor: 'etternavn'},
@@ -54,8 +41,9 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
                 )
         }
     ];
-
-
+    
+    [...group!.members].forEach(m => userRegistry.delete(m.id))
+    
     return (
         <Fragment>
             <Segment clearing>

@@ -8,7 +8,6 @@ import {RouteComponentProps} from "react-router-dom";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {observer} from 'mobx-react-lite';
 import MembersTable from "./MembersTable";
-import PersonellTable from '../../personell/dashboard/PersonellTable';
 
 interface GroupParams {
     id: string;
@@ -26,7 +25,7 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
 
     useEffect(() => {
         loadGroup(match.params.id);
-    }, [loadGroup, match.params.id]);
+    }, [loadGroup, match.params.id,group]);
 
     if (loadingInitial) return <LoadingComponent inverted content='Loading group'/>
     
@@ -38,10 +37,10 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
                 <GroupDetailedHeader id={match.params.id}/>
                 <GroupDetailedInfo group={group}/>
                 <Segment><h2>Group Members</h2></Segment>
-                <PersonellTable users={group.members}/>
+                <MembersTable users={group.members} groupId={match.params.id}/>
             </Grid.Column>
             <Grid.Column width={6}>
-                <GroupDetailedSideBar users={group.members}/>
+                <GroupDetailedSideBar users={group.members} />
             </Grid.Column>
         </Grid>
     );

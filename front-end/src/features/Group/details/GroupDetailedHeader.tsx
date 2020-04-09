@@ -3,7 +3,6 @@ import {Button, Header, Image, Item, Segment} from "semantic-ui-react";
 import {Link, NavLink} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
-import LoginForm from "../../personell/form/LoginForm";
 import AddGroupMemberForm from "../form/AddGroupMemberForm";
 
 
