@@ -1,19 +1,25 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 import {Button, Image, Item, List, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import { observer } from 'mobx-react-lite';
+import {RootStoreContext} from "../../../app/stores/rootStore";
+import AddAdmin from '../form/AddAdmin'
 
 interface IProps {
     users: any[];
+    groupId : string
 }
 
-const GroupDetailedSideBar: React.FC<IProps> = ({users}) => {
+const GroupDetailedSideBar: React.FC<IProps> = ({users, groupId}) => {
+    const rootStore = useContext(RootStoreContext);
+    const {groupMembersRegistry} = rootStore.groupStore
+
+    const {openModal} = rootStore.modalStore
     
     const admins:any []= [];
-    
     if (!users) return <h2>Not able to load admin</h2>
 
-    users.forEach(user => {
+    groupMembersRegistry.forEach(user => {
         if (user.isAdmin){
             admins.push(user)
         }
@@ -43,14 +49,18 @@ const GroupDetailedSideBar: React.FC<IProps> = ({users}) => {
                                         <Link to={`/users/${admin.id}`}>{`${admin.fornavn} ${admin.etternavn}`}</Link>
                                     </Item.Header>
                                 </Item.Content>
-                                <Button floated='right' color='red' content='Remove' />
                             </Item>
                         ))}
                     </List>
                 </Segment>
                 <Segment clearing>
                     <Button.Group floated='right'>
-                        <Button color='blue' content='Add admin' />
+                        <Button 
+                            color='blue' 
+                            content='Manage admins'
+                            onClick={() =>openModal(<AddAdmin groupid={groupId}/>)}
+                            
+                        />
                     </Button.Group>
                 </Segment>
             </Segment.Group>

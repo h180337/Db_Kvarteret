@@ -1,28 +1,19 @@
 // @ts-ignore
-import React, {Fragment, useContext, useEffect} from 'react';
+import React, {Fragment, useContext,} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {Button, Segment} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite'
 import {RootStoreContext} from "../../../app/stores/rootStore";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface IProps {
     groupid: string
 }
 
-const MembersToAdd: React.FC<IProps> = ({groupid}) => {
+const AddAdmin: React.FC<IProps> = ({groupid}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {addMemberToGroup, submitting, groupMembersRegistry} = rootStore.groupStore
-    const {loadingInitial, loadUsers, userRegistry, usersAsArray} = rootStore.userStore;
-    useEffect(() => {
-        loadUsers()
-    }, [loadUsers]);
-    
-    if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
-    
-    Array.from(groupMembersRegistry.values()).forEach(member => userRegistry.delete(member.id))
+    const {editAdmin, submitting,groupMembersAsArray} = rootStore.groupStore
     
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
@@ -34,11 +25,10 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
         {
             Header: 'View', Cell: (props: any) =>
                 (<Button
-                        content='Add'
-                        color='green'
-                        onClick={(e) => addMemberToGroup(e,groupid, props.original.id, 
-                            userRegistry.get(props.original.id))}
                         loading={submitting}
+                        content={props.original.isAdmin ? 'remove' : 'add'}
+                        color={props.original.isAdmin ? 'red' : 'green'}
+                        onClick={(e) => editAdmin(e, groupid, props.original.id)}
                     />
                 )
         }
@@ -50,7 +40,7 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={usersAsArray}
+                    data={groupMembersAsArray}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
@@ -61,4 +51,4 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
     );
 }
 
-export default observer(MembersToAdd);
+export default observer(AddAdmin);
