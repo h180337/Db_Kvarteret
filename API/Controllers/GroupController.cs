@@ -5,6 +5,7 @@ using Application.Group;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace API.Controllers
 {
@@ -57,5 +58,15 @@ namespace API.Controllers
         {
             return await Mediator.Send(new Delete.Command {Id = id});
         }
+        
+        [HttpPut("{groupId}/editadmin/{userId}")]
+        //[Authorize(Policy = "isAdmin")]
+        public async Task<ActionResult<Unit>> EditAdmin(Guid groupId, string userId, EditAdmin.Command command)
+        {
+            command.GroupId = groupId;
+            command.UserId = userId;
+            return await Mediator.Send(command);
+        }
     }
+    
 }
