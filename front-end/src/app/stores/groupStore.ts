@@ -1,10 +1,11 @@
-import {RootStore} from "./rootStore";
+import {RootStore, RootStoreContext} from "./rootStore";
 import {action, observable, runInAction} from "mobx";
 import {IGroup} from "../models/group";
 import agent from "../api/agent";
 import {history} from "../../index";
 import {toast} from "react-toastify";
-import {SyntheticEvent} from "react";
+import {SyntheticEvent, useContext} from "react";
+import { IPersonel } from "../models/personel";
 
 export default class GroupStore {
     rootStore: RootStore;
@@ -16,6 +17,7 @@ export default class GroupStore {
 
     @observable loadingInitial = false;
     @observable groupRegistry = new Map();
+    @observable groupMembersRegistry = new Map();
     @observable group: IGroup | null = null;
     @observable submitting = false;
     @observable target = '';
@@ -24,6 +26,7 @@ export default class GroupStore {
         return this.groupRegistry.get(id);
     }
 
+    
     @action loadGroup = async (id: string) => {
         let group = this.getGroup(id);
         if (group) {
@@ -37,6 +40,9 @@ export default class GroupStore {
                     this.group = group;
                     this.groupRegistry.set(group.id, group);
                     this.loadingInitial = false;
+                    [...this.group!.members].forEach(member => {
+                        this.groupMembersRegistry.set(member.id, member);
+                    })
                 });
                 return group;
             } catch (e) {
@@ -67,7 +73,7 @@ export default class GroupStore {
     }
     
 
-    @action addMemberToGroup = async (groupId: string, userId: string) => {
+    @action addMemberToGroup = async (event: SyntheticEvent<HTMLButtonElement>,groupId: string, userId: string, user: IPersonel) => {
         this.submitting = true;
         let group = this.getGroup(groupId);
         try {
@@ -75,11 +81,15 @@ export default class GroupStore {
             runInAction('add group member', () =>{
                 this.groupRegistry.set(groupId, group);
                 this.group = group;
+                this.groupMembersRegistry.set(user.id, user)
                 this.submitting = false;
+                this.target = '';
+
             })
         } catch (e) {
             runInAction('add member error', () =>{
                 this.submitting = false;
+                this.target = '';
             })
             toast.error('The user is allready a member of this group')
             
@@ -92,6 +102,7 @@ export default class GroupStore {
         try {
             await agent.Groups.removeUser(groupId, userId);
             runInAction('remove member', () => {
+                this.groupMembersRegistry.delete(userId);
                 this.submitting = false;
                 this.target = '';
             })

@@ -8,12 +8,11 @@ import {RootStoreContext} from "../../../app/stores/rootStore";
 
 interface IProps {
     groupId: string;
-    users: any;
 }
 
-const MembersTable:React.FC<IProps> = ({groupId, users}) => {
+const MembersTable:React.FC<IProps> = ({groupId}) => {
     const rootStore = useContext(RootStoreContext);
-    const {submitting,removeGroupMember} = rootStore.groupStore
+    const {submitting,removeGroupMember, groupMembersRegistry} = rootStore.groupStore
     
     const headers = [
         {label: "First Name", key: "fornavn"},
@@ -57,7 +56,7 @@ const MembersTable:React.FC<IProps> = ({groupId, users}) => {
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={users}
+                    data={Array.from(groupMembersRegistry.values())}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
@@ -67,7 +66,7 @@ const MembersTable:React.FC<IProps> = ({groupId, users}) => {
                     style={{marginTop: '10px'}}
                     color='blue'
                     as={CSVLink}
-                    data={users}
+                    data={Array.from(groupMembersRegistry.values())}
                     headers={headers}
                 > CSV DownLoad</Button>
 

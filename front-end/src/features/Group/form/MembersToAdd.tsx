@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {Fragment, useContext, useEffect} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {Button, Segment} from 'semantic-ui-react';
@@ -14,14 +14,16 @@ interface IProps {
 const MembersToAdd: React.FC<IProps> = ({groupid}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {addMemberToGroup, submitting, group} = rootStore.groupStore
+    const {addMemberToGroup, submitting, groupMembersRegistry} = rootStore.groupStore
     const {loadingInitial, loadUsers, userRegistry, usersAsArray} = rootStore.userStore;
-
+    const [usertoadd, setUserstoadd] = useState()
     useEffect(() => {
-        loadUsers();
+        loadUsers()
     }, [loadUsers]);
     
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
+    
+    Array.from(groupMembersRegistry.values()).forEach(member => userRegistry.delete(member.id))
     
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
@@ -35,15 +37,14 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
                 (<Button
                         content='Add'
                         color='green'
-                        onClick={() => addMemberToGroup(groupid, props.original.id)}
+                        onClick={(e) => addMemberToGroup(e,groupid, props.original.id, 
+                            userRegistry.get(props.original.id))}
                         loading={submitting}
                     />
                 )
         }
     ];
-    
-    [...group!.members].forEach(m => userRegistry.delete(m.id))
-    
+
     return (
         <Fragment>
             <Segment clearing>
