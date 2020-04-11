@@ -28,6 +28,7 @@ const AddAdmin: React.FC<IProps> = ({groupid}) => {
                         loading={submitting}
                         content={props.original.isAdmin ? 'remove' : 'add'}
                         color={props.original.isAdmin ? 'red' : 'green'}
+                        disabled={submitting}
                         onClick={(e) => editAdmin(e, groupid, props.original.id)}
                     />
                 )
