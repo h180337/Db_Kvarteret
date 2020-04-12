@@ -9,9 +9,10 @@ import {Link} from "react-router-dom";
 
 interface IProps {
     users: any;
+    filteredData: any
 }
 
-const PersonellTable: React.FC<IProps> = ({users}) => {
+const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
     
     const headers = [
         {label: "First Name", key: "fornavn"},
@@ -48,11 +49,11 @@ const PersonellTable: React.FC<IProps> = ({users}) => {
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={users}
+                    data={filteredData.length === 0 ? users: filteredData}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
-                    filterable
+                    filterable={false}
                 /> 
                 <Button 
                     style={{marginTop: '10px'}}

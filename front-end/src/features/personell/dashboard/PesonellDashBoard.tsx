@@ -4,10 +4,11 @@ import PersonellTable from "./PersonellTable";
 import {observer} from 'mobx-react-lite'
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {RootStoreContext} from "../../../app/stores/rootStore";
+import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 const PesonellDashBoard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const {loadUsers, loadingInitial, usersAsArray} = rootStore.userStore
+    const {loadUsers, loadingInitial, usersAsArray ,filteredUsersAsArray} = rootStore.userStore
 
     useEffect(() => {
         loadUsers();
@@ -19,10 +20,10 @@ const PesonellDashBoard: React.FC = () => {
         <Fragment>
             <Grid>
                 <Grid.Column width={12}>
-                    <PersonellTable users={usersAsArray}/>
+                    <PersonellTable filteredData={filteredUsersAsArray} users={usersAsArray}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                   <h2>Filters</h2>
+                    <DataSearch/>
                 </Grid.Column>
             </Grid>
             

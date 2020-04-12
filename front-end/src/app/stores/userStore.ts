@@ -16,6 +16,7 @@ export default class UserStore {
     
     @observable userRegistry = new Map();
     @observable loadingInitial = false;
+    @observable filteredData = new Map();
     @observable user: IPersonel | null = null;
     @observable LogiedInuser: IPersonel | null = null;
     @observable submitting = false;
@@ -59,6 +60,10 @@ export default class UserStore {
     //convert the userRegistry into a Array
     @computed get usersAsArray() {
         return Array.from(this.userRegistry.values());
+    }
+
+    @computed get filteredUsersAsArray() {
+        return Array.from(this.filteredData.values());
     }
 
     //Loads all the users into the userRegistry map and reformat the date props
