@@ -47,7 +47,6 @@ namespace Application.Card
             {
                 var card = new Domain.Card
                 {
-                    Id = request.Id,
                     UserId = request.UserId,
                     KortNummer = request.KortNummer,
                     Opprettet = request.Opprettet
