@@ -30,7 +30,7 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}/addCourseMember/{userid}")]
-        public async Task<ActionResult<Unit>> AddCourseMember(Guid id, Guid userid)
+        public async Task<ActionResult<Unit>> AddCourseMember(string id, string userid)
         {
             return await Mediator.Send(new AddToCourse.Command { CourseId = id, UserId = userid });
         }

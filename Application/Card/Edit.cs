@@ -7,17 +7,19 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Course
+namespace Application.Card
 {
     public class Edit
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
+            
+            public Guid UserId {get; set;}
 
-            public string navn { get; set; }
+            public string KortNummer { get; set; }
 
-            public string beskrivelse { get; set; }
+            public DateTime Opprettet { get; set; }
         }
 
         //FormValidation
@@ -25,8 +27,8 @@ namespace Application.Course
         {
             public CommandValidator()
             {
-                RuleFor(x => x.navn).NotEmpty();
-                RuleFor(x => x.beskrivelse).NotEmpty();
+                RuleFor(x => x.KortNummer).NotEmpty();
+                RuleFor(x => x.Opprettet).NotEmpty();
             }
         }
 
@@ -42,15 +44,16 @@ namespace Application.Course
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var course = await _context.Courses.FindAsync(request.Id);
+                var card = await _context.Cards.FindAsync(request.Id);
 
-                if (course == null)
+                if (card == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new { course = "Not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
                 }
 
-                course.navn = request.navn ?? course.navn;
-                course.beskrivelse = request.beskrivelse ?? course.beskrivelse;
+                card.UserId = request.UserId;
+                card.KortNummer = request.KortNummer ?? card.KortNummer;
+                card.Opprettet = card.Opprettet;
 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)

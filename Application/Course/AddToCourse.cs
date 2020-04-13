@@ -14,8 +14,8 @@ namespace Application.Course
     {
         public class Command : IRequest
         {
-            public Guid UserId { get; set; }
-            public Guid CourseId { get; set; }
+            public string UserId { get; set; }
+            public string CourseId { get; set; }
 
         }
 

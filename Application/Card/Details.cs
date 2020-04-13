@@ -6,16 +6,18 @@ using Application.Errors;
 using AutoMapper;
 using MediatR;
 using Persistence;
+using Domain;
 
-namespace Application.Course
+namespace Application.Card
 {
     public class Details
     {
-        public class Query : IRequest<CourseDto>
+        public class Query : IRequest<Domain.Card>
         {
             public Guid Id { get; set; }
         }
-        public class Handler : IRequestHandler<Query, CourseDto>
+
+        public class Handler : IRequestHandler<Query, Domain.Card>
         {
             private readonly DataContext _context;
 
@@ -26,17 +28,18 @@ namespace Application.Course
                 _context = dataContext;
                 _mapper = mapper;
             }
-            public async Task<CourseDto> Handle(Query request,
+            public async Task<Domain.Card> Handle(Query request,
             CancellationToken cancellationToken)
             {
-                var course = await _context.Courses.FindAsync(request.Id);
+                var card = await _context.Cards.FindAsync(request.Id);
 
 
-                if (course == null)
+                if (card == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new { course = "Not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
                 }
-                return _mapper.Map<Domain.Course, CourseDto>(course); ;
+
+                return card;
             }
         }
     }
