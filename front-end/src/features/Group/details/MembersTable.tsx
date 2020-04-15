@@ -12,7 +12,7 @@ interface IProps {
 
 const MembersTable:React.FC<IProps> = ({groupId}) => {
     const rootStore = useContext(RootStoreContext);
-    const {submitting,removeGroupMember, groupMembersRegistry} = rootStore.groupStore
+    const {submitting,removeGroupMember, groupMembersRegistry, target} = rootStore.groupStore
     
     const headers = [
         {label: "First Name", key: "fornavn"},
@@ -42,10 +42,12 @@ const MembersTable:React.FC<IProps> = ({groupId}) => {
         {
             Header: 'View', Cell: (props: any) =>
                 (<Button
+                        name={props.original.id}
                         content='Remove'
                         color='red'
                         onClick={(e) => removeGroupMember(e, groupId, props.original.id)}
-                        loading={submitting}
+                        loading={target === props.original.id && submitting}
+                        disabled={target === props.original.id && submitting}
                     />
                 )
         }

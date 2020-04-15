@@ -14,7 +14,7 @@ interface IProps {
 const MembersToAdd: React.FC<IProps> = ({groupid}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {addMemberToGroup, submitting, groupMembersRegistry} = rootStore.groupStore
+    const {addMemberToGroup, groupMembersRegistry, submitting, target} = rootStore.groupStore
     const {loadingInitial, loadUsers, userRegistry, usersAsArray} = rootStore.userStore;
     useEffect(() => {
         loadUsers()
@@ -34,11 +34,14 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
         {
             Header: 'View', Cell: (props: any) =>
                 (<Button
+                        name={props.original.id}
                         content='Add'
                         color='green'
+                        loading={target === props.original.id && submitting}
+                        disabled={target === props.original.id && submitting}
                         onClick={(e) => addMemberToGroup(e,groupid, props.original.id, 
                             userRegistry.get(props.original.id))}
-                        loading={submitting}
+                        
                     />
                 )
         }

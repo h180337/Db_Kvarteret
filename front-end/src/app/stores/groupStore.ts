@@ -98,7 +98,8 @@ export default class GroupStore {
 
     @action addMemberToGroup = async (event: SyntheticEvent<HTMLButtonElement>, groupId: string, userId: string, user: IPersonel) => {
         this.submitting = true;
-        let group = this.getGroup(groupId);
+        let group = this.getGroup(groupId)
+        this.target = event.currentTarget.name;
         try {
             await agent.Groups.addUser(groupId, userId);
             runInAction('add group member', () => {

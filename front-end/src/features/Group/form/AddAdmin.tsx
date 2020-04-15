@@ -13,7 +13,7 @@ interface IProps {
 const AddAdmin: React.FC<IProps> = ({groupid}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {editAdmin, submitting,groupMembersAsArray} = rootStore.groupStore
+    const {editAdmin, submitting,groupMembersAsArray, target} = rootStore.groupStore
     
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
@@ -25,10 +25,11 @@ const AddAdmin: React.FC<IProps> = ({groupid}) => {
         {
             Header: 'View', Cell: (props: any) =>
                 (<Button
-                        loading={submitting}
+                        name={props.original.id}
+                        loading={target === props.original.id && submitting}
                         content={props.original.isAdmin ? 'remove' : 'add'}
                         color={props.original.isAdmin ? 'red' : 'green'}
-                        disabled={submitting}
+                        disabled={target === props.original.id && submitting}
                         onClick={(e) => editAdmin(e, groupid, props.original.id)}
                     />
                 )
