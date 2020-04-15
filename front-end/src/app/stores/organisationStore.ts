@@ -5,6 +5,7 @@ import {IOrganisation} from "../models/organisations";
 import {history} from "../../index";
 import {toast} from "react-toastify";
 import {SyntheticEvent} from "react";
+import { IGroup } from "../models/group";
 
 export default class OrganisationStore {
     rootStore: RootStore;
@@ -14,6 +15,7 @@ export default class OrganisationStore {
     }
     @observable loadingInitial = false;
     @observable organiasationsRegistry = new Map();
+    @observable organiasationsGroupRegistry = new Map();
     @observable organiasation: IOrganisation | null = null;
     @observable submitting = false;
     @observable target = '';
@@ -118,6 +120,32 @@ export default class OrganisationStore {
                 this.target = '';
             });
             console.log(e)
+        }
+    }
+    
+
+    @action addGroupToOrganisation = async (event: SyntheticEvent<HTMLButtonElement>, 
+                                            organisastonId: string, groupId: string, group: IGroup) => {
+        
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        let organisation = this.getOrganisation(organisastonId);
+        try {
+            await agent.Organisation.addGroup(organisastonId,groupId);
+            runInAction('add group to organisation', () =>{
+                this.organiasationsRegistry.set(organisastonId, organisation);
+                this.organiasation = organisation;
+                this.organiasationsGroupRegistry.set(group.id, group);
+                this.submitting = false;
+                this.target = '';
+            })
+            
+        }catch (e) {
+            runInAction('error adding Group', () => {
+                this.submitting = false;
+                this.target = '';
+            });
+            toast.error('error adding the Group')
         }
     }
 }

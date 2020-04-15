@@ -11,7 +11,6 @@ interface IProp {
 
 const GroupTable: React.FC<IProp> = ({organisation}) => {
     let data = organisation.groups ? organisation.groups: null;
-    console.log(data)
     if (data == null){
         return <h1>No groups </h1>
     }

@@ -61,7 +61,8 @@ const Organisation = {
     details: (id: string) => requests.get(`/organisation/${id}`),
     create: (organisation: IOrganisation) => requests.post('/organisation', organisation),
     update: (organisation: IOrganisation) => requests.put(`/organisation/${organisation.id}`, organisation),
-    delete: (id: string) => requests.del(`/organisation/${id}`)
+    delete: (id: string) => requests.del(`/organisation/${id}`),
+    addGroup: (organisationId: string, Groupid: string) => requests.post(`/organisation/${organisationId}/addGroupToOrganisation/${Groupid}`, {}),
 }
 
 const Groups = {

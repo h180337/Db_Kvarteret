@@ -2,6 +2,9 @@ import React, {useContext} from 'react';
 import {Button, Header, Image, Item, Segment} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
+import AddGroupMemberForm from "../../Group/form/AddGroupMemberForm";
+import AddGroups from "../form/AddGroups";
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
     id: string;
@@ -30,6 +33,8 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
         target
 
     } = rootStore.organiastionStore;
+
+    const {openModal} = rootStore.modalStore
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
@@ -65,10 +70,17 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
                     as={Link}
                     to={`/manageorganisation/${organiasation!.id}`}
                 />
+
+                <Button
+                    floated='left'
+                    content='Add group'
+                    color='green'
+                    onClick={() =>openModal(<AddGroups organisationId={organiasation!.id}/>)}
+                />
             </Segment>
         </Segment.Group>
 
     );
 }
 
-export default OrganisationDetailedHeader;
+export default observer(OrganisationDetailedHeader);

@@ -30,6 +30,25 @@ export default class GroupStore {
         return Array.from(this.groupMembersRegistry.values());
     }
 
+    @computed get groupsAsArray() {
+        return Array.from(this.groupRegistry.values());
+    }
+    @action loadgroups = async () => {
+        this.loadingInitial = true;
+        try {
+            const groups = await agent.Groups.list();
+            runInAction('loading groups', () => {
+                groups.forEach(groups => {
+                    this.groupRegistry.set(groups.id, groups);
+                });
+                this.loadingInitial = false
+            });
+        } catch (e) {
+            runInAction('loading groups error', () => {
+                this.loadingInitial = false;
+            });
+            console.log(e)}
+    }
 
     @action loadGroup = async (id: string) => {
         let group = this.getGroup(id);
