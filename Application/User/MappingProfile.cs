@@ -13,13 +13,18 @@ namespace Application.User
             CreateMap<AppUser, UserDto>();
             CreateMap<UserGroup, GroupDto>()
             .ForMember(d => d.Id, o => o.MapFrom(s => s.GroupId))
+            .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Group.navn))
             .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Group.beskrivelse))
             .ForMember(d => d.aktiv, o => o.MapFrom(o => o.Group.aktiv))
             .ForMember(d => d.aktiv_til_og_med, o => o.MapFrom(o => o.Group.aktiv_til_og_med))
             .ForMember(d => d.opprettet, o => o.MapFrom(o => o.Group.opprettet))
             .ForMember(d => d.UserGroups, o => o.Ignore());
          
-            CreateMap<UserCourse, CourseDto>();
+            CreateMap<UserCourse, CourseDto>()
+            .ForMember(d => d.Id, o => o.MapFrom(s => s.CourseId))
+            .ForMember(d => d.navn, o => o.MapFrom(s => s.Course.navn))
+            .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Course.beskrivelse))
+            .ForMember(d => d.opprettet, o => o.MapFrom(s => s.Course.opprettet));
         }
     }
 }

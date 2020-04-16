@@ -38,6 +38,6 @@ namespace Application.User
         public ICollection<GroupDto> UserGroups { get; set; }
 
         [JsonPropertyName("courses")]
-        public ICollection<CourseDto> UserCourse { get; set; }
+        public ICollection<CourseDto> UserCourses { get; set; }
     }
 }
