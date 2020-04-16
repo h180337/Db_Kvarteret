@@ -16,7 +16,6 @@ namespace Persistence
         public DbSet<Group> Groups { get; set; }
 
         public DbSet<Course> Courses { get; set; }
-        public DbSet<UserCard> UserCards { get; set; }
 
         public DbSet<UserGroup> UserGroups { get; set; }
 
