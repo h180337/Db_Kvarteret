@@ -18,6 +18,7 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
         loadOrg,
         loadingInitial,
         organiasation,
+        organiasationsGroupRegistry
         
     } = rootStore.organiastionStore;
 
@@ -33,7 +34,7 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
            <Grid.Column width={10}>
                <OrganisationDetailedHeader id={match.params.id}/>
                <OrganisationDetailedInfo organiasation={organiasation}/>
-               <GroupTable organisation={organiasation}/>
+               <GroupTable/>
            </Grid.Column>
            <Grid.Column width={6}>
                 <OrganisationDetailedSidebar/>

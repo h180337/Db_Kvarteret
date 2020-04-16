@@ -101,6 +101,27 @@ namespace Persistence
                 context.SaveChanges();
             }
 
+            if (!context.Tags.Any())
+            {
+                var tags = new List<Tags>()
+                {
+                    new Tags
+                    {
+                        tagText = "It"
+                    },
+                    new Tags
+                    {
+                        tagText = "DramaQueen"
+                    },
+                    new Tags
+                    {
+                        tagText = "Model"
+                    }
+                };
+                context.Tags.AddRange(tags);
+                context.SaveChanges();
+            }
+
              if (!context.Cards.Any())
             {
                 var cards = new List<Card>()
