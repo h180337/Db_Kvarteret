@@ -6,9 +6,11 @@ namespace Application.Card
     {
         public Guid Id { get; set; }
 
-        public string KortNummer { get; set; }
+        public Guid UserId { get; set; }
 
-        public int Opprettet { get; set; }
+        public String KortNummer { get; set; }
+
+        public DateTime Opprettet { get; set; }
 
     }
 }

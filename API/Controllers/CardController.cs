@@ -11,15 +11,15 @@ namespace API.Controllers
     public class CardController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Card>>> List()
+        public async Task<ActionResult<List<CardDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Card>> Profile(Guid id)
+        public async Task<ActionResult<CardDto>> Profile(Guid id)
         {
-            return await Mediator.Send(new Application.Card.Details.Query { Id = id });
+            return await Mediator.Send(new Details.Query { Id = id });
         }
 
         [HttpPost]
