@@ -6,13 +6,15 @@ using Application.Errors;
 using MediatR;
 using Persistence;
 
-namespace Application.Organisation
+namespace Application.Tags
 {
     public class Delete
     {
-        public class Command : IRequest
+        public class Command : IRequest //<//>>
         {
             public Guid Id { get; set; }
+
+           
         }
 
         public class Handler : IRequestHandler<Command>
@@ -27,15 +29,15 @@ namespace Application.Organisation
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var organisation = await _context.Organisations.FindAsync(request.Id);
-
-                if (organisation == null)
+                var tag = await _context.Tags.FindAsync(request.Id);
+                
+                if (tag == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {organisation = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new {tag = "Not found"});
                 }
 
-                _context.Remove(organisation);
-
+                _context.Remove(tag);
+                
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

@@ -1,20 +1,27 @@
 using System;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Errors;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Organisation
+namespace Application.Tags
 {
-    public class Delete
+    public class Create
     {
-        public class Command : IRequest
+        public class Command : IRequest //<//>>
         {
             public Guid Id { get; set; }
+            public string tagText { get; set; }
         }
-
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.tagText).NotEmpty();
+            }
+            
+        }
         public class Handler : IRequestHandler<Command>
 
         {
@@ -27,15 +34,13 @@ namespace Application.Organisation
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var organisation = await _context.Organisations.FindAsync(request.Id);
-
-                if (organisation == null)
+                var tag = new Domain.Tags
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {organisation = "Not found"});
-                }
+                    tagText = request.tagText
+                };
 
-                _context.Remove(organisation);
-
+                _context.Tags.Add(tag);
+                
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {
