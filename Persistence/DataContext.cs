@@ -25,6 +25,8 @@ namespace Persistence
 
         public DbSet<Card> Cards { get; set; }
 
+        public DbSet<Tags> Tags { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
