@@ -63,6 +63,8 @@ const Organisation = {
     update: (organisation: IOrganisation) => requests.put(`/organisation/${organisation.id}`, organisation),
     delete: (id: string) => requests.del(`/organisation/${id}`),
     addGroup: (organisationId: string, Groupid: string) => requests.post(`/organisation/${organisationId}/addGroupToOrganisation/${Groupid}`, {}),
+    removeGroup: (organisationId: string, Groupid: string) => requests.del(`/organisation/${organisationId}/remove/${Groupid}`),
+
 }
 
 const Groups = {

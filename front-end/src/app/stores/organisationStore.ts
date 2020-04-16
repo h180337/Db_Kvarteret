@@ -5,7 +5,7 @@ import {IOrganisation} from "../models/organisations";
 import {history} from "../../index";
 import {toast} from "react-toastify";
 import {SyntheticEvent} from "react";
-import { IGroup } from "../models/group";
+import {IGroup} from "../models/group";
 
 export default class OrganisationStore {
     rootStore: RootStore;
@@ -52,9 +52,12 @@ export default class OrganisationStore {
             this.loadingInitial = true;
             try {
                 const organiasation = await agent.Organisation.details(id);
-                runInAction('getting User', () =>{
+                runInAction('getting User', () => {
                     this.organiasation = organiasation;
                     this.organiasationsRegistry.set(organiasation.id, organiasation);
+                    organiasation.groups.forEach((group: any) => {
+                        this.organiasationsGroupRegistry.set(group.id, group);
+                    })
                     this.loadingInitial = false;
                 });
                 return organiasation;
@@ -139,13 +142,33 @@ export default class OrganisationStore {
                 this.submitting = false;
                 this.target = '';
             })
-            
-        }catch (e) {
+
+        } catch (e) {
             runInAction('error adding Group', () => {
                 this.submitting = false;
                 this.target = '';
             });
             toast.error('error adding the Group')
+        }
+    }
+
+    @action removeGroupFromOrganisation = async (event: SyntheticEvent<HTMLButtonElement>,
+                                                 organisastonId: string, groupId: string) => {
+        this.submitting = true;
+        this.target = event.currentTarget.name
+        try {
+            await agent.Organisation.removeGroup(organisastonId, groupId);
+            runInAction('error removing group', () =>{
+                this.organiasationsGroupRegistry.delete(groupId);
+                this.submitting = false;
+                this.target = '';
+            })
+            
+        }catch (e) {
+            runInAction('remove group error', () => {
+                this.submitting = false;
+                this.target = '';
+            })
         }
     }
 }
