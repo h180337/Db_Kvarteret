@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Application.Card;
 using Application.Course;
 using Application.Group;
 
@@ -39,5 +40,8 @@ namespace Application.User
 
         [JsonPropertyName("courses")]
         public ICollection<CourseDto> UserCourses { get; set; }
+        
+        [JsonPropertyName("cards")]
+        public ICollection<CardDto> UserCards { get; set; }
     }
 }
