@@ -16,6 +16,7 @@ namespace Persistence
         public DbSet<Group> Groups { get; set; }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<UserCard> UserCards { get; set; }
 
         public DbSet<UserGroup> UserGroups { get; set; }
 
@@ -24,6 +25,7 @@ namespace Persistence
         public DbSet<GroupsInOrganisation> GroupsInOrganisations { get; set; }
 
         public DbSet<Card> Cards { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

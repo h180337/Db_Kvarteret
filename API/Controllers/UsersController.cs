@@ -13,7 +13,7 @@ namespace API.Controllers
     {
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(Login.Query query)
+        public async Task<ActionResult<UserDto>> Login(Login.Query query)
         {
             return await Mediator.Send(query);
         }
@@ -25,20 +25,20 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Profile(string id)
+        public async Task<ActionResult<UserDto>> Profile(string id)
         {
             return await Mediator.Send(new UserProfile.Query {Id = id});
         }
 
         [HttpGet("user")]
-        public async Task<ActionResult<User>> CurrentUser()
+        public async Task<ActionResult<UserDto>> CurrentUser()
         {
             return await Mediator.Send(new CurrentUser.Query());
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> List()
+        public async Task<ActionResult<List<UserDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }

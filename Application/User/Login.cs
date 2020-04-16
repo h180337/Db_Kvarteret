@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -12,7 +13,7 @@ namespace Application.User
 {
     public class Login
     {
-        public class Query : IRequest<User>
+        public class Query : IRequest<UserDto>
         {
             public string Email { get; set; }
             public string Password { get; set; }
@@ -27,22 +28,24 @@ namespace Application.User
             }
         }
 
-        public class Handler : IRequestHandler<Query, User>
+        public class Handler : IRequestHandler<Query, UserDto>
         {
             private readonly UserManager<AppUser> _userManager;
             private readonly SignInManager<AppUser> _signInManager;
             private readonly IJwtGenerator _jwtGenerator;
+            private readonly IMapper _mapper;
 
             public Handler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-                IJwtGenerator jwtGenerator)
+                IJwtGenerator jwtGenerator, IMapper mapper)
             {
                 _userManager = userManager;
                 _signInManager = signInManager;
                 _jwtGenerator = jwtGenerator;
+                _mapper = mapper;
             }
 
 
-            public async Task<User> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<UserDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByEmailAsync(request.Email);
 
@@ -55,22 +58,7 @@ namespace Application.User
 
                 if (result.Succeeded)
                 {
-                    return new User
-                    {
-                        Id = user.Id,
-                        fornavn = user.fornavn,
-                        etternavn = user.etternavn,
-                        kjonn = user.kjonn,
-                        workstatus = user.workstatus,
-                        created = user.created,
-                        dateOfBirth = user.dateOfBirth,
-                        streetAddress = user.streetAddress,
-                        areaCode = user.areaCode,
-                        userName = user.UserName,
-                        Email = user.Email,
-                        phoneNumber = user.PhoneNumber,
-                        Token = _jwtGenerator.CreateToken(user)
-                    };
+                    return _mapper.Map<AppUser, UserDto>(user);
                 }
                 throw new RestException(HttpStatusCode.Unauthorized);
             }

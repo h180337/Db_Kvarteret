@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,44 +11,31 @@ namespace Application.User
 {
     public class List
     {
-        public class Query : IRequest<List<User>>
+        public class Query : IRequest<List<UserDto>>
         {
         }
  
-        public class Handler : IRequestHandler<Query, List<User>>
+        public class Handler : IRequestHandler<Query, List<UserDto>>
          
         {
             private readonly DataContext _context;
+
+            private readonly IMapper _mapper;
  
-            public Handler(DataContext context)
+            public Handler(DataContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
  
-            public async Task<List<User>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<UserDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var users = await _context.Users.ToListAsync();
-                var newList = new List<User>();
+                var newList = new List<UserDto>();
                 foreach (var user in users)
                 {
-                    var newUser = new User
-                    {    
-                        Id = user.Id,
-                        fornavn = user.fornavn,
-                        etternavn = user.etternavn,
-                        phoneNumber = user.PhoneNumber,
-                        userName = user.UserName,
-                        kjonn = user.kjonn,
-                        Email = user.Email,
-                        workstatus = user.workstatus,
-                        created = user.created,
-                        dateOfBirth = user.dateOfBirth,
-                        streetAddress = user.streetAddress,
-                        areaCode = user.areaCode,
-                        Token = "Kommer"
-                        
-                    };
-                        newList.Add(newUser);
+                    var UserToReturn = _mapper.Map<AppUser, UserDto>(user);
+                    newList.Add(UserToReturn);
                 }
 
                 return newList;

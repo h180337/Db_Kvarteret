@@ -33,12 +33,10 @@ namespace Application.Card
             {
                 var card = await _context.Cards.FindAsync(request.Id);
 
-
                 if (card == null)
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
                 }
-
                 return card;
             }
         }
