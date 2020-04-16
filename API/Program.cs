@@ -22,7 +22,14 @@ namespace API
                 {
                     var context = services.GetRequiredService<DataContext>();
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                    context.Database.Migrate();
+                    if (context.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+                    {
+                        context.Database.EnsureCreated();
+                    }
+                    else
+                    {
+                        context.Database.Migrate();
+                    }
                     Seed.SeedData(context, userManager).Wait();
                 }
                 catch (Exception e)
