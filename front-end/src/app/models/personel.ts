@@ -12,6 +12,7 @@ export interface IPersonel {
     dateOfBirth: Date,
     workstatus: string,
     token: string,
+    groups: any[],
     courses: any[]
 }
 

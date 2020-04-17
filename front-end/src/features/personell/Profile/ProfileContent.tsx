@@ -2,6 +2,7 @@ import React from 'react';
 import { Tab, List } from 'semantic-ui-react';
 import {IPersonel} from "../../../app/models/personel";
 import ProfileCourses from "./ProfileCourses";
+import ProfileGroups from "./ProfileGroups";
 
 interface IProps {
     user: IPersonel;
@@ -44,6 +45,8 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
         {menuItem: 'History', render: () => <Tab.Pane>History</Tab.Pane>},
         {menuItem: 'Courses', render: () => <Tab.Pane><ProfileCourses courses={user.courses}/></Tab.Pane>},
         {menuItem: 'Skills', render: () => <Tab.Pane>Skills</Tab.Pane>},
+        {menuItem: 'My Groups', render: () => <Tab.Pane><ProfileGroups groups={user.groups}/></Tab.Pane>}
+
 
     ]
     
