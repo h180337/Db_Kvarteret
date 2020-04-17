@@ -5,23 +5,28 @@ import { Input} from 'semantic-ui-react';
 import _ from 'lodash';
 import {runInAction} from "mobx";
 
-const DataSearch: React.FC = () => {
-    const rootStore = useContext(RootStoreContext);
-    const {filteredData, usersAsArray} = rootStore.userStore
+interface IProps {
+    filteredData : Map<any,any>;
+    dataArray : any
+}
 
-    const filter = (e: any, filtered: any, data: any) => {
-        let inputdata = e.target.value;
+const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
+
+    const filter = (e: any, filtered: Map<any,any>, data: any[]) => {
+        let inputdata:string = e.target.value;
         handleFilter(inputdata, data, filtered)
     }
 
     const handleFilter = _.debounce((inputvalue, data, filtered) => {
         filteredData.clear()
          data.filter((item: any) => {
-            return Object.keys(item).some((key) => {
-                if (item[key].toString().toLowerCase().includes(inputvalue.toLowerCase())) {
-                    runInAction('dataFilter', () => {
-                        filteredData.set(item.id, item)
-                    })
+            return Object.keys(item).some((key:string) => {
+                if (item[key] !== null){
+                    if (item[key].toString().toLowerCase().includes(inputvalue.toLowerCase())) {
+                        runInAction('dataFilter', () => {
+                            filteredData.set(item.id, item)
+                        })
+                    }
                 }
             })
         })
@@ -32,7 +37,7 @@ const DataSearch: React.FC = () => {
         <div>
             <h2>Search</h2>
             <Input onChange={(e) =>
-                filter(e, filteredData, usersAsArray)}/>
+                filter(e, filteredData, dataArray)}/>
         </div>
     );
 }

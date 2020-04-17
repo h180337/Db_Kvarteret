@@ -8,14 +8,14 @@ import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 const PesonellDashBoard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const {loadUsers, loadingInitial, usersAsArray ,filteredUsersAsArray} = rootStore.userStore
+    const {loadUsers, loadingInitial, usersAsArray ,filteredUsersAsArray, filteredData} = rootStore.userStore
 
     useEffect(() => {
         loadUsers();
     }, [loadUsers]);
 
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
-    
+    console.log(usersAsArray)
     return (
         <Fragment>
             <Grid>
@@ -23,7 +23,7 @@ const PesonellDashBoard: React.FC = () => {
                     <PersonellTable filteredData={filteredUsersAsArray} users={usersAsArray}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    <DataSearch/>
+                    <DataSearch dataArray={usersAsArray} filteredData={filteredData}/>
                 </Grid.Column>
             </Grid>
             

@@ -6,6 +6,7 @@ import {Button, Input, Table} from "semantic-ui-react";
 import {ITag} from '../../../app/models/Tag';
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {v4 as uuid} from 'uuid';
+import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 
 interface IProps {
@@ -15,7 +16,7 @@ interface IProps {
 const ProfileTagManager: React.FC<IProps> = ({usersTag}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {loadTags, tagsAsArray, loadingInitial, tagRegistry, createTag} = rootStore.tagStore;
+    const {loadTags, tagsAsArray, loadingInitial, tagRegistry, createTag, submitting, filteredData} = rootStore.tagStore;
     const [input, setInput] = useState('')
 
     useEffect(() => {
@@ -28,11 +29,16 @@ const ProfileTagManager: React.FC<IProps> = ({usersTag}) => {
         setInput(e.target.value); 
     }
     
+    const onclickHandler = () =>{
+        createTag({id: uuid(), tagText: input});
+        setInput('');
+    }
     
+    let data: Map<any,any> = filteredData.size === 0 ? tagRegistry : filteredData;
     return (
         <div>
             <h1>Tag Manager</h1>
-
+            <DataSearch dataArray={tagsAsArray} filteredData={filteredData}/>
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
@@ -42,7 +48,7 @@ const ProfileTagManager: React.FC<IProps> = ({usersTag}) => {
                 </Table.Header>
 
                 <Table.Body>
-                    {tagsAsArray.map((tag: ITag) => (
+                    {Array.from(data.values()).map((tag: ITag) => (
                         <Table.Row key={tag.id}>
                             <Table.Cell>{tag.tagText}</Table.Cell>
                             <Table.Cell>
@@ -59,11 +65,13 @@ const ProfileTagManager: React.FC<IProps> = ({usersTag}) => {
                 <Input
                     placeholder='New Tag input'
                     onChange={(event) => getInputValue(event)}
+                    value={input}
                 />
                 <Button
                     color='green'
                     content='Add new Tag'
-                    onClick={() =>createTag({id: uuid(), tagText: input})}
+                    onClick={() => onclickHandler()}
+                    loading={submitting}
                 /></div>
 
         </div>

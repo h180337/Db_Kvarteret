@@ -16,6 +16,8 @@ export default class TagStore {
     @observable submitting = false;
     @observable target = '';
     @observable tagRegistry = new Map();
+    @observable filteredData = new Map();
+
 
     @computed get tagsAsArray() {
         return Array.from(this.tagRegistry.values());
