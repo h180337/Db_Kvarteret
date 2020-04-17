@@ -11,7 +11,9 @@ export interface IPersonel {
     created: string,
     dateOfBirth: Date,
     workstatus: string,
-    token: string
+    token: string,
+    groups: any[],
+    courses: any[]
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{
