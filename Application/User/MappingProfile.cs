@@ -14,7 +14,7 @@ namespace Application.User
             CreateMap<AppUser, UserDto>();
             CreateMap<UserGroup, GroupDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.GroupId))
-                .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Group.navn))
+                .ForMember(d => d.navn, o => o.MapFrom(s => s.Group.navn))
                 .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Group.beskrivelse))
                 .ForMember(d => d.aktiv, o => o.MapFrom(o => o.Group.aktiv))
                 .ForMember(d => d.aktiv_til_og_med, o => o.MapFrom(o => o.Group.aktiv_til_og_med))
