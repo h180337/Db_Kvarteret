@@ -15,7 +15,6 @@ const PesonellDashBoard: React.FC = () => {
     }, [loadUsers]);
 
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
-    console.log(usersAsArray)
     return (
         <Fragment>
             <Grid>
