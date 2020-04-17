@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from 'axios';
 import {IPersonel, IPersonFormValues} from '../models/personel'
 import {IGroup} from '../models/group'
+import {ITag} from '../models/Tag'
 import {IOrganisation} from '../models/organisations'
 import {history} from '../..';
 import { toast } from 'react-toastify';
@@ -78,8 +79,15 @@ const Groups = {
     editAdmin: (groupid: string, userid: string) => requests.put(`/group/${groupid}/editadmin/${userid}`,{})
 }
 
+const Tags = {
+    list: (): Promise<ITag[]> => requests.get('/tag'),
+    create: (tag: ITag) => requests.post('/tag', tag),
+    delete: (id: string) => requests.del(`/tag/${id}`),
+}
+
 export default {
     Users,
     Organisation,
-    Groups
+    Groups,
+    Tags
 }

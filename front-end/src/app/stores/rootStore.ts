@@ -5,6 +5,7 @@ import CommonStore from './commonStore';
 import ModalStore from './modalStore';
 import OrganisationStore from './organisationStore'
 import GroupStore from './groupStore'
+import TagStore from './tagStore'
 
 
 configure({enforceActions: "always"})
@@ -14,7 +15,8 @@ export class RootStore {
     commonStore: CommonStore;
     modalStore: ModalStore;
     organiastionStore: OrganisationStore;
-    groupStore: GroupStore
+    groupStore: GroupStore;
+    tagStore: TagStore;
     
     constructor() {
         this.userStore = new UserStore(this)
@@ -22,6 +24,7 @@ export class RootStore {
         this.modalStore = new ModalStore(this);
         this.organiastionStore = new OrganisationStore(this);
         this.groupStore = new GroupStore(this);
+        this.tagStore = new TagStore(this);
         
     }
 }
