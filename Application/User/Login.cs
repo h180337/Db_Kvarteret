@@ -58,7 +58,11 @@ namespace Application.User
 
                 if (result.Succeeded)
                 {
-                    return _mapper.Map<AppUser, UserDto>(user);
+                    var token = _jwtGenerator.CreateToken(user);
+                    var userDto = _mapper.Map<AppUser, UserDto>(user);
+                    userDto.Token = token;
+                    
+                    return userDto;
                 }
                 throw new RestException(HttpStatusCode.Unauthorized);
             }
