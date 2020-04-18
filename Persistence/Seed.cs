@@ -163,6 +163,7 @@ namespace Persistence
                         aktiv = "active",
                         aktiv_til_og_med = DateTime.Now.AddMonths(-2),
                         opprettet = DateTime.Now.AddMonths(-2),
+                        groupType = "group",
                         UserGroups = new List<UserGroup>
                         {
                             new UserGroup
@@ -186,6 +187,7 @@ namespace Persistence
                         aktiv = "active",
                         aktiv_til_og_med = DateTime.Now.AddMonths(-2),
                         opprettet = DateTime.Now.AddMonths(-2),
+                        groupType = "commity",
                         UserGroups = new List<UserGroup>
                         {
                             new UserGroup
@@ -201,6 +203,7 @@ namespace Persistence
                         navn = "TestGruppen3",
                         beskrivelse = "Gruppen som tester nummer 3",
                         aktiv = "inactive",
+                        groupType = "project",
                         aktiv_til_og_med = DateTime.Now.AddMonths(-2),
                         opprettet = DateTime.Now.AddMonths(-2),
                         UserGroups = new List<UserGroup>

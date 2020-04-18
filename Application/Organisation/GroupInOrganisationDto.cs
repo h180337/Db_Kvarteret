@@ -12,7 +12,9 @@ namespace Application.Organisation
         public string beskrivelse { get; set; }
         
         public string aktiv { get; set; }
-        
+
+        public string groupType { get; set; }
+
         public DateTime aktiv_til_og_med { get; set; }
         
         public DateTime opprettet { get; set; }

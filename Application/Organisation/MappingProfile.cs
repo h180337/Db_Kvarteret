@@ -20,7 +20,10 @@ namespace Application.Organisation
                 .ForMember(d => d.opprettet, o => o.MapFrom(
                     s => s.Group.opprettet))
                 .ForMember(d => d.Id, o => o.MapFrom(
-                    s => s.Group.Id));
+                    s => s.Group.Id))
+                .ForMember(d => d.groupType, o => o.MapFrom(
+                    s => s.Group.groupType));
+
         }
     }
 }

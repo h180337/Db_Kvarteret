@@ -23,7 +23,7 @@ const GroupTable: React.FC = () => {
     
     const columns = [
         {Header: 'Name', accessor: 'navn'},
-        {Header: 'Description', accessor: 'beskrivelse'},
+        {Header: 'Group Type', accessor: 'groupType'},
         {Header: 'Active', accessor: 'aktiv'},
         {Header: 'Active until', accessor: 'aktiv_til_og_med'},
         {Header: 'Created', accessor: 'ipprettet'},
@@ -58,7 +58,6 @@ const GroupTable: React.FC = () => {
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
-                    filterable
                 />
             </Segment>
         </Fragment>

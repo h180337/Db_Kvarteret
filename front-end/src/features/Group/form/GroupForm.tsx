@@ -9,6 +9,9 @@ import {Field, Form as FinalForm} from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import {combineValidators, isRequired} from "revalidate";
+import SelectInput from '../../../app/common/form/SelectInput';
+import { workStatus } from '../../../app/common/options/workStatusOptions';
+import { groupType } from '../../../app/common/options/groupTypeOptions';
 
 interface GroupParams {
     id: string;
@@ -17,6 +20,7 @@ interface GroupParams {
 const validate = combineValidators({
     navn: isRequired({message: 'Name is required'}),
     beskrivelse: isRequired({message: 'description is required'}),
+    groupType: isRequired({message: 'description is required'}),
 });
 
 const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) => {
@@ -78,6 +82,13 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
                                     value={group.beskrivelse}
                                     component={TextAreaInput}
                                     rows={3}
+                                />
+                                <Field
+                                    name='groupType'
+                                    placeholder='groupType'
+                                    value={group.groupType}
+                                    component={SelectInput}
+                                    options={groupType}
                                 />
                                 <Button
                                     loading={submitting}

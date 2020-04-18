@@ -4,6 +4,7 @@ export interface IGroup {
     navn: string,
     beskrivelse: string,
     aktiv: string,
+    groupType: string
     opprettet: string
     members: any
 }
@@ -18,6 +19,8 @@ export class GroupFormValues implements IGroupFormValues {
     beskrivelse: string = '';
     opprettet: string = '';
     aktiv: string = '';
+    groupType: string = '';
+
 
     constructor(init?: IGroupFormValues) {
         Object.assign(this, init);
