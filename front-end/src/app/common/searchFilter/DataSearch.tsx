@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {Input, Label} from 'semantic-ui-react';
+import {Input, Label, Button} from 'semantic-ui-react';
 import _ from 'lodash';
 import {runInAction} from "mobx";
 
@@ -16,31 +16,34 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
     const onClickDeleteHandler = (i: number) => {
         setTagSearch([...tagSearch].filter((tag, index) => index !== i))
     }
-
-    const filter = (e: any, filtered: Map<any, any>, data: any[]) => {
-        let inputdata: string = e.target.value;
-        handleFilter(inputdata, data, filtered)
+    
+    const addTags =  (event: any) => {
+        if (event.target.value && event.key === 'Enter'){
+            setTagSearch([...tagSearch,event.target.value ])
+            event.target.value = '';
+        }
     }
-
-    const addTags = (event: any) => {
-        setTagSearch([...tagSearch, event.target.value])
-        event.target.value = '';
-    }
-
-    const handleFilter = _.debounce((inputvalue, data, filtered) => {
-        filteredData.clear()
-        data.filter((item: any) => {
-            return Object.keys(item).some((key: string) => {
-                if (item[key] !== null) {
-                    if (item[key].toString().toLowerCase().includes(inputvalue.toLowerCase())) {
-                        runInAction('dataFilter', () => {
-                            filteredData.set(item.id, item)
-                        })
+    const handleFilter = () => {
+        if (tagSearch.length === 0){
+            filteredData.clear()
+        }
+        tagSearch.forEach(tag =>{
+            filteredData.clear()
+            console.log(tagSearch)
+            dataArray.filter((item: any) => {
+                return Object.keys(item).some((key: string) => {
+                    if (item[key] !== null) {
+                        if (item[key].toString().toLowerCase().includes(tag.toLowerCase())) {
+                            runInAction('dataFilter', () => {
+                                filteredData.set(item.id, item)
+                            })
+                        }
                     }
-                }
+                })
             })
         })
-    }, 500)
+    }
+    
     
     return (
         <div>
@@ -54,8 +57,16 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
                     style={{marginBottom: '3px'}}
                 >{tag}</Label>))}
 
-            <Input onKeyUp={(e: any) => e.key === 'Enter' && addTags(e)}/>
-        </div>
+            <Input 
+                onKeyUp={(e: any) => addTags(e)}
+                placeholder='add tag to seach for'
+            />
+            <Button
+            content='Search'
+            onClick={() =>handleFilter()}
+            color='blue'
+            />
+</div>
     );
 }
 
