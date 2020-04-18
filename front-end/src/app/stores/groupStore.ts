@@ -18,6 +18,7 @@ export default class GroupStore {
     @observable loadingInitial = false;
     @observable groupRegistry = new Map();
     @observable groupMembersRegistry = new Map();
+    @observable filteredData = new Map();
     @observable group: IGroup | null = null;
     @observable submitting = false;
     @observable target = '';

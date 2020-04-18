@@ -6,12 +6,19 @@ import {Link} from "react-router-dom";
 import { IOrganisation } from '../../../app/models/organisations';
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
+import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 
 
 const GroupTable: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const {organiasationsGroupRegistry, organiasation, target, submitting, removeGroupFromOrganisation} = rootStore.organiastionStore
+    const {organiasationsGroupRegistry, 
+        organiasation, 
+        target, 
+        submitting, 
+        removeGroupFromOrganisation} = rootStore.organiastionStore
+    
+    const {filteredData} = rootStore.groupStore
 
     const headers = [
         {label: "Name", key: "navn"},
@@ -51,10 +58,11 @@ const GroupTable: React.FC = () => {
     return (
         <Fragment>
             <Segment clearing>
+                <DataSearch filteredData={filteredData} dataArray={Array.from(organiasationsGroupRegistry.values())}/>
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={Array.from(organiasationsGroupRegistry.values())}
+                    data={filteredData.size=== 0 ? Array.from(organiasationsGroupRegistry.values()) :Array.from(filteredData.values())}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}

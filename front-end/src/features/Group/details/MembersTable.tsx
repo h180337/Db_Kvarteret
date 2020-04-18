@@ -5,6 +5,7 @@ import ReactTable from "react-table-6";
 import {CSVLink} from "react-csv";
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
+import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 interface IProps {
     groupId: string;
@@ -12,7 +13,7 @@ interface IProps {
 
 const MembersTable:React.FC<IProps> = ({groupId}) => {
     const rootStore = useContext(RootStoreContext);
-    const {submitting,removeGroupMember, groupMembersRegistry, target} = rootStore.groupStore
+    const {submitting,removeGroupMember, groupMembersRegistry, target, filteredData} = rootStore.groupStore
     
     const headers = [
         {label: "First Name", key: "fornavn"},
@@ -55,14 +56,14 @@ const MembersTable:React.FC<IProps> = ({groupId}) => {
     return (
         <Fragment>
             <Segment clearing>
+                <DataSearch filteredData={filteredData} dataArray={Array.from(groupMembersRegistry.values())}/>
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={Array.from(groupMembersRegistry.values())}
+                    data={filteredData.size === 0 ? Array.from(groupMembersRegistry.values()): Array.from(filteredData.values())}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
-                    filterable
                 />
                 <Button
                     style={{marginTop: '10px'}}
