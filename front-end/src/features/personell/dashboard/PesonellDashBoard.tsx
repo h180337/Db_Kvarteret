@@ -10,15 +10,10 @@ import CsvLink from '../../../app/common/csvLink/CsvLink';
 const PesonellDashBoard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
     const {loadUsers, loadingInitial, usersAsArray , filteredData, filteredUsersAsArray} = rootStore.userStore
-    const {setCsvData, csvData} = rootStore.commonStore
 
     useEffect(() => {
         loadUsers();
     }, [loadUsers]);
-    
-    useEffect(() => {
-        setCsvData(usersAsArray);
-    }, [setCsvData, filteredUsersAsArray]);
     
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
 
@@ -30,18 +25,18 @@ const PesonellDashBoard: React.FC = () => {
         {label: "Address", key: "streetAddress"},
         {label: "Status", key: "workstatus"}
     ];
+    
     return (
         <Fragment>
             <Grid>
                 <Grid.Column width={12}>
                     <PersonellTable filteredData={filteredData} users={usersAsArray}/>
-                    <CsvLink headers={headers} dataArray={usersAsArray} filterData={ filteredUsersAsArray}/>
+                    <CsvLink dataArray={usersAsArray} filterData={ filteredUsersAsArray}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <DataSearch dataArray={usersAsArray} filteredData={filteredData}/>
                 </Grid.Column>
             </Grid>
-            
         </Fragment>
     );
 }

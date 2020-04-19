@@ -13,7 +13,6 @@ interface IProps {
 const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {setCsvData} = rootStore.commonStore
 
     const [tagSearch, setTagSearch] = useState<string[]>([])
 
@@ -33,7 +32,6 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
         }
         tagSearch.forEach(tag =>{
             filteredData.clear()
-            console.log(tagSearch)
             dataArray.filter((item: any) => {
                 return Object.keys(item).some((key: string) => {
                     if (item[key] !== null) {
@@ -46,7 +44,6 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
                 })
             })
         })
-            setCsvData(tagSearch.length === 0 ? dataArray : Array.from(filteredData.values()))
     }
     
     

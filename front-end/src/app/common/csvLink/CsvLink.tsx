@@ -3,24 +3,29 @@ import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite';
 import {Button} from "semantic-ui-react";
 import {RootStoreContext} from "../../stores/rootStore";
+import LoadingComponent from "../../layout/LoadingComponent";
 
 interface IProp {
-    headers : any [];
     dataArray: any [];
     filterData: any [];
 }
-const CsvLink:React.FC<IProp> = ({headers, filterData, dataArray}) => {
+const CsvLink:React.FC<IProp> = ({filterData, dataArray}) => {
     
     const rootStore = useContext(RootStoreContext);
-    const {csvData} = rootStore.commonStore
+    const {setCsvData, csvData} = rootStore.commonStore;
     
+    useEffect(() => {
+        filterData.length=== 0 ? setCsvData(dataArray) : setCsvData(filterData);
+    }, [filterData, setCsvData])
+    
+
     return (
         <Button
             style={{marginTop: '10px'}}
             color='blue'
             as={CSVLink}
-            data={csvData}
-            headers={headers}
+            data={filterData.length!==0 ? filterData : dataArray}
+          
         > CSV DownLoad</Button>
     );
 }
