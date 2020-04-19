@@ -51,7 +51,6 @@ namespace Application.Card
                     throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
                 }
 
-                card.UserId = request.UserId;
                 card.KortNummer = request.KortNummer ?? card.KortNummer;
                 card.Opprettet = card.Opprettet;
 

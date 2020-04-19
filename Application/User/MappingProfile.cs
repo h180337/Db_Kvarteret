@@ -29,7 +29,6 @@ namespace Application.User
 
             CreateMap<UserCard, CardDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Card.Id))
-                .ForMember(d => d.UserId, o => o.MapFrom(s => s.Card.UserId))
                 .ForMember(d => d.KortNummer, o => o.MapFrom(s => s.Card.KortNummer))
                 .ForMember(d => d.Opprettet, o => o.MapFrom(s => s.Card.Opprettet));
         }

@@ -13,8 +13,6 @@ namespace Application.Tags
         public class Command : IRequest //<//>>
         {
             public Guid Id { get; set; }
-
-           
         }
 
         public class Handler : IRequestHandler<Command>
@@ -30,14 +28,14 @@ namespace Application.Tags
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var tag = await _context.Tags.FindAsync(request.Id);
-                
+
                 if (tag == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {tag = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { tag = "Not found" });
                 }
 
                 _context.Remove(tag);
-                
+
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

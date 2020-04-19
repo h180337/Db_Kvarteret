@@ -20,7 +20,7 @@ namespace Application.Tags
             {
                 RuleFor(x => x.tagText).NotEmpty();
             }
-            
+
         }
         public class Handler : IRequestHandler<Command>
 
@@ -40,7 +40,7 @@ namespace Application.Tags
                 };
 
                 _context.Tags.Add(tag);
-                
+
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

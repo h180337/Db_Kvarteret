@@ -1,4 +1,5 @@
 using System;
+using Domain;
 
 namespace Application.Card
 {
@@ -6,11 +7,11 @@ namespace Application.Card
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
-
         public String KortNummer { get; set; }
 
         public DateTime Opprettet { get; set; }
+
+        public virtual UserCard UserCard {get; set;}
 
     }
 }

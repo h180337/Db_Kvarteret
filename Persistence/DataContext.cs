@@ -74,6 +74,18 @@ namespace Persistence
                 .HasOne(bc => bc.AppUser)
                 .WithMany(b => b.UserTags)
                 .HasForeignKey(bc => bc.AppUserId); 
+
+            builder.Entity<UserCard>()
+                .HasKey(bc => new { bc.CardId, bc.AppUserId });
+
+            builder.Entity<UserCard>()
+                .HasOne(uc => uc.Card)
+                .WithOne(c => c.UserCard); 
+
+            builder.Entity<UserCard>()
+                .HasOne(uc => uc.AppUser)
+                .WithMany(b => b.UserCards)
+                .HasForeignKey(uc => uc.AppUserId); 
         }
     }
 }

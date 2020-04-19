@@ -6,7 +6,8 @@ namespace Application.Card
     {
          public MappingProfile()
         {
-            CreateMap<Domain.Card, CardDto>();
+            CreateMap<Domain.Card, CardDto>()
+            .ForMember(o => o.UserCard, s => s.MapFrom(s => s.UserCard.AppUserId));
 
         }
     }
