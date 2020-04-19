@@ -50,7 +50,7 @@ export default class UserStore {
             console.log(e);
         }
     }
-
+    
     @action logout = () =>{
         this.rootStore.commonStore.setToken(null);
         this.LogiedInuser = null;

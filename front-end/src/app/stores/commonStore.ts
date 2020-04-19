@@ -21,6 +21,8 @@ export default class CommonStore {
     
     @observable token: string | null = window.localStorage.getItem('jwt');
     @observable appLoaded = false;
+    @observable loadCsv = false;
+    @observable csvData: any[] = [];
     
     @action setToken = (token: string | null) => {
         this.token = token;
@@ -29,5 +31,11 @@ export default class CommonStore {
     @action setAppLoaded = () =>{
         this.appLoaded = true;
     }
+    
+    @action setCsvData = (data: any[]) =>{
+        this.csvData = data;
+    }
+    
+    
     
 }

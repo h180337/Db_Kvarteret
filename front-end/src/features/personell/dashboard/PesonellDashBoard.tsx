@@ -5,21 +5,37 @@ import {observer} from 'mobx-react-lite'
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import DataSearch from '../../../app/common/searchFilter/DataSearch';
+import CsvLink from '../../../app/common/csvLink/CsvLink';
 
 const PesonellDashBoard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const {loadUsers, loadingInitial, usersAsArray ,filteredUsersAsArray, filteredData} = rootStore.userStore
+    const {loadUsers, loadingInitial, usersAsArray , filteredData, filteredUsersAsArray} = rootStore.userStore
+    const {setCsvData, csvData} = rootStore.commonStore
 
     useEffect(() => {
         loadUsers();
     }, [loadUsers]);
-
+    
+    useEffect(() => {
+        setCsvData(usersAsArray);
+    }, [setCsvData, filteredUsersAsArray]);
+    
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
+
+    const headers = [
+        {label: "First Name", key: "fornavn"},
+        {label: "Last Name", key: "etternavn"},
+        {label: "Email", key: "email"},
+        {label: "Phone", key: "phoneNumber"},
+        {label: "Address", key: "streetAddress"},
+        {label: "Status", key: "workstatus"}
+    ];
     return (
         <Fragment>
             <Grid>
                 <Grid.Column width={12}>
-                    <PersonellTable filteredData={filteredUsersAsArray} users={usersAsArray}/>
+                    <PersonellTable filteredData={filteredData} users={usersAsArray}/>
+                    <CsvLink headers={headers} dataArray={usersAsArray} filterData={ filteredUsersAsArray}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <DataSearch dataArray={usersAsArray} filteredData={filteredData}/>

@@ -1,27 +1,21 @@
 // @ts-ignore
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useEffect, useContext, useRef} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
 import {Button, Segment} from 'semantic-ui-react';
-import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite'
 import {Link} from "react-router-dom";
+import {RootStoreContext} from "../../../app/stores/rootStore";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface IProps {
-    users: any;
-    filteredData: any
+    users: any[];
+    filteredData: Map<any,any>;
 }
+
 
 const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
     
-    const headers = [
-        {label: "First Name", key: "fornavn"},
-        {label: "Last Name", key: "etternavn"},
-        {label: "Email", key: "email"},
-        {label: "Phone", key: "phoneNumber"},
-        {label: "Address", key: "streetAddress"},
-        {label: "Status", key: "workstatus"}
-    ];
    
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
@@ -40,8 +34,7 @@ const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
                 )
         }
     ];
-    
-    
+    let data:any = filteredData.size === 0 ? users: Array.from(filteredData.values());
     
     return (
         <Fragment>
@@ -49,20 +42,11 @@ const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={filteredData.length === 0 ? users: filteredData}
+                    data={data}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
-                    filterable={false}
-                /> 
-                <Button 
-                    style={{marginTop: '10px'}}
-                    color='blue'
-                    as={CSVLink}
-                    data={users}
-                    headers={headers}
-                > CSV DownLoad</Button>
-                
+                />
             </Segment>
         </Fragment>
     );

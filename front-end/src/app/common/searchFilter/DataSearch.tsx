@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Input, Label, Button} from 'semantic-ui-react';
 import _ from 'lodash';
 import {runInAction} from "mobx";
+import {RootStoreContext} from "../../stores/rootStore";
 
 interface IProps {
     filteredData : Map<any,any>;
@@ -10,6 +11,9 @@ interface IProps {
 }
 
 const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
+
+    const rootStore = useContext(RootStoreContext);
+    const {setCsvData} = rootStore.commonStore
 
     const [tagSearch, setTagSearch] = useState<string[]>([])
 
@@ -42,6 +46,7 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
                 })
             })
         })
+            setCsvData(tagSearch.length === 0 ? dataArray : Array.from(filteredData.values()))
     }
     
     
