@@ -29,6 +29,8 @@ namespace Persistence
 
         public DbSet<Tags> Tags { get; set; }
 
+        public DbSet<UserTags> UserTags { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,6 +61,19 @@ namespace Persistence
                 .HasOne(a => a.Course)
                 .WithMany(u => u.UserCourses)
                 .HasForeignKey(a => a.CourseId);
+
+            builder.Entity<UserTags>()
+                .HasKey(bc => new { bc.TagId, bc.AppUserId });
+
+            builder.Entity<UserTags>()
+                .HasOne(bc => bc.Tag)
+                .WithMany(b => b.UserTags)
+                .HasForeignKey(bc => bc.TagId); 
+
+            builder.Entity<UserTags>()
+                .HasOne(bc => bc.AppUser)
+                .WithMany(b => b.UserTags)
+                .HasForeignKey(bc => bc.AppUserId); 
         }
     }
 }

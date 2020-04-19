@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -7,5 +8,7 @@ namespace Domain
         public Guid Id { get; set; }
 
         public string tagText { get; set; }
+
+        public virtual ICollection<UserTags> UserTags { get; set; }
     }
 }

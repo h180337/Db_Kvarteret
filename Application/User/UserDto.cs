@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Application.Card;
 using Application.Course;
 using Application.Group;
+using Application.Tags;
 
 namespace Application.User
 {
@@ -43,5 +44,8 @@ namespace Application.User
         
         [JsonPropertyName("cards")]
         public ICollection<CardDto> UserCards { get; set; }
+
+        [JsonPropertyName("tags")]
+        public ICollection<TagsDto> UserTags { get; set; }
     }
 }
