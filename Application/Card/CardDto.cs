@@ -15,7 +15,6 @@ namespace Application.Card
 
         [JsonPropertyName("members")]
         public virtual ICollection<CardMemberDto> UserCards { get; set; }
- 
-
+        
     }
 }
