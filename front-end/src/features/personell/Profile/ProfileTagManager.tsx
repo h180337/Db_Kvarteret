@@ -9,11 +9,8 @@ import {v4 as uuid} from 'uuid';
 import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 
-interface IProps {
-    usersTag: ITag [];
-}
 
-const ProfileTagManager: React.FC<IProps> = ({usersTag}) => {
+const ProfileTagManager: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
     const {loadTags, tagsAsArray, loadingInitial, tagRegistry, createTag, submitting, filteredData} = rootStore.tagStore;

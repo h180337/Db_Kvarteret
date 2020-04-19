@@ -7,22 +7,19 @@ import {observer} from "mobx-react-lite";
 import { ITag } from '../../../app/models/Tag';
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
-const ProfileTags = () => {
+interface IProps {
+    tags: ITag [];
+}
+
+const ProfileTags: React.FC<IProps> = ({tags}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {tagsAsArray, loadTags, loadingInitial} = rootStore.tagStore
     const {openModal} = rootStore.modalStore;
-
-    useEffect(() =>{
-        loadTags();
-    }, [loadTags])
-
-    if (loadingInitial) return <LoadingComponent inverted content='Loading tags'/>
 
     return (
         <Fragment>
             <Segment>
-                {tagsAsArray.map((tag:ITag) => (
+                {tags.map((tag:ITag) => (
                     <Label size='large' key={tag.id} style={{marginTop: '4px'}}>
                         {tag.tagText}
                     </Label>
@@ -31,7 +28,7 @@ const ProfileTags = () => {
             </Segment>
             <Button
                 content='Edit tag'
-                onClick={() => openModal(<ProfileTagManager usersTag={tagsAsArray}/>)}
+                onClick={() => openModal(<ProfileTagManager/>)}
                 color='green'
                 floated='right'
 

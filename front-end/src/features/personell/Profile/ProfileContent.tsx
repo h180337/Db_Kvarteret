@@ -45,7 +45,7 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
         {menuItem: 'Info', render: () => <Tab.Pane>{about}</Tab.Pane>},
         {menuItem: 'History', render: () => <Tab.Pane>History</Tab.Pane>},
         {menuItem: 'Courses', render: () => <Tab.Pane><ProfileCourses courses={user.courses}/></Tab.Pane>},
-        {menuItem: 'Tags', render: () => <Tab.Pane><ProfileTags/></Tab.Pane>},
+        {menuItem: 'Tags', render: () => <Tab.Pane><ProfileTags tags={user.tags}/></Tab.Pane>},
         {menuItem: 'My Groups', render: () => <Tab.Pane><ProfileGroups groups={user.groups}/></Tab.Pane>}
 
 

@@ -1,3 +1,5 @@
+import { ITag } from "./Tag";
+
 export interface IPersonel {
     id: string,
     fornavn: string,
@@ -13,7 +15,8 @@ export interface IPersonel {
     workstatus: string,
     token: string,
     groups: any[],
-    courses: any[]
+    courses: any[],
+    tags: ITag []
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{
