@@ -9,17 +9,20 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface IProps {
     tags: ITag [];
+    userId: string;
 }
 
-const ProfileTags: React.FC<IProps> = ({tags}) => {
+const ProfileTags: React.FC<IProps> = ({tags, userId}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {openModal} = rootStore.modalStore;
-
+    const {userTagRegistry} = rootStore.userStore
+    
+    
     return (
         <Fragment>
             <Segment>
-                {tags.map((tag:ITag) => (
+                {Array.from(userTagRegistry.values()).map((tag:ITag) => (
                     <Label size='large' key={tag.id} style={{marginTop: '4px'}}>
                         {tag.tagText}
                     </Label>
@@ -28,7 +31,7 @@ const ProfileTags: React.FC<IProps> = ({tags}) => {
             </Segment>
             <Button
                 content='Edit tag'
-                onClick={() => openModal(<ProfileTagManager/>)}
+                onClick={() => openModal(<ProfileTagManager userId={userId}/>)}
                 color='green'
                 floated='right'
 

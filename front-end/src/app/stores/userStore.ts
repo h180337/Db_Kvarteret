@@ -3,8 +3,9 @@ import {SyntheticEvent} from 'react'
 import {IPersonel, IPersonFormValues} from '../models/personel'
 import agent from "../api/agent";
 import {history} from '../..'
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import {RootStore} from './rootStore'
+import {ITag} from '../models/Tag';
 
 
 export default class UserStore {
@@ -17,6 +18,7 @@ export default class UserStore {
     @observable userRegistry = new Map();
     @observable loadingInitial = false;
     @observable filteredData = new Map();
+    @observable userTagRegistry = new Map();
     @observable user: IPersonel | null = null;
     @observable LogiedInuser: IPersonel | null = null;
     @observable submitting = false;
@@ -88,18 +90,17 @@ export default class UserStore {
     
     //gets the user from the Registry if allready loaded, else goes to the api and gets the user
     @action loadUser = async (id: string) => {
-        let user = this.getUser(id);
-        if (user){
-            this.user = user;
-            return user;
-        }else {
-            this.loadingInitial = true;
+        this.loadingInitial = true;
+        this.userTagRegistry.clear()
             try {
-                user = await agent.Users.details(id);
-                runInAction('getting User', () =>{
+                let user = await agent.Users.details(id);
+                runInAction('getting User', () => {
                     user.dateOfBirth = new Date(user.dateOfBirth!);
                     this.user = user;
                     this.userRegistry.set(user.id, user);
+                   [...this.user!.tags].forEach((tag: ITag) => {
+                        this.userTagRegistry.set(tag.id, tag);
+                    })
                     this.loadingInitial = false;
                 });
                 return user;
@@ -109,7 +110,6 @@ export default class UserStore {
                 })
                 console.log(e);
             }
-        }
     }
     //helper for loadUser
     getUser = (id: string) =>{
@@ -176,6 +176,44 @@ export default class UserStore {
                 this.target = '';
             });
             console.log(e)
+        }
+    }
+
+    @action addTagToUser = async (event: SyntheticEvent<HTMLButtonElement>, tagId: string,
+                                  userId: string, tag: ITag) => {
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        try {
+            await agent.Tags.addTag(tagId, userId);
+            runInAction('add Tag to user', () => {
+                this.userTagRegistry.set(tagId, tag);
+                this.submitting = false;
+                this.target = '';
+            })
+        } catch (e) {
+            runInAction('error adding tag', () => {
+                this.submitting = false;
+                this.target = '';
+            })
+        }
+    }
+
+    @action removeTag = async (event: SyntheticEvent<HTMLButtonElement>, tagId: string, userId: string) => {
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        try {
+            await agent.Tags.removeTag(tagId, userId);
+            runInAction('remove Tag', () => {
+                this.userTagRegistry.delete(tagId);
+                this.submitting = false;
+                this.target = '';
+            })
+        } catch (e) {
+            runInAction('error removing tag', () => {
+                this.submitting = false;
+                this.target = '';
+            });
+            toast.error('error removing the tag')
         }
     }
 }

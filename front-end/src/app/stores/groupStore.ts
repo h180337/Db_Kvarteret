@@ -138,8 +138,6 @@ export default class GroupStore {
             });
             toast.error('error removing the user')
         }
-
-
     }
 
     @action editAdmin = async (event: SyntheticEvent<HTMLButtonElement>,groupId: string, userId: string) => {

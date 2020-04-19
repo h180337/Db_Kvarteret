@@ -4,6 +4,7 @@ import {IPersonel} from "../../../app/models/personel";
 import ProfileCourses from "./ProfileCourses";
 import ProfileGroups from "./ProfileGroups";
 import ProfileTags from "./ProfileTags";
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
     user: IPersonel;
@@ -45,7 +46,7 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
         {menuItem: 'Info', render: () => <Tab.Pane>{about}</Tab.Pane>},
         {menuItem: 'History', render: () => <Tab.Pane>History</Tab.Pane>},
         {menuItem: 'Courses', render: () => <Tab.Pane><ProfileCourses courses={user.courses}/></Tab.Pane>},
-        {menuItem: 'Tags', render: () => <Tab.Pane><ProfileTags tags={user.tags}/></Tab.Pane>},
+        {menuItem: 'Tags', render: () => <Tab.Pane><ProfileTags tags={user.tags} userId={user.id}/></Tab.Pane>},
         {menuItem: 'My Groups', render: () => <Tab.Pane><ProfileGroups groups={user.groups}/></Tab.Pane>}
 
 
@@ -61,4 +62,4 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
     );
 }
 
-export default ProfileContent;
+export default observer(ProfileContent);

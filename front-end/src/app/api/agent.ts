@@ -83,6 +83,10 @@ const Tags = {
     list: (): Promise<ITag[]> => requests.get('/tag'),
     create: (tag: ITag) => requests.post('/tag', tag),
     delete: (id: string) => requests.del(`/tag/${id}`),
+    addTag: (tagId: string, userid: string) => requests.post(`/tag/${tagId}/add/${userid}`, {}),
+    removeTag: (tagId: string, userid: string) => requests.del(`/tag/${tagId}/remove/${userid}`),
+
+
 }
 
 export default {

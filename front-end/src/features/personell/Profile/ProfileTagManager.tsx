@@ -8,12 +8,15 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {v4 as uuid} from 'uuid';
 import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
+interface IProps {
+    userId: string
+}
 
-
-const ProfileTagManager: React.FC = () => {
+const ProfileTagManager: React.FC<IProps> = ({userId}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {loadTags, tagsAsArray, loadingInitial, tagRegistry, createTag, submitting, filteredData} = rootStore.tagStore;
+    const {loadTags, tagsAsArray, loadingInitial, tagRegistry, createTag, filteredData} = rootStore.tagStore;
+    const {userTagRegistry, addTagToUser, removeTag, submitting, target, loadUser} = rootStore.userStore
     const [input, setInput] = useState('')
 
     useEffect(() => {
@@ -21,8 +24,8 @@ const ProfileTagManager: React.FC = () => {
     }, [loadTags])
 
     if (loadingInitial) return <LoadingComponent inverted content='Loading tags'/>
-    
-    const getInputValue = (e: any) =>{
+
+    const getInputValue = (e: any) => {
         setInput(e.target.value); 
     }
     
@@ -49,10 +52,26 @@ const ProfileTagManager: React.FC = () => {
                         <Table.Row key={tag.id}>
                             <Table.Cell>{tag.tagText}</Table.Cell>
                             <Table.Cell>
-                                <Button
-                                    content={tagRegistry.has(tag.id) ? 'Remove' : 'Add'}
-                                    color={tagRegistry.has(tag.id) ? 'red' : 'green'}
-                                />
+                                {userTagRegistry.has(tag.id) ?
+                                    <Button
+                                        name={tag.id}
+                                        loading={target === tag.id && submitting}
+                                        disabled={submitting}
+                                        content='remove'
+                                        color='red'
+                                        onClick={(e) =>
+                                            removeTag(e, tag.id, userId)}
+                                    /> :
+                                    <Button
+                                        name={tag.id}
+                                        loading={target === tag.id && submitting}
+                                        disabled={submitting}
+                                        content='Add'
+                                        color='green'
+                                        onClick={(e) =>
+                                            addTagToUser(e, tag.id, userId, tag)}
+                                    />}
+
                             </Table.Cell>
                         </Table.Row>
                     ))}

@@ -35,7 +35,7 @@ namespace API.Controllers
             return await Mediator.Send(new AddMember.Command { TagId = id, UserId = userid });
         }
 
-        [HttpPost("{id}/remove/{userid}")]
+        [HttpDelete("{id}/remove/{userid}")]
         public async Task<ActionResult<Unit>> RemoveTagMember(Guid id, string userid)
         {
             return await Mediator.Send(new RemoveMember.Command { TagId = id, UserId = userid });

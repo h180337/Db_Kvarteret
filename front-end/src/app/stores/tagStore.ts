@@ -3,6 +3,7 @@ import {action, computed, observable, runInAction} from "mobx";
 import agent from "../api/agent";
 import {ITag} from "../models/Tag";
 import {toast} from "react-toastify";
+import {SyntheticEvent} from "react";
 
 export default class TagStore {
 
@@ -18,6 +19,9 @@ export default class TagStore {
     @observable tagRegistry = new Map();
     @observable filteredData = new Map();
 
+    getTag = (id: string) => {
+        return this.tagRegistry.get(id);
+    }
 
     @computed get tagsAsArray() {
         return Array.from(this.tagRegistry.values());
@@ -59,4 +63,6 @@ export default class TagStore {
             console.log(e)
         }
     }
+
+    
 }
