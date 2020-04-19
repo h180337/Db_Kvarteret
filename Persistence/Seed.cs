@@ -107,11 +107,38 @@ namespace Persistence
                 {
                     new Tags
                     {
-                        tagText = "It"
+                        tagText = "It",
+                        UserTags = new List<UserTags>
+                        {
+                            new UserTags
+                            {
+                                AppUserId = "c",
+                                
+                            }
+                        }
                     },
                     new Tags
                     {
-                        tagText = "DramaQueen"
+                        tagText = "DramaQueen",
+                        UserTags = new List<UserTags>
+                        {
+                            new UserTags
+                            {
+                                AppUserId = "c",
+                                
+                            },
+                            new UserTags
+                            {
+                                AppUserId = "a",
+                                
+                            },
+                            new UserTags
+                            {
+                                AppUserId = "b",
+                              
+                            }
+                        }
+                        
                     },
                     new Tags
                     {
@@ -121,6 +148,7 @@ namespace Persistence
                 context.Tags.AddRange(tags);
                 context.SaveChanges();
             }
+
 
              if (!context.Cards.Any())
             {

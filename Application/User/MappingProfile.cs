@@ -1,6 +1,7 @@
 using Application.Card;
 using Application.Course;
 using Application.Group;
+using Application.Tags;
 using AutoMapper;
 using Domain;
 
@@ -31,6 +32,10 @@ namespace Application.User
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Card.Id))
                 .ForMember(d => d.KortNummer, o => o.MapFrom(s => s.Card.KortNummer))
                 .ForMember(d => d.Opprettet, o => o.MapFrom(s => s.Card.Opprettet));
+
+            CreateMap<UserTags, TagsDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(m => m.Tag.Id))
+                .ForMember(d => d.tagText, o => o.MapFrom(m => m.Tag.tagText));
         }
     }
 }

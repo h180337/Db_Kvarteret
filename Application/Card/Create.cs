@@ -26,7 +26,6 @@ namespace Application.Card
         {
             public CommandValidator()
             {
-                RuleFor(x => x.UserId).NotEmpty();
                 RuleFor(x => x.KortNummer).NotEmpty();
                 RuleFor(x => x.Opprettet).NotEmpty();
             }

@@ -10,6 +10,8 @@ namespace Domain
 
         public DateTime Opprettet { get; set; }
 
-        public virtual UserCard UserCard {get; set;}
+        public string AppUserId { get; set; }
+
+        public virtual UserCard UserCard { get; set; }
     }
 }
