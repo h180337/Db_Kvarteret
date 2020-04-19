@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Domain;
 
 namespace Application.Card
@@ -11,7 +13,9 @@ namespace Application.Card
 
         public DateTime Opprettet { get; set; }
 
-        public virtual UserCard UserCard {get; set;}
+        [JsonPropertyName("members")]
+        public virtual ICollection<CardMemberDto> UserCards { get; set; }
+ 
 
     }
 }

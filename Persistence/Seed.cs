@@ -113,7 +113,7 @@ namespace Persistence
                             new UserTags
                             {
                                 AppUserId = "c",
-                                
+
                             }
                         }
                     },
@@ -125,20 +125,20 @@ namespace Persistence
                             new UserTags
                             {
                                 AppUserId = "c",
-                                
+
                             },
                             new UserTags
                             {
                                 AppUserId = "a",
-                                
+
                             },
                             new UserTags
                             {
                                 AppUserId = "b",
-                              
+
                             }
                         }
-                        
+
                     },
                     new Tags
                     {
@@ -150,7 +150,7 @@ namespace Persistence
             }
 
 
-             if (!context.Cards.Any())
+            if (!context.Cards.Any())
             {
                 var cards = new List<Card>()
                 {
@@ -158,16 +158,35 @@ namespace Persistence
                     {
                         KortNummer = "3254543",
                         Opprettet = DateTime.Now.AddMonths(-2),
+                        UserCards = new List<UserCards> {
+                            new UserCards
+                            {
+                                AppUserId = "b",
+                            }
+                        }
+
                     },
                     new Card
                     {
                         KortNummer = "1023020",
                         Opprettet = DateTime.Now.AddMonths(-1),
+                        UserCards = new List<UserCards> {
+                            new UserCards
+                            {
+                                AppUserId = "b",
+                            }
+                        }
                     },
                     new Card
                     {
                         KortNummer = "432576",
                         Opprettet = DateTime.Now.AddMonths(-3),
+                        UserCards = new List<UserCards> {
+                            new UserCards
+                            {
+                                AppUserId = "b",
+                            }
+                        }
                     },
                     new Card
                     {

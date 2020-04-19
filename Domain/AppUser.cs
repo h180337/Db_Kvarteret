@@ -27,7 +27,7 @@ namespace Domain
 
         public virtual ICollection<UserCourse> UserCourses { get; set; }
 
-        public virtual ICollection<UserCard> UserCards { get; set; }
+        public virtual ICollection<UserCards> UserCards { get; set; }
 
         public virtual ICollection<UserTags> UserTags { get; set; }
     }

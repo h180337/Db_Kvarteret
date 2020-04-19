@@ -28,7 +28,7 @@ namespace Application.User
                 .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Course.beskrivelse))
                 .ForMember(d => d.opprettet, o => o.MapFrom(s => s.Course.opprettet));
 
-            CreateMap<UserCard, CardDto>()
+            CreateMap<UserCards, CardDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Card.Id))
                 .ForMember(d => d.KortNummer, o => o.MapFrom(s => s.Card.KortNummer))
                 .ForMember(d => d.Opprettet, o => o.MapFrom(s => s.Card.Opprettet));

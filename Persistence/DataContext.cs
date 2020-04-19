@@ -25,7 +25,7 @@ namespace Persistence
 
         public DbSet<Card> Cards { get; set; }
 
-        public DbSet<UserCard> UserCards { get; set; }
+        public DbSet<UserCards> UserCards { get; set; }
 
         public DbSet<Tags> Tags { get; set; }
 
@@ -75,14 +75,15 @@ namespace Persistence
                 .WithMany(b => b.UserTags)
                 .HasForeignKey(bc => bc.AppUserId); 
 
-            builder.Entity<UserCard>()
+            builder.Entity<UserCards>()
                 .HasKey(bc => new { bc.CardId, bc.AppUserId });
 
-            builder.Entity<UserCard>()
+            builder.Entity<UserCards>()
                 .HasOne(uc => uc.Card)
-                .WithOne(c => c.UserCard); 
+                .WithMany(c => c.UserCards)
+                .HasForeignKey(uc => uc.CardId); 
 
-            builder.Entity<UserCard>()
+            builder.Entity<UserCards>()
                 .HasOne(uc => uc.AppUser)
                 .WithMany(b => b.UserCards)
                 .HasForeignKey(uc => uc.AppUserId); 

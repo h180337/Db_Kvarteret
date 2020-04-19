@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -12,6 +13,6 @@ namespace Domain
 
         public string AppUserId { get; set; }
 
-        public virtual UserCard UserCard { get; set; }
+        public virtual ICollection<UserCards> UserCards { get; set; }
     }
 }
