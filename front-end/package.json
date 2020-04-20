@@ -16,6 +16,7 @@
     "@types/react-tag-input": "^6.1.2",
     "@types/react-widgets": "^4.4.2",
     "@types/revalidate": "^1.1.2",
+    "@types/styled-components": "^5.1.0",
     "@types/uuid": "^7.0.0",
     "axios": "^0.19.2",
     "date-fns": "^2.11.0",
@@ -36,6 +37,7 @@
     "react-widgets-date-fns": "^4.1.0",
     "revalidate": "^1.2.0",
     "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.1.0",
     "typescript": "^3.7.5",
     "uuid": "^7.0.2"
   },
