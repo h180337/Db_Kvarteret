@@ -75,7 +75,11 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
         <Grid>
             <Grid.Column width={10}>
                 <Segment clearing>
-                    <Headers iconName='add user' header='Add a new user to the database' subHeader='' headerSize='medium'/>
+                    <Headers 
+                        iconName={match.params.id ? 'edit': 'add user'}
+                        header={match.params.id ? 'Edit user info': 'Add a new user to the database'} 
+                        subHeader='' 
+                        headerSize='medium'/>
                     <Segment secondary/>
                     <FinalForm
                         validate={validate}

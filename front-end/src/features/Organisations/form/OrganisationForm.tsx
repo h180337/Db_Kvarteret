@@ -57,7 +57,10 @@ const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({m
         <Grid>
             <Grid.Column width={10}>
                 <Segment clearing>
-                    <Headers iconName='building' header='Add a new organisation to the database' headerSize="medium" subHeader=''/>
+                    <Headers
+                        iconName={match.params.id ? 'edit': 'building'}
+                        header={match.params.id ? 'Edit organisation info': 'Add a new organisation to the database'}
+                        headerSize="medium" subHeader=''/>
                     <Segment secondary/>
                     <FinalForm
                         validate={validate}

@@ -65,7 +65,11 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
         <Grid>
             <Grid.Column width={10}>
                 <Segment clearing>
-                    <Headers iconName='group' header='Add a new group to the database' subHeader='' headerSize='medium'/>
+                    <Headers
+                        iconName={match.params.id ? 'edit': 'group'}
+                        header={match.params.id ? 'Edit group info': 'Add a new group to the database'} 
+                        subHeader='' 
+                        headerSize='medium'/>
                     <Segment secondary/>
                     <FinalForm
                         validate={validate}

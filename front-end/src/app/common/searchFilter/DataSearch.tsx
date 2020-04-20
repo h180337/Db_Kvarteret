@@ -4,6 +4,7 @@ import {Input, Label, Button} from 'semantic-ui-react';
 import _ from 'lodash';
 import {runInAction} from "mobx";
 import {RootStoreContext} from "../../stores/rootStore";
+import Headers from '../header/Headers'
 
 interface IProps {
     filteredData : Map<any,any>;
@@ -49,7 +50,7 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
     
     return (
         <div>
-            <h2>Search</h2>
+            <h3>Search</h3>
             {tagSearch.map((tag, index) => (
                 <Label
                     onClick={() => onClickDeleteHandler(index)}
