@@ -74,8 +74,18 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
         tagSearch.forEach(tag => {
             filteredData.clear()
             dataArray.filter((item: any) => {
+                
                 return Object.keys(item).some((key: string) => {
                     if (item[key] !== null) {
+                        if (key === 'tags'){
+                            Object.keys(item.tags).forEach(tagss =>{
+                                if (item.tags[tagss].tagText.toString().toLowerCase().includes(tag.toLowerCase())){
+                                    runInAction('dataFilter', () =>{
+                                        filteredData.set(item.id, item)
+                                    })
+                                }
+                            })  
+                        }
                         if (item[key].toString().toLowerCase().includes(tag.toLowerCase())) {
                             runInAction('dataFilter', () => {
                                 filteredData.set(item.id, item)
