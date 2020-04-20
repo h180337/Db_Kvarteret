@@ -21,7 +21,6 @@ const CsvLink:React.FC<IProp> = ({filterData, dataArray}) => {
 
     return (
         <Button
-            style={{marginTop: '10px'}}
             color='blue'
             as={CSVLink}
             data={filterData.length!==0 ? filterData : dataArray}

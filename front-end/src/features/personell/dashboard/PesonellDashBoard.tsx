@@ -1,11 +1,12 @@
 import React, {Fragment, useContext, useEffect} from 'react';
-import {Grid} from 'semantic-ui-react'
+import {Grid, Segment} from 'semantic-ui-react'
 import PersonellTable from "./PersonellTable";
 import {observer} from 'mobx-react-lite'
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import DataSearch from '../../../app/common/searchFilter/DataSearch';
 import CsvLink from '../../../app/common/csvLink/CsvLink';
+import Headers from '../../../app/common/header/Headers'
 
 const PesonellDashBoard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
@@ -31,7 +32,9 @@ const PesonellDashBoard: React.FC = () => {
             <Grid>
                 <Grid.Column width={12}>
                     <PersonellTable filteredData={filteredData} users={usersAsArray}/>
-                    <CsvLink dataArray={usersAsArray} filterData={ filteredUsersAsArray}/>
+                    <Segment>
+                        <CsvLink dataArray={usersAsArray} filterData={ filteredUsersAsArray}/>
+                    </Segment>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <DataSearch dataArray={usersAsArray} filteredData={filteredData}/>

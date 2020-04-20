@@ -2,11 +2,12 @@
 import React, {Fragment, useState, useEffect, useContext, useRef} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
-import {Button, Segment} from 'semantic-ui-react';
+import {Button, Grid, Segment} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import Headers from "../../../app/common/header/Headers";
 
 interface IProps {
     users: any[];
@@ -39,6 +40,13 @@ const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
     return (
         <Fragment>
             <Segment clearing>
+                <Headers
+                    iconName={'users'}
+                    header={ 'Database members'}
+                    subHeader={'Search and exsport data'}
+                    headerSize={"medium"}
+                />
+                <Segment secondary/>
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
@@ -47,7 +55,7 @@ const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}
                 />
-            </Segment>
+                </Segment>
         </Fragment>
     );
 }
