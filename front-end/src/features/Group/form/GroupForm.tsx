@@ -12,6 +12,7 @@ import {combineValidators, isRequired} from "revalidate";
 import SelectInput from '../../../app/common/form/SelectInput';
 import { workStatus } from '../../../app/common/options/workStatusOptions';
 import { groupType } from '../../../app/common/options/groupTypeOptions';
+import Headers from '../../../app/common/header/Headers'
 
 interface GroupParams {
     id: string;
@@ -64,6 +65,8 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
         <Grid>
             <Grid.Column width={10}>
                 <Segment clearing>
+                    <Headers iconName='group' header='Add a new group to the database' subHeader='' headerSize='medium'/>
+                    <Segment secondary/>
                     <FinalForm
                         validate={validate}
                         initialValues={group}

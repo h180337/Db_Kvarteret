@@ -1,9 +1,10 @@
 import React, {Fragment, useContext, useEffect} from 'react';
-import {Grid} from "semantic-ui-react";
+import {Grid, Segment} from "semantic-ui-react";
 import OrganisationList from "./OrganisationList";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { observer } from 'mobx-react-lite';
+import Headers from '../../../app/common/header/Headers'
 
 const OrganisationDashBoard = () => {
 
@@ -21,6 +22,13 @@ const OrganisationDashBoard = () => {
         <Fragment>
             <Grid>
                 <Grid.Column width={12}>
+                    <Segment>
+                        <Headers
+                            iconName="building"
+                            header='Organisation List'
+                            subHeader='Pick your organisation'
+                            headerSize="medium"/>
+                    </Segment>
                     <OrganisationList/>
                 </Grid.Column>
                 <Grid.Column width={4}>

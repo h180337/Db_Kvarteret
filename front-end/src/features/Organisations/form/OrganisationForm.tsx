@@ -9,7 +9,7 @@ import TextInput from "../../../app/common/form/TextInput";
 import {combineValidators, isRequired} from "revalidate";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import { observer } from 'mobx-react-lite';
-
+import Headers from '../../../app/common/header/Headers'
 const validate = combineValidators({
     name: isRequired({message: 'Name is required'}),
     description: isRequired({message: 'description is required'})
@@ -57,6 +57,8 @@ const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({m
         <Grid>
             <Grid.Column width={10}>
                 <Segment clearing>
+                    <Headers iconName='building' header='Add a new organisation to the database' headerSize="medium" subHeader=''/>
+                    <Segment secondary/>
                     <FinalForm
                         validate={validate}
                         initialValues={organisation}

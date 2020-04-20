@@ -13,6 +13,7 @@ import {v4 as uuid} from 'uuid';
 import {combineValidators, isRequired} from 'revalidate';
 import {workStatus} from '../../../app/common/options/workStatusOptions'
 import { RootStoreContext } from '../../../app/stores/rootStore';
+import Headers from '../../../app/common/header/Headers'
 
 const validate = combineValidators({
     fornavn: isRequired({message: 'First name is required'}),
@@ -74,6 +75,8 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
         <Grid>
             <Grid.Column width={10}>
                 <Segment clearing>
+                    <Headers iconName='add user' header='Add a new user to the database' subHeader='' headerSize='medium'/>
+                    <Segment secondary/>
                     <FinalForm
                         validate={validate}
                         initialValues={person}
