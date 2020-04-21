@@ -43,7 +43,6 @@ const GroupDetailedSideBar: React.FC<IProps> = ({users, groupId}) => {
                     <List relaxed divided>
                         {admins.map(admin => (
                             <Item key={admin.id} style={{ position: 'relative' }}>
-                                <Image size='tiny' src={'/assets/Profile.png'} />
                                 <Item.Content verticalAlign='middle'>
                                     <Item.Header as='h3'>
                                         <Link to={`/users/${admin.id}`}>{`${admin.fornavn} ${admin.etternavn}`}</Link>

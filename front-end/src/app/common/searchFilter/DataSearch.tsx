@@ -1,9 +1,10 @@
 import React, {Fragment, useContext, useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {Button, Input} from 'semantic-ui-react';
+import {Button, Input, Label, Icon} from 'semantic-ui-react';
 import {runInAction} from "mobx";
 import {RootStoreContext} from "../../stores/rootStore";
 import styled from 'styled-components'
+import {toast} from 'react-toastify';
 
 
 interface IProps {
@@ -71,22 +72,25 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
         if (tagSearch.length === 0) {
             filteredData.clear()
         }
+        filteredData.clear()
         tagSearch.forEach(tag => {
-            filteredData.clear()
+            if (filteredData.size !==0){
+                dataArray = Array.from(filteredData.values())
+                filteredData.clear()
+            }
             dataArray.filter((item: any) => {
-                
                 return Object.keys(item).some((key: string) => {
                     if (item[key] !== null) {
-                        if (key === 'tags'){
-                            Object.keys(item.tags).forEach(tagss =>{
-                                if (item.tags[tagss].tagText.toString().toLowerCase().includes(tag.toLowerCase())){
-                                    runInAction('dataFilter', () =>{
+                        if (key === 'tags') {
+                            Object.keys(item.tags).forEach(tagss => {
+                                if (item.tags[tagss].tagText.toString().toLowerCase().startsWith(tag.toLowerCase())) {
+                                    runInAction('dataFilter', () => {
                                         filteredData.set(item.id, item)
                                     })
                                 }
-                            })  
+                            })
                         }
-                        if (item[key].toString().toLowerCase().includes(tag.toLowerCase())) {
+                        if (item[key].toString().toLowerCase().startsWith(tag.toLowerCase())) {
                             runInAction('dataFilter', () => {
                                 filteredData.set(item.id, item)
                             })
@@ -95,6 +99,10 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
                 })
             })
         })
+
+        if (tagSearch.length > 0 && filteredData.size === 0) {
+            toast.error('The Search gave no results, try to change the last search tag')
+        }
     }
     
     
@@ -102,18 +110,22 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
         <Fragment>
             <h3>Search</h3>
             <div>
-            {tagSearch.map((tag, index) => (
-                <TheX key={index}>
-                    <SelectableTile
-                        onClick={() => onClickDeleteHandler(index)}
+                {tagSearch.map((tag, index) => (
+                    <Label
                         key={index}
-                    >{`${tag}`}</SelectableTile>
-                    <TheXPosition>x</TheXPosition>
-                </TheX>))}
+                        size='large'
+                        style={{marginBottom: '5px'}}
+                        onClick={() => onClickDeleteHandler(index)}
+                        color='blue'
+                        cursor='pointer'
+                    >
+                        {`${tag}`}
+                        <Icon name='close'/>
+                    </Label>))}
             </div>
 
             <Input
-                style={{marginTop: '10px'}}
+                style={{marginTop: '5px'}}
                 onKeyUp={(e: any) => addTags(e)}
                 placeholder='add tag to seach for'
             />

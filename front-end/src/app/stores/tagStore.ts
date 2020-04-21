@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import {ITag} from "../models/Tag";
 import {toast} from "react-toastify";
 import {SyntheticEvent} from "react";
+import {v4 as uuid} from "uuid";
 
 export default class TagStore {
 
@@ -30,6 +31,7 @@ export default class TagStore {
 
     @action loadTags = async () => {
         this.loadingInitial = true;
+        this.tagRegistry.clear()
         try {
             const tags = await agent.Tags.list();
             runInAction('loading tags', () => {
@@ -50,11 +52,13 @@ export default class TagStore {
     @action createTag = async (tag: ITag) => {
         this.submitting = true;
         try {
+            tag.id = uuid();
             await agent.Tags.create(tag);
             runInAction('createUser', () => {
                 this.tagRegistry.set(tag.id, tag);
-                this.submitting = false;
             });
+            this.submitting = false;
+
         } catch (e) {
             runInAction('create tag error', () => {
                 this.submitting = false;

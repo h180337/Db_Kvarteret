@@ -6,8 +6,6 @@ interface IProps {
 }
 
 const ProfileCourses: React.FC<IProps> = ({courses}) => {
-    
-    console.log(courses)
     return (
             <Table singleLine>
                 <Table.Header>

@@ -39,7 +39,7 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
                 <Segment><h2>Group Members</h2></Segment>
                 <MembersTable groupId={match.params.id}/>
             </Grid.Column>
-            <Grid.Column width={6}>
+            <Grid.Column width={3}>
                 <GroupDetailedSideBar users={group.members} groupId={match.params.id}/>
             </Grid.Column>
         </Grid>

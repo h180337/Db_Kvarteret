@@ -34,9 +34,7 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
     return (
         <Fragment>
             <Segment clearing>
-                <Grid>
-                    <Grid.Column>
-                        <Button
+                    <Button
                             floated='right'
                             content='Delete'
                             color='red'
@@ -46,8 +44,6 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
                             to={'/users'}
                         />
                         <ProfileHeader user={user}/>
-                    </Grid.Column>
-                </Grid>
             </Segment>
             <ProfileContent user={user}/>
 

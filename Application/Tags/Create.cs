@@ -36,6 +36,7 @@ namespace Application.Tags
             {
                 var tag = new Domain.Tags
                 {
+                    Id = request.Id,
                     tagText = request.tagText
                 };
 

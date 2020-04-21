@@ -71,6 +71,7 @@ export default class UserStore {
     //Loads all the users into the userRegistry map and reformat the date props
     @action loadUsers = async () => {
             this.loadingInitial = true;
+            this.userRegistry.clear()
             try {
                 const users = await agent.Users.list();
                 runInAction('loading users', () => {
@@ -95,7 +96,7 @@ export default class UserStore {
             try {
                 let user = await agent.Users.details(id);
                 runInAction('getting User', () => {
-                    user.dateOfBirth = new Date(user.dateOfBirth!);
+                    user.dateOfBirth = new Date(user.dateOfBirth!.split('T')[0]);
                     this.user = user;
                     this.userRegistry.set(user.id, user);
                    [...this.user!.tags].forEach((tag: ITag) => {
