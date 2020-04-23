@@ -1,6 +1,7 @@
 using Application.Card;
 using Application.Course;
 using Application.Group;
+using Application.History;
 using Application.Tags;
 using AutoMapper;
 using Domain;
@@ -36,6 +37,14 @@ namespace Application.User
             CreateMap<UserTags, TagsDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.Tag.Id))
                 .ForMember(d => d.tagText, o => o.MapFrom(m => m.Tag.tagText));
+
+            CreateMap<UserHistory, HistoryDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(m => m.History.Id))
+                .ForMember(d => d.GroupName, o => o.MapFrom(m => m.History.GroupName))
+                .ForMember(d => d.Position, o => o.MapFrom(m => m.History.Position))
+                .ForMember(d => d.GroupType, o => o.MapFrom(m => m.History.GroupType))
+                .ForMember(d => d.Year, o => o.MapFrom(m => m.History.Year))
+                .ForMember(d => d.Semester, o => o.MapFrom(m => m.History.Semester));
         }
     }
 }

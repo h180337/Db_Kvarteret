@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Application.Card;
 using Application.Course;
 using Application.Group;
+using Application.History;
 using Application.Tags;
 using Domain;
 
@@ -50,6 +51,6 @@ namespace Application.User
         public ICollection<TagsDto> UserTags { get; set; }
 
         [JsonPropertyName("historys")]
-        public ICollection<UserHistory> UserHistory { get; set; }
+        public ICollection<HistoryDto> UserHistory { get; set; }
     }
 }
