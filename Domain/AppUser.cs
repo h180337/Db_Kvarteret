@@ -30,5 +30,7 @@ namespace Domain
         public virtual ICollection<UserCards> UserCards { get; set; }
 
         public virtual ICollection<UserTags> UserTags { get; set; }
+
+        public virtual ICollection<UserHistory> UserHistory { get; set; }
     }
 }

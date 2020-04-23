@@ -5,6 +5,7 @@ using Application.Card;
 using Application.Course;
 using Application.Group;
 using Application.Tags;
+using Domain;
 
 namespace Application.User
 {
@@ -47,5 +48,8 @@ namespace Application.User
 
         [JsonPropertyName("tags")]
         public ICollection<TagsDto> UserTags { get; set; }
+
+        [JsonPropertyName("historys")]
+        public ICollection<UserHistory> UserHistory { get; set; }
     }
 }

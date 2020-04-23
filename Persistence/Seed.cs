@@ -199,6 +199,62 @@ namespace Persistence
                 context.SaveChanges();
             }
 
+              if (!context.Historys.Any())
+            {
+                var historys = new List<History>()
+                {
+                    new History
+                    {
+                        GroupName = "Gamlegruppen",
+                        Position = "Leder",
+                        GroupType = "Group",
+                        Year = 1994,
+                        Semester = "H",
+                        UserHistory = new List<UserHistory> {
+                            new UserHistory
+                            {
+                                AppUserId = "c",
+                            },
+                            new UserHistory
+                            {
+                                AppUserId = "a"
+                            },
+                        }
+                        
+                    },
+                    new History
+                    {
+                        GroupName = "Testgruppen",
+                        Position = "Leder",
+                        GroupType = "Group",
+                        Year = 1994,
+                        Semester = "H"
+                        
+                    },
+                    new History
+                    {
+                        GroupName = "Ledergruppen",
+                        Position = "Leder",
+                        GroupType = "Group",
+                        Year = 1994,
+                        Semester = "H"
+                        
+                    },
+                    new History
+                    {
+                        GroupName = "Arbeidsgruppen",
+                        Position = "Leder",
+                        GroupType = "Group",
+                        Year = 1994,
+                        Semester = "H"
+                        
+                    },
+                };
+
+                context.Historys.AddRange(historys);
+                context.SaveChanges();
+            }
+
             if (!context.Groups.Any())
             {
                 var groups = new List<Group>

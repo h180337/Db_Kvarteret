@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.Group;
 using Application.User;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -34,6 +35,12 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> CurrentUser()
         {
             return await Mediator.Send(new CurrentUser.Query());
+        }
+
+        [HttpGet("{id}/grouphistory")]
+        public async Task<ActionResult<List<GroupDto>>> GroupHistory(string Id)
+        {
+            return await Mediator.Send(new GroupHistory.Query{id = Id});
         }
 
 

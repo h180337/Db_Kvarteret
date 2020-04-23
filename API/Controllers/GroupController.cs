@@ -23,7 +23,6 @@ namespace API.Controllers
             return await Mediator.Send(new Application.Group.Details.Query { Id = id });
         }
 
-
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command)
         {

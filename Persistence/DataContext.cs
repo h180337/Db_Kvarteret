@@ -31,6 +31,8 @@ namespace Persistence
 
         public DbSet<UserTags> UserTags { get; set; }
 
+        public DbSet<History> Historys { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -68,12 +70,12 @@ namespace Persistence
             builder.Entity<UserTags>()
                 .HasOne(bc => bc.Tag)
                 .WithMany(b => b.UserTags)
-                .HasForeignKey(bc => bc.TagId); 
+                .HasForeignKey(bc => bc.TagId);
 
             builder.Entity<UserTags>()
                 .HasOne(bc => bc.AppUser)
                 .WithMany(b => b.UserTags)
-                .HasForeignKey(bc => bc.AppUserId); 
+                .HasForeignKey(bc => bc.AppUserId);
 
             builder.Entity<UserCards>()
                 .HasKey(bc => new { bc.CardId, bc.AppUserId });
@@ -81,12 +83,25 @@ namespace Persistence
             builder.Entity<UserCards>()
                 .HasOne(uc => uc.Card)
                 .WithMany(c => c.UserCards)
-                .HasForeignKey(uc => uc.CardId); 
+                .HasForeignKey(uc => uc.CardId);
 
             builder.Entity<UserCards>()
                 .HasOne(uc => uc.AppUser)
                 .WithMany(b => b.UserCards)
-                .HasForeignKey(uc => uc.AppUserId); 
+                .HasForeignKey(uc => uc.AppUserId);
+
+            builder.Entity<UserHistory>()
+            .HasKey(bc => new { bc.HistoryId, bc.AppUserId });
+
+            builder.Entity<UserHistory>()
+                .HasOne(uc => uc.History)
+                .WithMany(c => c.UserHistory)
+                .HasForeignKey(uc => uc.HistoryId);
+
+            builder.Entity<UserHistory>()
+                .HasOne(uc => uc.AppUser)
+                .WithMany(b => b.UserHistory)
+                .HasForeignKey(uc => uc.AppUserId);
         }
     }
 }
