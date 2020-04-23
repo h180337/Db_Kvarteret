@@ -33,6 +33,8 @@ namespace Persistence
 
         public DbSet<History> Historys { get; set; }
 
+        public DbSet<UserHistory> UserHistory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
