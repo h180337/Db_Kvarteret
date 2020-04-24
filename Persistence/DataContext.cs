@@ -35,6 +35,9 @@ namespace Persistence
 
         public DbSet<UserHistory> UserHistory { get; set; }
 
+        public DbSet<AccessGroup> AccessGroups { get; set; }
+        public DbSet<AccessGroupLevel> AccessGroupLevels { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

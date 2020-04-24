@@ -32,5 +32,6 @@ namespace Domain
         public virtual ICollection<UserTags> UserTags { get; set; }
 
         public virtual ICollection<UserHistory> UserHistory { get; set; }
+        public virtual AccessGroup AccessGroup { get; set; }
     }
 }
