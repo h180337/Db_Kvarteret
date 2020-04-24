@@ -38,5 +38,16 @@ namespace API.Controllers
         {
             return await Mediator.Send(new RemoveMember.Command { HistoryId = id, UserId = userid });
         }
+        [HttpPost("{id}/add/{userid}")]
+        public async Task<ActionResult<Unit>> AddMember(Guid id, string userid)
+        {
+            return await Mediator.Send(new AddMember.Command { HistoryId = id, UserId = userid });
+        }
+
+        [HttpDelete("{id}/remove/{userid}")]
+        public async Task<ActionResult<Unit>> RemoveMember(Guid id, string userid)
+        {
+            return await Mediator.Send(new RemoveMember.Command { HistoryId = id, UserId = userid });
+        }
     }
 }
