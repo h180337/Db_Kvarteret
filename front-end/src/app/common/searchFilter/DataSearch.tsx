@@ -3,7 +3,6 @@ import {observer} from 'mobx-react-lite';
 import {Button, Input, Label, Icon} from 'semantic-ui-react';
 import {runInAction} from "mobx";
 import {RootStoreContext} from "../../stores/rootStore";
-import styled from 'styled-components'
 import {toast} from 'react-toastify';
 
 
@@ -12,54 +11,24 @@ interface IProps {
     dataArray: any
 }
 
-const SearchLable = styled.label
-    `
-          background: blue;
-          border-radius: 3px;
-          padding: 7px;
-          border: none;
-          color: white;
-          margin-right: 3px;
-         
-        `
-const SelectableTile = styled(SearchLable)`
-    &:hover{
-        cursor:pointer;
-        background: red;
-    }
-`
-
-const TheX = styled.div
-    `
-  position: relative;
-    display: inline-block;
-    padding-top: 10px;
-    color: black;
-    border-radius: 1px;
-    margin-top: 5px;
-
-    `
-;
-
-const TheXPosition = styled(TheX)`
-    position: relative;
-    display: inline-block;
-    padding: 0;
-    float: right;
-    color: white;
-    top: -17px;
-    right: 10px;
-`
 
 const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
 
-
-    const rootStore = useContext(RootStoreContext);
-
     const [tagSearch, setTagSearch] = useState<string[]>([])
     const [showX, setX] = useState(false)
+    const [tag, setTag] = useState<string>('');
+
     const onClickDeleteHandler = (i: number) => {
         setTagSearch([...tagSearch].filter((tag, index) => index !== i))
+    }
+
+    const tagStateHandler = (event: any) => {
+        setTag(event.target.value)
+    }
+    
+    const clearDatainputHandler = ()=>{
+        setTagSearch([]);
+        filteredData.clear();
     }
 
     const addTags = (event: any) => {
@@ -67,19 +36,21 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
             setTagSearch([...tagSearch, event.target.value])
             event.target.value = '';
         }
+
     }
-    const handleFilter = () => {
+    const handleFilter = (e:any) => {
+        addTags(e)
         if (tagSearch.length === 0) {
             filteredData.clear()
         }
         filteredData.clear()
         tagSearch.forEach(tag => {
-            if (filteredData.size !==0){
+            if (filteredData.size !== 0) {
                 dataArray = Array.from(filteredData.values())
                 filteredData.clear()
             }
-            dataArray.filter((item: any) => {
-                return Object.keys(item).some((key: string) => {
+            dataArray.forEach((item: any) => {
+                Object.keys(item).some((key: string) => {
                     if (item[key] !== null) {
                         if (key === 'tags') {
                             Object.keys(item.tags).forEach(tagss => {
@@ -104,11 +75,10 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
             toast.error('The Search gave no results, try to change the last search tag')
         }
     }
-    
-    
+
+
     return (
         <Fragment>
-            <h3>Search</h3>
             <div>
                 {tagSearch.map((tag, index) => (
                     <Label
@@ -126,15 +96,21 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
 
             <Input
                 style={{marginTop: '5px'}}
-                onKeyUp={(e: any) => addTags(e)}
-                placeholder='add tag to seach for'
-            />
-            <Button
-                content='Search'
-                onClick={() => handleFilter()}
-                color='blue'
-            />
-
+                onKeyDown={(e: any) => addTags(e)}
+                onKeyUp={(e:any)=> handleFilter(e)}
+                placeholder='Press enter to add tags'
+            /><span 
+            onClick={clearDatainputHandler}
+            style={{color:'gray', cursor:'pointer'}}
+            >Clear all tags</span>
+            <div>
+                <Button
+                    style={{marginTop: '3px'}}
+                    content='Search'
+                    onClick={(e) => handleFilter(e)}
+                    color='blue'
+                />
+            </div>
         </Fragment>
     );
 }

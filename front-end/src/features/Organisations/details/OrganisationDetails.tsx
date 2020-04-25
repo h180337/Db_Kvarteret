@@ -31,12 +31,12 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
     if (!organiasation) return <h2>organisation not found</h2>
     return (
        <Grid>
-           <Grid.Column width={10}>
+           <Grid.Column width={11}>
                <OrganisationDetailedHeader id={match.params.id}/>
                <OrganisationDetailedInfo organiasation={organiasation}/>
                <GroupTable/>
            </Grid.Column>
-           <Grid.Column width={6}>
+           <Grid.Column width={3}>
                 <OrganisationDetailedSidebar/>
            </Grid.Column>
        </Grid>

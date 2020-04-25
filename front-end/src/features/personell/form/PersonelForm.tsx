@@ -87,18 +87,21 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                         onSubmit={handleFinalFormSubmit}
                         render={({handleSubmit, invalid, pristine}) => (
                             <Form onSubmit={handleSubmit} loading={loading}>
+                                <label>First Name</label>
                                 <Field
                                     name='fornavn'
                                     placeholder='First Name'
                                     value={person.fornavn}
                                     component={TextInput}
                                 />
+                                <label>Last Name</label>
                                 <Field
                                     name='etternavn'
                                     placeholder='Last Name'
                                     value={person.etternavn}
                                     component={TextInput}
                                 />
+                                <label>Gender</label>
                                 <Field
                                     name='kjonn'
                                     placeholder='Gender'
@@ -106,13 +109,14 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                     options={gender}
                                     component={SelectInput}
                                 />
-                                
+                                <label>Username</label>
                                 <Field
                                     name='userName'
                                     placeholder='User Account Name'
                                     value={person.userName}
                                     component={TextInput}
                                 />
+                                <label>Work Status</label>
                                 <Field
                                 name='workstatus'
                                 placeholder='Work Status'
@@ -120,30 +124,35 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                 options={workStatus}
                                 component={SelectInput}
                             />
+                                <label>Phonenumber</label>
                                 <Field
                                     name='phoneNumber'
                                     placeholder='Phone Number'
                                     value={person.phoneNumber}
                                     component={TextInput}
                                 />
+                                <label>Email</label>
                                 <Field
                                     name='email'
                                     placeholder='Email'
                                     value={person.email}
                                     component={TextInput}
                                 />
+                                <label>Address</label>
                                 <Field
                                     name='streetAddress'
                                     placeholder='Address'
                                     value={person.streetAddress}
                                     component={TextInput}
                                 />
+                                <label>Area code</label>
                                 <Field
                                     name='areaCode'
                                     placeholder='Area code'
                                     value={person.areaCode}
                                     component={TextInput}
                                 />
+                                <label>Date of Birth</label>
                                 <Field
                                     name='dateOfBirth'
                                     placeholder='Birth Date'

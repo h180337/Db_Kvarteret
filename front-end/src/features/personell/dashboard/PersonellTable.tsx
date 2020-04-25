@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import Headers from "../../../app/common/header/Headers";
+import DataSearch from "../../../app/common/searchFilter/DataSearch";
 
 interface IProps {
     users: any[];
@@ -47,6 +48,7 @@ const PersonellTable: React.FC<IProps> = ({users, filteredData}) => {
                     headerSize={"medium"}
                 />
                 <Segment secondary/>
+                <DataSearch dataArray={users} filteredData={filteredData}/>
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'

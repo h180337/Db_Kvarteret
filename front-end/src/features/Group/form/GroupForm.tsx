@@ -4,7 +4,7 @@ import {RootStoreContext} from "../../../app/stores/rootStore";
 import {GroupFormValues} from '../../../app/models/group';
 import {v4 as uuid} from "uuid";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Grid, Segment} from "semantic-ui-react";
+import {Button, Form, Grid, Segment, Label} from "semantic-ui-react";
 import {Field, Form as FinalForm} from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
@@ -77,12 +77,14 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
                         onSubmit={handleFinalFormSubmit}
                         render={({handleSubmit, invalid, pristine}) => (
                             <Form onSubmit={handleSubmit} loading={loading}>
+                                <label>Group Name</label>
                                 <Field
                                     name='navn'
                                     placeholder='Name'
                                     value={group.navn}
                                     component={TextInput}
                                 />
+                                <label>Description</label>
                                 <Field
                                     name='beskrivelse'
                                     placeholder='Description'
@@ -90,6 +92,7 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
                                     component={TextAreaInput}
                                     rows={3}
                                 />
+                                <label>Group type</label>
                                 <Field
                                     name='groupType'
                                     placeholder='groupType'

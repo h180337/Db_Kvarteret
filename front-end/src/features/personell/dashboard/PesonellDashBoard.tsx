@@ -30,14 +30,11 @@ const PesonellDashBoard: React.FC = () => {
     return (
         <Fragment>
             <Grid>
-                <Grid.Column width={12}>
+                <Grid.Column>
                     <PersonellTable filteredData={filteredData} users={usersAsArray}/>
                     <Segment>
                         <CsvLink dataArray={usersAsArray} filterData={ filteredUsersAsArray}/>
                     </Segment>
-                </Grid.Column>
-                <Grid.Column width={4}>
-                    <DataSearch dataArray={usersAsArray} filteredData={filteredData}/>
                 </Grid.Column>
             </Grid>
         </Fragment>

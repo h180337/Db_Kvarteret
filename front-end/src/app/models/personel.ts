@@ -16,7 +16,8 @@ export interface IPersonel {
     token: string,
     groups: any[],
     courses: any[],
-    tags: ITag []
+    tags: ITag [],
+    historys: any [];
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{

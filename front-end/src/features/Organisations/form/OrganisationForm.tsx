@@ -68,12 +68,14 @@ const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({m
                         onSubmit={handleFinalFormSubmit}
                         render={({handleSubmit, invalid, pristine}) => (
                             <Form onSubmit={handleSubmit} loading={loading}>
+                                <label>Organisation Name</label>
                                 <Field
                                     name='name'
                                     placeholder='Name'
                                     value={organisation.name}
                                     component={TextInput}
                                 />
+                                <label>Description</label>
                                 <Field
                                     name='description'
                                     placeholder='Description'

@@ -10,30 +10,6 @@ interface IProps {
     user: IPersonel
 }
 
-const history: any[] = [
-    {
-        semester: 'h17',
-        name: 'test',
-        position: 'master in comand',
-        id: '1',
-        groupType: 'prosject'
-    },
-    {
-        semester: 'h18',
-        name: 'tetes',
-        position: 'master',
-        id: '3',
-        groupType: 'kommite'
-    },
-    {
-        semester: 'h19',
-        name: '123',
-        position: 'master in comand',
-        id: '2',
-        groupType: 'group'
-    },
-]
-
 const ProfileHistory: React.FC<IProps> = ({user}) => {
 
     const rootStore = useContext(RootStoreContext);
@@ -51,11 +27,11 @@ const ProfileHistory: React.FC<IProps> = ({user}) => {
                 </Table.Header>
 
                 <Table.Body>
-                    {history.map((group: any) => (
+                    {user.historys.map((group: any) => (
                         <Table.Row key={group.id}>
-                            <Table.Cell>{group.semester}</Table.Cell>
+                            <Table.Cell>{`${group.semester} - ${group.year}`}</Table.Cell>
                             <Table.Cell>{group.groupType}</Table.Cell>
-                            <Table.Cell>{group.name}</Table.Cell>
+                            <Table.Cell>{group.groupName}</Table.Cell>
                             <Table.Cell>{group.position}</Table.Cell>
 
                         </Table.Row>
