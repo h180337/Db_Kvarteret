@@ -71,7 +71,8 @@ export default class UserStore {
     //Loads all the users into the userRegistry map and reformat the date props
     @action loadUsers = async () => {
             this.loadingInitial = true;
-            this.userRegistry.clear()
+            this.userRegistry.clear();
+            this.filteredData.clear();
             try {
                 const users = await agent.Users.list();
                 runInAction('loading users', () => {

@@ -53,6 +53,7 @@ export default class GroupStore {
 
     @action loadGroup = async (id: string) => {
         let group = this.getGroup(id);
+        this.groupMembersRegistry.clear();
         if (group) {
             this.group = group;
             return group;
@@ -62,7 +63,6 @@ export default class GroupStore {
                 group = await agent.Groups.details(id);
                 runInAction('getting group', () => {
                     this.group = group;
-                    this.groupRegistry.set(group.id, group);
                     this.loadingInitial = false;
                     [...this.group!.members].forEach(member => {
                         this.groupMembersRegistry.set(member.id, member);

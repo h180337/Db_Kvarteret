@@ -24,7 +24,9 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
     } = rootStore.groupStore;
 
     useEffect(() => {
-        loadGroup(match.params.id);
+            if (!group || group!.id !== match.params.id){
+                loadGroup(match.params.id);
+            }
     }, [loadGroup, match.params.id,group]);
 
     if (loadingInitial) return <LoadingComponent inverted content='Loading group'/>
