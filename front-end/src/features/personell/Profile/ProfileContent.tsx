@@ -57,7 +57,7 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
     
     return (
         <Tab
-            menu={{fluid: true, vertical: true}}
+            menu={{pointing: true}}
             menuPosition='right'
             panes={panes}
         />

@@ -21,24 +21,24 @@ const PhotoUpload = () => {
     return(
         <Fragment>
             <Grid>
-                <Grid.Column width={4}>
+                <Grid.Column mobile={16} computer={4}>
                     <Header color='teal' sub content='Step 1 - Add Photo' />
                     <MyDropzone setFiles={setFiles}/>
                 </Grid.Column>
-                <Grid.Column width={1} />
-                <Grid.Column width={4}>
+                <Grid.Column mobile={16} computer={1} />
+                <Grid.Column mobile={16} computer={4}>
                     <Header sub color='teal' content='Step 2 - Resize image' />
                     {files.length>0 &&
                     <PhotoUploadCropper setImage={setImage} imagePreview={files[0].preview}/>
                     }
                 </Grid.Column>
-                <Grid.Column width={1} />
-                <Grid.Column width={4}>
+                <Grid.Column mobile={16} computer={1} />
+                <Grid.Column mobile={16} computer={4}>
                     <Header sub color='teal' content='Step 3 - Preview & Upload' />
                     {files.length>0 &&
                         <Fragment>
                             <div className='image-preview' style={{minHeight: '200px', overflow:'hidden'}}/>
-                            <Button.Group widths={2}>
+                            <Button.Group mobile={16} computer={2}>
                                 <Button positive icon='check' content='Upload'/>
                                 <Button basic icon='cancel' content='cancel'/>
                             </Button.Group>

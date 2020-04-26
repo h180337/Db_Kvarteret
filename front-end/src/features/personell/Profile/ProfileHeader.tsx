@@ -9,7 +9,7 @@ interface IProps {
 const ProfileHeader: React.FC<IProps> = ({user}) => {
     return (
         <Grid>
-            <Grid.Column width={12} style={{marginTop: '20px'}}>
+            <Grid.Column mobile={16} computer={12} tablet={8} style={{marginTop: '20px'}}>
                 <Item.Group>
                     <Item>
                         <Item.Image avatar src='/assets/UserProfile.jpeg' size='small' alt='Prifile image'/>

@@ -45,7 +45,7 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
                         />
                         <ProfileHeader user={user}/>
             </Segment>
-            <ProfileContent user={user}/>
+            <ProfileContent  user={user}/>
 
             <Segment clearing>
                 <Button.Group floated='right'>

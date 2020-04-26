@@ -35,7 +35,7 @@ export default class UserStore {
             })
             this.rootStore.commonStore.setToken(user.token);
             this.rootStore.modalStore.closeModal();
-            history.push(`/users/${user.id}`)
+            history.push(`/users/${this.LogiedInuser!.id}`)
             
         }catch (e) {
             throw e.response;
