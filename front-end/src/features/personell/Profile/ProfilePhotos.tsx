@@ -14,24 +14,14 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {LogiedInuser, user} = rootStore.userStore;
-    const [addPhotoMode, setAddPhotoMode] = useState(false)
-
     return (
         <Tab.Pane>
             <Grid>
                 <Grid.Column width={16} style={{paddingBottom: '0px'}}>
                     <Header floated='left' icon='images' content='Profile Photo'/>
-                    {LogiedInuser!.id === user!.id &&
-                    <Button 
-                        floated='right' 
-                        basic 
-                        content={addPhotoMode ? 'Cancel' : 'Add Photo'}
-                        onClick={() => setAddPhotoMode(!addPhotoMode)}
-                    />
-                    }
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    {addPhotoMode ? (
+                    {LogiedInuser!.id === user!.id ? (
                         <PhotoUpload/>
                     ) : (
                         <Card.Group>
@@ -42,11 +32,6 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
                                 ))
                                 : <Card>
                                     <Image size='medium' src='/assets/UserProfile.jpeg'/>
-                                    {LogiedInuser!.id === user!.id && 
-                                    <Button.Group fluid widths={2}>
-                                        <Button basic positive content='Main'/>
-                                        <Button basic negative icon='trash'/>
-                                    </Button.Group>}
                                 </Card>}
                         </Card.Group>
                     )}
