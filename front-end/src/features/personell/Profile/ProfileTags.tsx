@@ -21,14 +21,11 @@ const ProfileTags: React.FC<IProps> = ({tags, userId}) => {
     
     return (
         <Fragment>
-            <Segment>
                 {Array.from(userTagRegistry.values()).map((tag:ITag) => (
                     <Label size='large' key={tag.id} style={{marginTop: '4px'}}>
                         {tag.tagText}
                     </Label>
                 ))}
-
-            </Segment>
             <Button
                 content='Edit tag'
                 onClick={() => openModal(<ProfileTagManager userId={userId}/>)}

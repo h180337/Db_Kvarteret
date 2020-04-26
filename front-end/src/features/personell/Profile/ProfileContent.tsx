@@ -6,6 +6,7 @@ import ProfileGroups from "./ProfileGroups";
 import ProfileTags from "./ProfileTags";
 import { observer } from 'mobx-react-lite';
 import ProfileHistory from './ProfileHistory';
+import ProfilePhotos from "./ProfilePhotos";
 
 interface IProps {
     user: IPersonel;
@@ -45,6 +46,7 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
  
     const panes = [
         {menuItem: 'Info', render: () => <Tab.Pane>{about}</Tab.Pane>},
+        {menuItem: 'Photo', render: () => <Tab.Pane><ProfilePhotos profile={user}/></Tab.Pane>},
         {menuItem: 'History', render: () => <Tab.Pane><ProfileHistory user={user}/></Tab.Pane>},
         {menuItem: 'Courses', render: () => <Tab.Pane><ProfileCourses courses={user.courses}/></Tab.Pane>},
         {menuItem: 'Tags', render: () => <Tab.Pane><ProfileTags tags={user.tags} userId={user.id}/></Tab.Pane>},

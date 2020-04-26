@@ -35,7 +35,7 @@ export default class UserStore {
             })
             this.rootStore.commonStore.setToken(user.token);
             this.rootStore.modalStore.closeModal();
-            history.push('/users')
+            history.push(`/users/${user.id}`)
             
         }catch (e) {
             throw e.response;
@@ -129,6 +129,7 @@ export default class UserStore {
             await agent.Users.create(user);
             runInAction('createUser', () => {
                 this.userRegistry.set(user.id, user)
+                this.user = user;
                 this.submitting = false;
             });
             history.push(`/users/${user.id}`)

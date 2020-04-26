@@ -18,6 +18,7 @@ export interface IPersonel {
     courses: any[],
     tags: ITag [],
     historys: any [];
+    photo: any;
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{
