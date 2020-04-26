@@ -1,12 +1,22 @@
 // @ts-ignore
-import React, { Fragment, useState } from 'react';
-import { Header, Grid, Image } from 'semantic-ui-react';
+import React, { Fragment, useState, useEffect } from 'react';
+import { Header, Grid, Image, Button } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import MyDropzone from "./PhotoDropZone";
+import PhotoUploadCropper from "./PhotoUploadCropper";
 
 const PhotoUpload = () => {
     
     const [files, setFiles] = useState<any[]>([]);
+    const [image, setImage] = useState<Blob | null>(null)
+    
+    useEffect(() =>{
+        return () => {
+            files.forEach(file =>{
+                URL.revokeObjectURL(file.preview)
+            })
+        }
+    })
     
     return(
         <Fragment>
@@ -18,12 +28,21 @@ const PhotoUpload = () => {
                 <Grid.Column width={1} />
                 <Grid.Column width={4}>
                     <Header sub color='teal' content='Step 2 - Resize image' />
+                    {files.length>0 &&
+                    <PhotoUploadCropper setImage={setImage} imagePreview={files[0].preview}/>
+                    }
                 </Grid.Column>
                 <Grid.Column width={1} />
                 <Grid.Column width={4}>
                     <Header sub color='teal' content='Step 3 - Preview & Upload' />
                     {files.length>0 &&
-                    <Image src={files[0].preview}/>
+                        <Fragment>
+                            <div className='image-preview' style={{minHeight: '200px', overflow:'hidden'}}/>
+                            <Button.Group widths={2}>
+                                <Button positive icon='check' content='Upload'/>
+                                <Button basic icon='cancel' content='cancel'/>
+                            </Button.Group>
+                        </Fragment>
                     }
                 </Grid.Column>
             </Grid>

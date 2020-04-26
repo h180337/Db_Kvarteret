@@ -14,7 +14,7 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {LogiedInuser, user} = rootStore.userStore;
-    const [addPhotoMode, setAddPhotoMode] = useState(true)
+    const [addPhotoMode, setAddPhotoMode] = useState(false)
 
     return (
         <Tab.Pane>
