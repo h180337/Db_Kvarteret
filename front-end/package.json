@@ -27,6 +27,7 @@
     "react": "^16.13.0",
     "react-csv": "^2.0.1",
     "react-dom": "^16.13.0",
+    "react-dropzone": "^11.0.1",
     "react-final-form": "^6.3.5",
     "react-fuzzy": "^1.0.0",
     "react-router-dom": "^5.1.2",

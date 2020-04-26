@@ -4,6 +4,7 @@ import {Tab, Header, Card, Image, Button, Grid} from 'semantic-ui-react'
 import {IPersonel} from '../../../app/models/personel';
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
+import PhotoUpload from '../../../app/common/photoUpload/PhotoUpload'
 
 interface IProp {
     profile: IPersonel
@@ -13,7 +14,7 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {LogiedInuser, user} = rootStore.userStore;
-    const [addPhotoMode, setAddPhotoMode] = useState(false)
+    const [addPhotoMode, setAddPhotoMode] = useState(true)
 
     return (
         <Tab.Pane>
@@ -31,7 +32,7 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
                 </Grid.Column>
                 <Grid.Column width={16}>
                     {addPhotoMode ? (
-                        <p>Photo Widget</p>
+                        <PhotoUpload/>
                     ) : (
                         <Card.Group>
                             {profile.photo ? profile.photo.map((photo: any) => (
