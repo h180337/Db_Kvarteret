@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, List } from 'semantic-ui-react';
+import { Tab, List , Grid} from 'semantic-ui-react';
 import {IPersonel} from "../../../app/models/personel";
 import ProfileCourses from "./ProfileCourses";
 import ProfileGroups from "./ProfileGroups";
@@ -28,11 +28,16 @@ const ProfileContent: React.FC<IProps> = ({user}) => {
     ]
     
     return (
-        <Tab
-            menu={{pointing: true}}
-            menuPosition='right'
-            panes={panes}
-        />
+        <Grid>
+            <Grid.Column width={16}>
+                <Tab
+                    menu={{pointing: true}}
+                    menuPosition='right'
+                    panes={panes}
+                />
+            </Grid.Column>
+        </Grid>
+      
             
     );
 }

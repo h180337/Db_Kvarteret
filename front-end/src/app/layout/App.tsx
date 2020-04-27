@@ -1,5 +1,5 @@
 import React, {Fragment, useContext, useEffect} from 'react';
-import {Container} from 'semantic-ui-react';
+import {Container, Menu} from 'semantic-ui-react';
 import NavBar from '../../features/nav/NavBar';
 import './styles.css'
 import {observer} from 'mobx-react-lite'
@@ -19,7 +19,6 @@ import OrganisationDetails from "../../features/Organisations/details/Organisati
 import OrganisationForm from '../../features/Organisations/form/OrganisationForm';
 import GroupDetails from "../../features/Group/details/GroupDetails";
 import GroupForm from '../../features/Group/form/GroupForm';
-
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
 

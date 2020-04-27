@@ -21,7 +21,7 @@ const OrganisationDashBoard = () => {
     return (
         <Fragment>
             <Grid>
-                <Grid.Column width={12}>
+                <Grid.Column width={16}>
                     <Segment>
                         <Headers
                             iconName="building"
@@ -30,9 +30,6 @@ const OrganisationDashBoard = () => {
                             headerSize="medium"/>
                     </Segment>
                     <OrganisationList/>
-                </Grid.Column>
-                <Grid.Column width={4}>
-                    <h2>Filters</h2>
                 </Grid.Column>
             </Grid>
 

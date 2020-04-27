@@ -59,23 +59,26 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
                     color='green'
                     onClick={() =>openModal(<AddGroupMemberForm groupid={id}/>)}
                 />
-                <Button
-                    floated='right'
-                    content='Delete'
-                    color='red'
-                    as={Link}
-                    loading={target === group!.id && submitting}
-                    onClick={(event => {deleteGroup(event, id)})}
-                    to={'/organisation'}
-                />
-                <Button
-                    floated='right'
-                    content='Edit'
-                    color='orange'
-                    as={NavLink}
-                    to={`/managegroup/${group!.id}`}
-                   
-                />
+                <Button.Group>
+                    <Button
+                        floated='right'
+                        content='Delete'
+                        color='red'
+                        as={Link}
+                        loading={target === group!.id && submitting}
+                        onClick={(event => {deleteGroup(event, id)})}
+                        to={'/organisation'}
+                    />
+                    <Button
+                        floated='right'
+                        content='Edit'
+                        color='orange'
+                        as={NavLink}
+                        to={`/managegroup/${group!.id}`}
+
+                    />
+                </Button.Group>
+            
             </Segment>
         </Segment.Group>
     )

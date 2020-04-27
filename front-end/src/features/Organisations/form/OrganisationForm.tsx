@@ -55,7 +55,7 @@ const OrganisationForm: React.FC<RouteComponentProps<OrganiasationParams>> = ({m
 
     return (
         <Grid>
-            <Grid.Column width={10}>
+            <Grid.Column width={16}>
                 <Segment clearing>
                     <Headers
                         iconName={match.params.id ? 'edit': 'building'}

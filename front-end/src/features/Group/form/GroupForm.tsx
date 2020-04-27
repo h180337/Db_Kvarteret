@@ -63,7 +63,7 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
     
     return (
         <Grid>
-            <Grid.Column width={10}>
+            <Grid.Column width={16}>
                 <Segment clearing>
                     <Headers
                         iconName={match.params.id ? 'edit': 'group'}

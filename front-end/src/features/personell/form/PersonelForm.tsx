@@ -73,7 +73,7 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
 
     return (
         <Grid>
-            <Grid.Column width={10}>
+            <Grid.Column width={16}>
                 <Segment clearing>
                     <Headers 
                         iconName={match.params.id ? 'edit': 'add user'}
