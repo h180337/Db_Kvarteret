@@ -125,14 +125,14 @@ export default class UserStore {
     //submits a new user to the Db by calling the API
     @action createUser = async (user: IPersonel) => {
         this.submitting = true;
+        this.user = user;
         try {
             await agent.Users.create(user);
             runInAction('createUser', () => {
                 this.userRegistry.set(user.id, user)
-                this.user = user;
                 this.submitting = false;
             });
-            history.push(`/users/${user.id}`)
+            history.push(`/users`)
         } catch (e) {
             runInAction('create user error', () => {
                 this.submitting = false;
