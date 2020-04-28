@@ -1,5 +1,5 @@
 import React, {useContext, useState, Fragment} from 'react';
-import {Button, Container, Dropdown, Image, Menu, Responsive, Icon, Segment, Header, Sidebar} from 'semantic-ui-react';
+import {Button, Container, Dropdown, Image, Menu, Responsive, Icon, Segment, Header, Sidebar, Popup} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite';
 import {Link, NavLink} from 'react-router-dom';
 import {RootStoreContext} from "../../app/stores/rootStore";
@@ -68,12 +68,14 @@ const NavBar: React.FC = () => {
                     }
                 </Responsive>
                 <Responsive as={Container} maxWidth={767}>
-                    <Icon
-                        name='bars'
-                        size='huge'
-                        style={{color:'white'}}
-                        onClick={() =>{setShow(!show)}}
-                    />
+                    <Popup 
+                        content='Menu bar' 
+                        trigger={<Icon 
+                            name='bars'
+                            size='huge'
+                            style={{color:'white'}}
+                            onClick={() =>{setShow(!show)}}
+                        />} />
                 </Responsive>
             </Menu>
             {show &&  <SideBareToggle setShow={setShow} show={show} logout={logout} LogiedInuser={LogiedInuser}/>}
