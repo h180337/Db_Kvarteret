@@ -90,6 +90,7 @@ export default class GroupStore {
             await agent.Groups.create(group);
             runInAction('create Group', () => {
                 this.groupRegistry.set(group.id, group)
+                this.groupMembersRegistry.set(this.rootStore.userStore.LogiedInuser!.id,this.rootStore.userStore.LogiedInuser)
                 this.submitting = false;
             });
             history.push(`/group/${group.id}`)

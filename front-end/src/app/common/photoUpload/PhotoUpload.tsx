@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, { Fragment, useState, useEffect } from 'react';
-import { Header, Grid, Image, Button } from 'semantic-ui-react';
+import { Header, Grid, Image, Button, Popup } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import MyDropzone from "./PhotoDropZone";
 import PhotoUploadCropper from "./PhotoUploadCropper";
@@ -39,7 +39,16 @@ const PhotoUpload = () => {
                         <Fragment>
                             <div className='image-preview' style={{minHeight: '200px', overflow:'hidden'}}/>
                             <Button.Group mobile={16} computer={2}>
-                                <Button positive icon='check' content='Upload'/>
+                                <Popup
+                                    content='Backend does not support this action, at the moment'
+                                    on='click'
+                                    pinned
+                                    trigger={<Button 
+                                        content='Upload' 
+                                        positive
+                                        icon='check'
+                                    />}
+                                />
                                 <Button basic icon='cancel' content='cancel'/>
                             </Button.Group>
                         </Fragment>

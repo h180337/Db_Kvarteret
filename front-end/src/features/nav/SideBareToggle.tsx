@@ -18,7 +18,7 @@ const style = {
 
 const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout}) => {
 
-    const test = (
+    return (
         <Sidebar
             as={Menu}
             animation='overlay'
@@ -82,7 +82,7 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
         </Sidebar>
     )
     // @ts-ignore
-    return ReactDOM.createPortal(test, document.getElementById('drawer-hook'));
+   // return ReactDOM.createPortal(test, document.getElementById('drawer-hook'));
 }
 
 export default SideBareToggle;
