@@ -25,11 +25,11 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
                         <PhotoUpload/>
                     ) : (
                         <Card.Group>
-                            {profile.photo ? profile.photo.map((photo: any) => (
+                            {profile.profilePhoto ?  (
                                     <Card>
-                                        <Image size='medium' src={profile.photo}/>
+                                        <Image size='medium' src={user!.profilePhoto.url}/>
                                     </Card>
-                                ))
+                                )
                                 : <Card>
                                     <Image size='medium' src='/assets/UserProfile.jpeg'/>
                                 </Card>}

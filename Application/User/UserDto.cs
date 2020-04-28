@@ -37,7 +37,9 @@ namespace Application.User
         public string areaCode { get; set; }
 
         public string Token { get; set; }
-
+        
+        public Photo ProfilePhoto { get; set; }
+        
         [JsonPropertyName("groups")]
         public ICollection<GroupDto> UserGroups { get; set; }
 

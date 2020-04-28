@@ -37,6 +37,9 @@ namespace Persistence
 
         public DbSet<AccessGroup> AccessGroups { get; set; }
         public DbSet<AccessGroupLevel> AccessGroupLevels { get; set; }
+        
+        public DbSet<Photo> ProfilePhoto { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)

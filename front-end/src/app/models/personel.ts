@@ -1,4 +1,5 @@
 import { ITag } from "./Tag";
+import { IPhoto } from "./Photo";
 
 export interface IPersonel {
     id: string,
@@ -18,7 +19,7 @@ export interface IPersonel {
     courses: any[],
     tags: ITag [],
     historys: any [];
-    photo: any;
+    profilePhoto: IPhoto;
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{

@@ -9,7 +9,7 @@ import SideBareToggle from "./SideBareToggle";
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout} = rootStore.userStore
+    const {LogiedInuser, logout, user} = rootStore.userStore
     const [show, setShow] = useState(false)
 
     return (
@@ -56,7 +56,8 @@ const NavBar: React.FC = () => {
 
                     {LogiedInuser &&
                     <Menu.Item position='right'>
-                        <Image avatar spaced='right' src={'/assets/UserProfile.jpeg'}/>
+                        <Image avatar spaced='right'
+                               src={LogiedInuser.profilePhoto.url ? LogiedInuser.profilePhoto.url : '/assets/UserProfile.jpeg'}/>
                         <Dropdown pointing='top left' text={LogiedInuser.userName}>
                             <Dropdown.Menu>
                                 <Dropdown.Item as={Link} to={`/users/${LogiedInuser.id}`} text='My profile'
