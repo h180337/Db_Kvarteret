@@ -1,5 +1,5 @@
-import React, {useContext, useState, Fragment} from 'react';
-import {Button, Container, Dropdown, Image, Menu, Responsive, Icon, Segment, Header, Sidebar, Popup} from 'semantic-ui-react';
+import React, {Fragment, useContext, useState} from 'react';
+import {Button, Container, Dropdown, Header, Icon, Image, Menu, Responsive} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite';
 import {Link, NavLink} from 'react-router-dom';
 import {RootStoreContext} from "../../app/stores/rootStore";
@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
     return (
         <Fragment>
             <Menu fixed='top' inverted>
-                <Responsive as={Container} minWidth={768}>
+                <Responsive as={Container} minWidth={1126}>
                     <Menu.Item header as={NavLink} to='/' exact>
                         <img src='/assets/LogoKvarteret.png' alt='Logo' style={{marginRight: '10px'}}/>
                         Db Kvarteret
@@ -59,7 +59,8 @@ const NavBar: React.FC = () => {
                         <Image avatar spaced='right' src={'/assets/UserProfile.jpeg'}/>
                         <Dropdown pointing='top left' text={LogiedInuser.userName}>
                             <Dropdown.Menu>
-                                <Dropdown.Item as={Link} to={`/users/${LogiedInuser.id}`} text='My profile' icon='user'/>
+                                <Dropdown.Item as={Link} to={`/users/${LogiedInuser.id}`} text='My profile'
+                                               icon='user'/>
                                 <Dropdown.Item onClick={logout} text='Logout' icon='power'/>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -67,15 +68,23 @@ const NavBar: React.FC = () => {
 
                     }
                 </Responsive>
-                <Responsive as={Container} maxWidth={767}>
-                    <Popup 
-                        content='Menu bar' 
-                        trigger={<Icon 
-                            name='bars'
-                            size='huge'
-                            style={{color:'white'}}
-                            onClick={() =>{setShow(!show)}}
-                        />} />
+                <Responsive as={Container} maxWidth={1125}>
+                    <Icon
+                        name='bars'
+                        size='huge'
+                        style={{color: 'white'}}
+                        onClick={() => {
+                            setShow(!show)
+                        }}>
+
+                    </Icon>
+                    <Header
+                        content='Menu'
+                        size='large'
+                        style={{color: 'white', marginBottom: '3px'}}
+                        onClick={() =>{setShow(!show)}}
+
+                    />
                 </Responsive>
             </Menu>
             {show &&  <SideBareToggle setShow={setShow} show={show} logout={logout} LogiedInuser={LogiedInuser}/>}
