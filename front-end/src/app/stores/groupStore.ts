@@ -52,23 +52,13 @@ export default class GroupStore {
     }
 
     @action loadGroup = async (id: string) => {
-        let group = this.getGroup(id);
-        if (group) {
-            this.groupMembersRegistry.clear();
-            [...this.group!.members].forEach(member => {
-                this.groupMembersRegistry.set(member.id, member);
-            })
-            this.group = group;
-            
-            return group;
-        } else {
             this.loadingInitial = true;
             try {
-                group = await agent.Groups.details(id);
+                let group = await agent.Groups.details(id);
                 runInAction('getting group', () => {
                     this.group = group;
                     this.groupMembersRegistry.clear();
-                    [...this.group!.members].forEach(member => {
+                    this.group!.members && [...this.group!.members].forEach(member => {
                         this.groupMembersRegistry.set(member.id, member);
                     })
                     this.loadingInitial = false;
@@ -80,7 +70,7 @@ export default class GroupStore {
                 })
                 console.log(e);
             }
-        }
+        
     }
 
     @action createGroup = async (group: IGroup) => {
