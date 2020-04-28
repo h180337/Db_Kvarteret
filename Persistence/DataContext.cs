@@ -9,8 +9,7 @@ namespace Persistence
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-
-        //table name inside sqlite
+        
         public DbSet<Organisation> Organisations { get; set; }
 
         public DbSet<Group> Groups { get; set; }
