@@ -89,6 +89,7 @@ export default class GroupStore {
         try {
             await agent.Groups.create(group);
             runInAction('create Group', () => {
+                this.group = group;
                 this.groupRegistry.set(group.id, group)
                 this.groupMembersRegistry.set(this.rootStore.userStore.LogiedInuser!.id,this.rootStore.userStore.LogiedInuser)
                 this.submitting = false;
