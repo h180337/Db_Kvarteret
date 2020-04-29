@@ -5,6 +5,7 @@ import {ITag} from '../models/Tag'
 import {IOrganisation} from '../models/organisations'
 import {history} from '../..';
 import { toast } from 'react-toastify';
+import { IPhoto } from '../models/Photo';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -44,7 +45,14 @@ const requests = {
     get: (url: string) => axios.get(url).then(sleep(1000)).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(sleep(1000)).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(sleep(1000)).then(responseBody),
-    del: (url: string) => axios.delete(url).then(sleep(1000)).then(responseBody)
+    del: (url: string) => axios.delete(url).then(sleep(1000)).then(responseBody),
+    postForm: (url: string, file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post(url, formData, {
+            headers: {'Content-type': 'multipart/form-data'}
+        }).then(responseBody)
+    }
 };
 
 const Users = {
@@ -54,7 +62,9 @@ const Users = {
     details: (id: string) => requests.get(`/users/${id}`),
     create: (user: IPersonel) => requests.post('/users/createuser', user),
     update: (user: IPersonel) => requests.put(`/users/${user.id}`, user),
-    delete: (id: string) => requests.del(`/users/${id}`)
+    delete: (id: string) => requests.del(`/users/${id}`),
+    uploadPhoto: (photo: Blob): Promise<IPhoto> => requests.postForm(`/photo`, photo),
+    deletePhoto: (id: string) => requests.del(`/photo/${id}`)
 }
 
 const Organisation = {

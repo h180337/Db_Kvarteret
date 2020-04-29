@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, Header, Item} from "semantic-ui-react";
 import {IPersonel} from '../../../app/models/personel'
+import { observer } from 'mobx-react-lite';
  
 interface IProps {
     user: IPersonel;
@@ -26,4 +27,4 @@ const ProfileHeader: React.FC<IProps> = ({user}) => {
     );
 }
 
-export default ProfileHeader;
+export default observer(ProfileHeader);

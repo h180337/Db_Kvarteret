@@ -13,7 +13,9 @@ interface IProp {
 const ProfilePhotos: React.FC<IProp> = ({profile}) => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, user} = rootStore.userStore;
+    const {LogiedInuser, uploadingPhoto, uploadPhoto} = rootStore.userStore;
+    
+ 
     return (
         <Tab.Pane>
             <Grid>
@@ -21,13 +23,13 @@ const ProfilePhotos: React.FC<IProp> = ({profile}) => {
                     <Header floated='left' icon='images' content='Profile Photo'/>
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    {LogiedInuser!.id === user!.id ? (
-                        <PhotoUpload/>
+                    {LogiedInuser!.id === profile!.id ? (
+                        <PhotoUpload loading={uploadingPhoto} uploadPhoto={uploadPhoto}/>
                     ) : (
                         <Card.Group>
                             {profile.profilePhoto ?  (
                                     <Card>
-                                        <Image size='medium' src={user!.profilePhoto.url}/>
+                                        <Image size='medium' src={profile!.profilePhoto.url}/>
                                     </Card>
                                 )
                                 : <Card>

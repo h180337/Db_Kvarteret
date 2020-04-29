@@ -19,7 +19,7 @@ export interface IPersonel {
     courses: any[],
     tags: ITag [],
     historys: any [];
-    profilePhoto: IPhoto;
+    profilePhoto: IPhoto | null;
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{

@@ -6,6 +6,7 @@ import {history} from '../..'
 import {toast} from 'react-toastify';
 import {RootStore} from './rootStore'
 import {ITag} from '../models/Tag';
+import { IPhoto } from '../models/Photo';
 
 
 export default class UserStore {
@@ -16,7 +17,9 @@ export default class UserStore {
     }
     
     @observable userRegistry = new Map();
+    @observable loading = false;
     @observable loadingInitial = false;
+    @observable uploadingPhoto = false;
     @observable filteredData = new Map();
     @observable userTagRegistry = new Map();
     @observable user: IPersonel | null = null;
@@ -217,6 +220,45 @@ export default class UserStore {
                 this.target = '';
             });
             toast.error('error removing the tag')
+        }
+    }
+    
+    @action uploadPhoto = async (file: Blob) =>{
+        this.uploadingPhoto = true;
+      
+        try {
+            await agent.Users.deletePhoto(this.user!.profilePhoto!.id)
+            const photo = await agent.Users.uploadPhoto(file);
+            runInAction(()=>{
+                if (this.user){
+                    this.user.profilePhoto = photo;
+                }
+                this.userRegistry.set(this.user!.id, this.user);
+                this.uploadingPhoto = false;
+            })
+        }catch (e) {
+            console.log(e)
+            toast.error('Problem uploading photo')
+            runInAction(() =>{
+                this.uploadingPhoto = false;
+            })
+        }
+    }
+    
+    @action deletePhoto = async (photo: IPhoto) => {
+        this.loading = true;
+        try {
+            await agent.Users.deletePhoto(photo.id);
+            runInAction(() => {
+                this.user!.profilePhoto = null;
+                this.loading = false;
+            })
+            
+        }catch (e) {
+            console.log(e);
+            runInAction(() =>{
+                this.loading = false;
+            })
         }
     }
 }
