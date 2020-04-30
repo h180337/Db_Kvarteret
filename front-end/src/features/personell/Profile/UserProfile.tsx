@@ -34,15 +34,6 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
     return (
         <Fragment>
             <Segment clearing>
-                    <Button
-                            floated='right'
-                            content='Delete'
-                            color='red'
-                            as={Link}
-                            loading={target === user.id && submitting}
-                            onClick={(event) => deleteUser(event, user.id)}
-                            to={'/users'}
-                        />
                         <ProfileHeader user={user}/>
             </Segment>
             <ProfileContent  user={user}/>

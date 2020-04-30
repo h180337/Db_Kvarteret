@@ -28,26 +28,36 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             visible={show}
             width='thin'
         >
-            <Menu.Item header as={NavLink} to='/' exact>
+            <Menu.Item header as={NavLink} to='/' exact
+                       onClick={() => setShow(false)}
+
+            >
                 <Icon name='home'/>
                 Home
             </Menu.Item>
             <Menu.Item
                 as={NavLink}
                 to='/users'
-                name='Users'>
+                name='Users'
+                onClick={() => setShow(false)}
+            >
                 <Icon name='users'/>
                 Users
             </Menu.Item>
             <Menu.Item name='Organisations'
                        as={NavLink}
-                       to='/organisation'>
+                       to='/organisation'
+                       onClick={() => setShow(false)}
+
+            >
                 <Icon name='building'/>
                 Organiasations
             </Menu.Item>
             <Menu.Item
                 as={NavLink}
                 to='/createuser'
+                onClick={() => setShow(false)}
+
             >
                 <Icon name='add user'/>
                 create user
@@ -55,6 +65,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             <Menu.Item
                 as={NavLink}
                 to='/createorganisation'
+                onClick={() => setShow(false)}
+
             >
                 <Icon name='building'/>
                 create organiasation
@@ -62,6 +74,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             <Menu.Item
                 as={NavLink}
                 to='/creategroup'
+                onClick={() => setShow(false)}
+
             >
                 <Icon name='group'/>
                 create group
@@ -69,6 +83,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             <Menu.Item
                 as={Link}
                 to={`/users/${LogiedInuser.id}`}
+                onClick={() => setShow(false)}
+
             >
                 <Icon name='user'/>
                 My profile
