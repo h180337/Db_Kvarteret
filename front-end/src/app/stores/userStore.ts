@@ -6,7 +6,7 @@ import {history} from '../..'
 import {toast} from 'react-toastify';
 import {RootStore} from './rootStore'
 import {ITag} from '../models/Tag';
-import { IPhoto } from '../models/Photo';
+import {IPhoto} from '../models/Photo';
 
 
 export default class UserStore {
@@ -20,6 +20,7 @@ export default class UserStore {
     @observable loading = false;
     @observable loadingInitial = false;
     @observable uploadingPhoto = false;
+    @observable usersloaded = false;
     @observable filteredData = new Map();
     @observable userTagRegistry = new Map();
     @observable user: IPersonel | null = null;
@@ -72,8 +73,10 @@ export default class UserStore {
 
     //Loads all the users into the userRegistry map and reformat the date props
     @action loadUsers = async () => {
+        if (this.usersloaded) {
+            return this.userRegistry
+        } else {
             this.loadingInitial = true;
-            this.userRegistry.clear();
             this.filteredData.clear();
             try {
                 const users = await agent.Users.list();
@@ -83,26 +86,35 @@ export default class UserStore {
                         user.dateOfBirth = new Date(user.dateOfBirth!);
                         this.userRegistry.set(user.id, user);
                     });
-                    this.loadingInitial = false
+                    this.usersloaded = true;
+                    this.loadingInitial = false;
                 });
             } catch (e) {
                 runInAction('loading users error', () => {
                     this.loadingInitial = false;
                 });
                 console.log(e)}
+        }
     }
     
     //gets the user from the Registry if allready loaded, else goes to the api and gets the user
     @action loadUser = async (id: string) => {
-        this.loadingInitial = true;
-        this.userTagRegistry.clear()
+        let user = this.getUser(id)
+        if (user) {
+            this.user = user;
+            this.userTagRegistry.clear();
+            [...this.user!.tags].forEach((tag: ITag) => {
+                this.userTagRegistry.set(tag.id, tag);
+            })
+        } else {
+            this.loadingInitial = true;
             try {
                 let user = await agent.Users.details(id);
                 runInAction('getting User', () => {
                     user.dateOfBirth = new Date(user.dateOfBirth!.split('T')[0]);
                     this.user = user;
                     this.userRegistry.set(user.id, user);
-                   [...this.user!.tags].forEach((tag: ITag) => {
+                    [...this.user!.tags].forEach((tag: ITag) => {
                         this.userTagRegistry.set(tag.id, tag);
                     })
                     this.loadingInitial = false;
@@ -114,6 +126,7 @@ export default class UserStore {
                 })
                 console.log(e);
             }
+        }
     }
     //helper for loadUser
     getUser = (id: string) =>{
@@ -223,17 +236,18 @@ export default class UserStore {
         this.uploadingPhoto = true;
       
         try {
-            await agent.Users.deletePhoto(this.user!.profilePhoto!.id)
+            if (this.user!.profilePhoto) {
+                await agent.Users.deletePhoto(this.LogiedInuser!.profilePhoto!.id)
+            }
             const photo = await agent.Users.uploadPhoto(file);
-            runInAction(()=>{
-                if (this.user){
+            runInAction(() => {
+                if (this.user) {
                     this.user.profilePhoto = photo;
                 }
                 this.userRegistry.set(this.user!.id, this.user);
                 this.uploadingPhoto = false;
             })
         }catch (e) {
-            console.log(e)
             toast.error('Problem uploading photo')
             runInAction(() =>{
                 this.uploadingPhoto = false;
