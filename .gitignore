@@ -9,3 +9,5 @@ appsettings.json
 *.code-workspace
 API/databaseKvarteret.db-wal
 API/databaseKvarteret.db-shm
+wwwroot
+publish
