@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Field, Form as FinalForm} from 'react-final-form';
-import {Button, Form, Header} from 'semantic-ui-react';
+import {Button, Form, Header, Label} from 'semantic-ui-react';
 import TextInput from '../../../app/common/form/TextInput';
 import {RootStoreContext} from '../../../app/stores/rootStore';
 import {FORM_ERROR} from 'final-form';
@@ -8,7 +8,7 @@ import {combineValidators, isRequired} from 'revalidate';
 import ErrorMesage from "../../../app/common/form/ErrorMesage";
 
 const validate = combineValidators({
-    email: isRequired('email'),
+    username: isRequired('username'),
     password: isRequired('password')
 })
 
@@ -40,18 +40,20 @@ const LoginForm = () => {
                         content='Login to the database' 
                         color='teal' 
                         textAlign='center'/>
+                     <Label basic>Username</Label>   
                     <Field
-                        name='email'
+                        name='username'
                         component={TextInput}
-                        placeholder='Email'
+                        placeholder='username'
                     />
+                    <Label basic>Password</Label>
                     <Field
                         name='password'
                         component={TextInput}
                         placeholder='Password'
                         type='password'
                     />
-                    {submitError && !dirtySinceLastSubmit && (<ErrorMesage error={submitError} text='Invalid email or password'/>)}
+                    {submitError && !dirtySinceLastSubmit && (<ErrorMesage error={submitError} text='Invalid Username or password'/>)}
                     <br/>
                     <Button 
                         disabled={invalid && (!dirtySinceLastSubmit || pristine)} 

@@ -50,11 +50,7 @@ namespace Application.User
             {
                 RuleFor(x => x.fornavn).NotEmpty();
                 RuleFor(x => x.etternavn).NotEmpty();
-                RuleFor(x => x.kjonn).NotEmpty();
-                RuleFor(x => x.Email).NotEmpty().EmailAddress();
-                RuleFor(x => x.phoneNumber).NotEmpty();
-                RuleFor(x => x.streetAddress).NotEmpty();
-                RuleFor(x => x.areaCode).NotEmpty();
+                RuleFor(x => x.workstatus).NotEmpty();
                 RuleFor(x => x.userName).NotEmpty();
                 RuleFor(x => x.Password).Password();
             }

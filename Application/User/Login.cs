@@ -15,7 +15,7 @@ namespace Application.User
     {
         public class Query : IRequest<UserDto>
         {
-            public string Email { get; set; }
+            public string userName { get; set; }
             public string Password { get; set; }
         }
 
@@ -23,8 +23,8 @@ namespace Application.User
         {
             public QueryValidator()
             {
-                RuleFor(x => x.Email).NotEmpty();
                 RuleFor(x => x.Password).NotEmpty();
+                RuleFor(x => x.userName).NotEmpty();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Application.User
 
             public async Task<UserDto> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _userManager.FindByEmailAsync(request.Email);
+                var user = await _userManager.FindByNameAsync(request.userName);
 
                 if (user == null)
                 {

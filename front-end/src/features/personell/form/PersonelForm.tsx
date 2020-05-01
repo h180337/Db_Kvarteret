@@ -18,15 +18,8 @@ import Headers from '../../../app/common/header/Headers'
 const validate = combineValidators({
     fornavn: isRequired({message: 'First name is required'}),
     etternavn: isRequired({message: 'First name is required'}),
-    kjonn: isRequired({message: 'Gender is required'}),
     userName: isRequired({message: 'Account name is required'}),
-    workstatus: isRequired({message: 'Work status is required'}),
-    phoneNumber: isRequired({message: 'PhoneNr is required'}),
-    email: isRequired({message: 'Email is required'}),
-    streetAddress: isRequired({message: 'Address is required'}),
-    areaCode: isRequired({message: 'Area code is required'}),
-    dateOfBirth: isRequired({message: 'Birth date is required'})
-    
+    workstatus: isRequired({message: 'workstatus is required'})
 
 })
 
@@ -87,18 +80,40 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                         onSubmit={handleFinalFormSubmit}
                         render={({handleSubmit, invalid, pristine}) => (
                             <Form onSubmit={handleSubmit} loading={loading}>
-                                <label>First Name</label>
+                                <label>First Name<span style={{color: 'red'}}>*</span></label>
                                 <Field
                                     name='fornavn'
-                                    placeholder='First Name'
+                                    placeholder='First name'
                                     value={person.fornavn}
                                     component={TextInput}
                                 />
-                                <label>Last Name</label>
+                                <label>Last Name<span style={{color: 'red'}}>*</span></label>
                                 <Field
                                     name='etternavn'
-                                    placeholder='Last Name'
+                                    placeholder='Last name'
                                     value={person.etternavn}
+                                    component={TextInput}
+                                />
+                                <label>Username<span style={{color: 'red'}}>*</span></label>
+                                <Field
+                                    name='userName'
+                                    placeholder='Account name'
+                                    value={person.userName}
+                                    component={TextInput}
+                                />
+                                <label>Workstatus<span style={{color: 'red'}}>*</span></label>
+                                <Field
+                                    name='workstatus'
+                                    placeholder='Active/inactiv user'
+                                    value={person.workstatus}
+                                    options={workStatus}
+                                    component={SelectInput}
+                                />
+                                <label>Email</label>
+                                <Field
+                                    name='email'
+                                    placeholder='Email'
+                                    value={person.email}
                                     component={TextInput}
                                 />
                                 <label>Gender</label>
@@ -109,21 +124,7 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                     options={gender}
                                     component={SelectInput}
                                 />
-                                <label>Username</label>
-                                <Field
-                                    name='userName'
-                                    placeholder='User Account Name'
-                                    value={person.userName}
-                                    component={TextInput}
-                                />
-                                <label>Work Status</label>
-                                <Field
-                                name='workstatus'
-                                placeholder='Work Status'
-                                value={person.workstatus}
-                                options={workStatus}
-                                component={SelectInput}
-                            />
+                                
                                 <label>Phonenumber</label>
                                 <Field
                                     name='phoneNumber'
@@ -131,13 +132,7 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                     value={person.phoneNumber}
                                     component={TextInput}
                                 />
-                                <label>Email</label>
-                                <Field
-                                    name='email'
-                                    placeholder='Email'
-                                    value={person.email}
-                                    component={TextInput}
-                                />
+                               
                                 <label>Address</label>
                                 <Field
                                     name='streetAddress'
