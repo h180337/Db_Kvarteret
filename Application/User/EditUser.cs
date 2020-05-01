@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.User
@@ -40,14 +42,7 @@ namespace Application.User
             {
                 RuleFor(x => x.fornavn).NotEmpty();
                 RuleFor(x => x.etternavn).NotEmpty();
-                RuleFor(x => x.kjonn).NotEmpty();
-                RuleFor(x => x.email).NotEmpty();
-                RuleFor(x => x.phoneNumber).NotEmpty();
-                RuleFor(x => x.streetAddress).NotEmpty();
-                RuleFor(x => x.areaCode).NotEmpty();
-                RuleFor(x => x.userName).NotEmpty();
-
-
+                
             }
         }
         public class Handler : IRequestHandler<Command>
@@ -68,6 +63,11 @@ namespace Application.User
                 {
                     throw new RestException(HttpStatusCode.NotFound, new {personel = "Not found"});
                 }
+                
+                if (await _context.Users.Where(x => x.Email == request.email).AnyAsync())
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exist" });
+                }
 
                 user.fornavn = request.fornavn ?? user.fornavn;
                 user.etternavn = request.etternavn ?? user.etternavn;
@@ -76,7 +76,6 @@ namespace Application.User
                 user.PhoneNumber = request.phoneNumber ?? user.PhoneNumber;
                 user.streetAddress = request.streetAddress ?? user.streetAddress;
                 user.areaCode = request.areaCode ?? user.areaCode;
-                user.UserName = request.userName ?? user.UserName;
                 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)

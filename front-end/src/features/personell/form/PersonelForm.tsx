@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, Fragment} from 'react';
 import {Button, Form, Grid, Segment} from 'semantic-ui-react';
 import {PersonFormValues} from '../../../app/models/personel'
 import {observer} from 'mobx-react-lite';
@@ -12,7 +12,7 @@ import DateInput from '../../../app/common/form/DateInput';
 import {v4 as uuid} from 'uuid';
 import {combineValidators, isRequired} from 'revalidate';
 import {workStatus} from '../../../app/common/options/workStatusOptions'
-import { RootStoreContext } from '../../../app/stores/rootStore';
+import {RootStoreContext} from '../../../app/stores/rootStore';
 import Headers from '../../../app/common/header/Headers'
 
 const validate = combineValidators({
@@ -55,11 +55,10 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                 ...person,
                 id: uuid(),
                 created: today,
-                password: 'Pa$$sw0rd'
+                password: 'Pa$$w0rd'
             }
             createUser(newPerson);
         } else {
-            console.log(person)
             editUser(person);
         }
     }
@@ -94,13 +93,18 @@ const PersonelForm: React.FC<RouteComponentProps<ProfileParams>> = ({match, hist
                                     value={person.etternavn}
                                     component={TextInput}
                                 />
-                                <label>Username<span style={{color: 'red'}}>*</span></label>
-                                <Field
-                                    name='userName'
-                                    placeholder='Account name'
-                                    value={person.userName}
-                                    component={TextInput}
-                                />
+                                {person.userName ? null : (
+                                    <Fragment> 
+                                        <label>Username<span style={{color: 'red'}}>*</span></label>
+                                        <Field
+                                            name='userName'
+                                            placeholder='Account name'
+                                            value={person.userName}
+                                            component={TextInput}
+                                        /></Fragment>
+
+                                )}
+
                                 <label>Workstatus<span style={{color: 'red'}}>*</span></label>
                                 <Field
                                     name='workstatus'

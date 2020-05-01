@@ -1,5 +1,5 @@
 import React, {useContext, Fragment} from 'react';
-import {Tab, Header, Card, Image, Button, Grid} from 'semantic-ui-react'
+import {Tab, Header, Card, Image, Button, Grid, Icon} from 'semantic-ui-react'
 import {IPersonel} from '../../../app/models/personel';
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
@@ -34,7 +34,7 @@ const ProfilePhotos: React.FC<IProp> = ({profile, closeModal}) => {
                                     </Card>
                                 )
                                 : <Card>
-                                    <Image size='medium' src='/assets/UserProfile.jpeg'/>
+                                    <Icon name='user' size='huge'/>
                                 </Card>}
                         </Card.Group>
                     )}

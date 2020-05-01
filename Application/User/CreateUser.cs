@@ -19,6 +19,7 @@ namespace Application.User
     {
         public class Command : IRequest
         {
+            public string Id { get; set; }
             public string fornavn { get; set; }
 
             public string etternavn { get; set; }
@@ -72,11 +73,7 @@ namespace Application.User
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync())
-                {
-                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exist" });
-                }
-
+                
                 if (await _context.Users.Where(x => x.UserName == request.userName).AnyAsync())
                 {
                     throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exist" });
@@ -84,6 +81,7 @@ namespace Application.User
 
                 var user = new AppUser
                 {
+                    Id = request.Id,
                     fornavn = request.fornavn,
                     etternavn = request.etternavn,
                     PhoneNumber = request.phoneNumber,

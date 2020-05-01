@@ -135,7 +135,7 @@ export default class UserStore {
                 this.userRegistry.set(user.id, user)
                 this.submitting = false;
             });
-            history.push(`/users`)
+            history.push(`/users/${this.user.id}`)
         } catch (e) {
             runInAction('create user error', () => {
                 this.submitting = false;
