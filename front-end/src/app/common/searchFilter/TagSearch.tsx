@@ -12,7 +12,7 @@ const TagSearch: React.FC<IProps> = ({tags, filteredData}) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) =>{
         filteredData.clear()
     tags.forEach((tag:ITag) => {
-        if (tag.tagText.toLowerCase().includes(event.target.value)){
+        if (tag.tagText.toLowerCase().includes(event.target.value.toLowerCase())){
             runInAction(()=>{
                 filteredData.set(tag.id, tag)
             })
