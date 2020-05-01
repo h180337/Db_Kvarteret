@@ -2,7 +2,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import {observer} from 'mobx-react-lite';
-import {Button, Input, Table} from "semantic-ui-react";
+import {Button, Input, Table, Label, Icon} from "semantic-ui-react";
 import {ITag} from '../../../app/models/Tag';
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {v4 as uuid} from 'uuid';
@@ -40,6 +40,18 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
         <div>
             <h1>Tag Manager</h1>
             <TagSearch tags={tagsAsArray} filteredData={filteredData} />
+            <br/>
+                {Array.from(userTagRegistry.values()).map((tag:ITag) =>(
+                    <Label  onClick={(e) =>
+                        removeTag(tag.id, userId)} 
+                            key={tag.id}
+                            loading={submitting}
+                            color='blue'
+                            style={{cursor:'pointer', marginTop: '3px'}}
+                            >{tag.tagText}
+                            <Icon style={{marginLeft:'3px'}} name='cancel'/></Label>
+                ))}
+            
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
@@ -47,22 +59,13 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
                         <Table.HeaderCell>Edit</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
-
+            
                 <Table.Body>
-                    {Array.from(data.values()).map((tag: ITag) => (
-                        <Table.Row key={tag.id}>
-                            <Table.Cell>{tag.tagText}</Table.Cell>
-                            <Table.Cell>
-                                {userTagRegistry.has(tag.id) ?
-                                    <Button
-                                        name={tag.id}
-                                        loading={target === tag.id && submitting}
-                                        disabled={submitting}
-                                        content='remove'
-                                        color='red'
-                                        onClick={(e) =>
-                                            removeTag(e, tag.id, userId)}
-                                    /> :
+                    {Array.from(filteredData.values()).map((tag: ITag) => 
+                        userTagRegistry.has(tag.id) ? null :
+                            <Table.Row key={tag.id}>
+                                <Table.Cell>{tag.tagText}</Table.Cell>
+                                <Table.Cell>
                                     <Button
                                         name={tag.id}
                                         loading={target === tag.id && submitting}
@@ -71,11 +74,10 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
                                         color='green'
                                         onClick={(e) =>
                                             addTagToUser(e, tag.id, userId, tag)}
-                                    />}
-
-                            </Table.Cell>
-                        </Table.Row>
-                    ))}
+                                    />
+                                </Table.Cell>
+                            </Table.Row> 
+                        )}
                 </Table.Body>
             </Table>
             <div>

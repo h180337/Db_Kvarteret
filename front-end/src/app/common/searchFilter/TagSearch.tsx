@@ -18,6 +18,9 @@ const TagSearch: React.FC<IProps> = ({tags, filteredData}) => {
             })
         }
     })  
+        if (event.target.value === ''){
+            filteredData.clear();
+        }
     }
     
     return (
