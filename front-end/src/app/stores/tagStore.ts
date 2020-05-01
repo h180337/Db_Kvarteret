@@ -61,7 +61,6 @@ export default class TagStore {
         } catch (e) {
             runInAction('create tag error', () => {
                 this.submitting = false;
-                toast.error('Problem submitting data')
             });
             console.log(e)
         }

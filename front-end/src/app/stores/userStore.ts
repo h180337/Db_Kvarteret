@@ -203,20 +203,17 @@ export default class UserStore {
         }
     }
 
-    @action removeTag = async (event: SyntheticEvent<HTMLButtonElement>, tagId: string, userId: string) => {
+    @action removeTag = async (tagId: string, userId: string) => {
         this.submitting = true;
-        this.target = event.currentTarget.name;
         try {
             await agent.Tags.removeTag(tagId, userId);
             runInAction('remove Tag', () => {
                 this.userTagRegistry.delete(tagId);
                 this.submitting = false;
-                this.target = '';
             })
         } catch (e) {
             runInAction('error removing tag', () => {
                 this.submitting = false;
-                this.target = '';
             });
             toast.error('error removing the tag')
         }
