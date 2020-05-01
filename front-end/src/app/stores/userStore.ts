@@ -27,11 +27,10 @@ export default class UserStore {
     @observable submitting = false;
     @observable target = '';
     
-    @computed get isLoggedIn() {return !this.user}
+    @computed get isLoggedIn() {return !this.LogiedInuser}
     
     @action login = async (values:IPersonFormValues) => {
         try {
-            console.log(values)
             const user = await agent.Users.login(values);
             runInAction(() =>{
                 this.LogiedInuser = user;

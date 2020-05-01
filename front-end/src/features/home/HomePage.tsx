@@ -20,11 +20,11 @@ const HomePage = () => {
                     <Image size='massive' src='/assets/LogoKvarteret.png' alt='logo' style={{marginBottom: 12}}/>
                     Welcome to Kvarteret
                 </Header>
-                {isLoggedIn && LogiedInuser ? (
+                {LogiedInuser ? (
                     <Fragment>
                         <Header as='h2' inverted content={`Welcome back ${LogiedInuser.userName}`}/>
-                        <Button as={Link} to='/users' size='huge' inverted>
-                            Go to users
+                        <Button as={Link} to={`/users/${LogiedInuser.id}`} size='huge' inverted>
+                            Go to Profile
                         </Button>
                     </Fragment>
                 ) : (
