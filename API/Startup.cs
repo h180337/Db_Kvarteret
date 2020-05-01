@@ -41,6 +41,7 @@ namespace API
                     opt.Filters.Add(new AuthorizeFilter(policy));
                 })
                 .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Create>(); });
+
             services.AddDbContext<DataContext>(opt =>
             {
                 opt.UseLazyLoadingProxies();
@@ -59,6 +60,7 @@ namespace API
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.RoleType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<DataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            identityBuilder.AddRoles<AccessGroup>();
 
             services.AddAuthorization(opt =>
             {
@@ -102,8 +104,8 @@ namespace API
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
-
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

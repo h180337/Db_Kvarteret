@@ -10,7 +10,7 @@ using List = Application.User.List;
 
 namespace API.Controllers
 {
-    public class UsersController: BaseController
+    public class UsersController : BaseController
     {
         [AllowAnonymous]
         [HttpPost("login")]
@@ -28,7 +28,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> Profile(string id)
         {
-            return await Mediator.Send(new UserProfile.Query {Id = id});
+            return await Mediator.Send(new UserProfile.Query { Id = id });
         }
 
         [HttpGet("user")]
@@ -40,28 +40,26 @@ namespace API.Controllers
         [HttpGet("{id}/grouphistory")]
         public async Task<ActionResult<List<GroupDto>>> GroupHistory(string Id)
         {
-            return await Mediator.Send(new GroupHistory.Query{id = Id});
+            return await Mediator.Send(new GroupHistory.Query { id = Id });
         }
-
 
         [HttpGet]
         public async Task<ActionResult<List<UserDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
-        
+
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(string id ,EditUser.Command command)
+        public async Task<ActionResult<Unit>> Edit(string id, EditUser.Command command)
         {
             command.Id = id;
             return await Mediator.Send(command);
         }
-        
-        
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
-            return await Mediator.Send(new DeleteUser.Command {Id = id});
+            return await Mediator.Send(new DeleteUser.Command { Id = id });
         }
     }
 }
