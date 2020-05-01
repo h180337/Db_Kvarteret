@@ -4,12 +4,8 @@ import {Button, Form, Grid, Segment} from "semantic-ui-react";
 import Headers from "../../../app/common/header/Headers";
 import {Field, Form as FinalForm} from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
-import {gender} from "../../../app/common/options/genderOptions";
 import SelectInput from "../../../app/common/form/SelectInput";
-import {workStatus} from "../../../app/common/options/workStatusOptions";
-import DateInput from "../../../app/common/form/DateInput";
 import {combineValidators, isRequired} from "revalidate";
-import {v4 as uuid} from "uuid";
 import { groupType } from '../../../app/common/options/groupTypeOptions';
 import { semester } from '../../../app/common/options/semesterOptions';
 

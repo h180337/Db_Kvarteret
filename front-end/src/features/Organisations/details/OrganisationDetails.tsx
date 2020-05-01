@@ -17,9 +17,7 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
     const {
         loadOrg,
         loadingInitial,
-        organiasation,
-        organiasationsGroupRegistry
-        
+        organiasation
     } = rootStore.organiastionStore;
 
     useEffect(() => {

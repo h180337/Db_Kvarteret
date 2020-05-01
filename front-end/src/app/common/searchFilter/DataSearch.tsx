@@ -1,8 +1,7 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Button, Input, Label, Icon} from 'semantic-ui-react';
 import {runInAction} from "mobx";
-import {RootStoreContext} from "../../stores/rootStore";
 import {toast} from 'react-toastify';
 
 
@@ -15,15 +14,9 @@ interface IProps {
 const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
 
     const [tagSearch, setTagSearch] = useState<string[]>([])
-    const [showX, setX] = useState(false)
-    const [tag, setTag] = useState<string>('');
-
+    
     const onClickDeleteHandler = (i: number) => {
         setTagSearch([...tagSearch].filter((tag, index) => index !== i))
-    }
-
-    const tagStateHandler = (event: any) => {
-        setTag(event.target.value)
     }
     
     const clearDatainputHandler = ()=>{
@@ -50,7 +43,7 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
                 filteredData.clear()
             }
             dataArray.forEach((item: any) => {
-                Object.keys(item).some((key: string) => {
+                 Object.keys(item).some((key: string) => {
                     if (item[key] !== null) {
                         if (key === 'tags') {
                             Object.keys(item.tags).forEach(tagss => {
@@ -98,7 +91,7 @@ const DataSearch: React.FC<IProps> = ({filteredData, dataArray}) => {
                 style={{marginTop: '5px'}}
                 onKeyDown={(e: any) => addTags(e)}
                 onKeyUp={(e:any)=> handleFilter(e)}
-                placeholder='Press enter to add tags'
+                placeholder='Search'
             /><span 
             onClick={clearDatainputHandler}
             style={{color:'gray', cursor:'pointer'}}

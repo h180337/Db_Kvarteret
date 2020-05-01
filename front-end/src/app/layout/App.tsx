@@ -1,5 +1,5 @@
 import React, {Fragment, useContext, useEffect} from 'react';
-import {Container, Menu} from 'semantic-ui-react';
+import {Container} from 'semantic-ui-react';
 import NavBar from '../../features/nav/NavBar';
 import './styles.css'
 import {observer} from 'mobx-react-lite'

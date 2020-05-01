@@ -2,7 +2,6 @@ import React, {Fragment, useContext} from 'react';
 import {observer} from 'mobx-react-lite';
 import {IPersonel} from '../../../app/models/personel';
 import {Button, Table} from "semantic-ui-react";
-import ProfileTagManager from "./ProfileTagManager";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import ProfileHistoryManagerForm from '../form/ProfileHistoryManagerForm';
 

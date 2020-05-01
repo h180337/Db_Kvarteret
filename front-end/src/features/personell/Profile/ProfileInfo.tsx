@@ -1,6 +1,5 @@
-// @ts-ignore
-import React, {Fragment} from 'react';
-import {Button, List, Segment} from "semantic-ui-react";
+import React from 'react';
+import {Button, List} from "semantic-ui-react";
 import { IPersonel } from '../../../app/models/personel';
 import {Link} from "react-router-dom";
 interface IProps {

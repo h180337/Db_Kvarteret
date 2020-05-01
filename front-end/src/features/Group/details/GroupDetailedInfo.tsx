@@ -24,10 +24,10 @@ const GroupDetailedInfo: React.FC<IProps> = ({group}) => {
             <Segment attached>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name={group.aktiv == 'activ' ? 'toggle on' : 'toggle off'} size='large' color='teal'/>
+                        <Icon name={group.aktiv === 'activ' ? 'toggle on' : 'toggle off'} size='large' color='teal'/>
                     </Grid.Column>
                     <Grid.Column width={11}>
-                        {group.aktiv == 'activ' ? "Active" : "Inactive"}
+                        {group.aktiv === 'activ' ? "Active" : "Inactive"}
                     </Grid.Column>
                 </Grid>
             </Segment>

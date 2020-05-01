@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import {Button, Header, Image, Item, Segment} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
-import AddGroupMemberForm from "../../Group/form/AddGroupMemberForm";
 import AddGroups from "../form/AddGroups";
 import { observer } from 'mobx-react-lite';
 

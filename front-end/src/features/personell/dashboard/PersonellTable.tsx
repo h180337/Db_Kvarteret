@@ -1,12 +1,10 @@
 // @ts-ignore
-import React, {Fragment, useState, useEffect, useContext, useRef} from 'react';
+import React, {Fragment} from 'react';
 import ReactTable from 'react-table-6';
 import 'react-table-6/react-table.css';
-import {Button, Grid, Segment} from 'semantic-ui-react';
+import {Button, Segment} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite'
 import {Link} from "react-router-dom";
-import {RootStoreContext} from "../../../app/stores/rootStore";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 import Headers from "../../../app/common/header/Headers";
 import DataSearch from "../../../app/common/searchFilter/DataSearch";
 

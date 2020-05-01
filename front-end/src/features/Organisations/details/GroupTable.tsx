@@ -1,9 +1,7 @@
 import React, {Fragment, useContext} from 'react';
 import {Button, Segment} from "semantic-ui-react";
 import ReactTable from "react-table-6";
-import {CSVLink} from "react-csv";
 import {Link} from "react-router-dom";
-import { IOrganisation } from '../../../app/models/organisations';
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import { observer } from 'mobx-react-lite';
 import DataSearch from '../../../app/common/searchFilter/DataSearch';
@@ -19,14 +17,6 @@ const GroupTable: React.FC = () => {
         removeGroupFromOrganisation} = rootStore.organiastionStore
     
     const {filteredData} = rootStore.groupStore
-
-    const headers = [
-        {label: "Name", key: "navn"},
-        {label: "Description", key: "beskrivelse"},
-        {label: "Active", key: "aktiv"},
-        {label: "Active until", key: "aktive_til_og_med"},
-        {label: "Created", key: "opprettet"}
-    ];
     
     const columns = [
         {Header: 'Name', accessor: 'navn'},

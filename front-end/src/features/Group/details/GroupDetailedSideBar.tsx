@@ -1,5 +1,5 @@
 import React, {Fragment, useContext} from 'react';
-import {Button, Image, Item, List, Segment} from "semantic-ui-react";
+import {Button, Item, List, Segment} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import { observer } from 'mobx-react-lite';
 import {RootStoreContext} from "../../../app/stores/rootStore";

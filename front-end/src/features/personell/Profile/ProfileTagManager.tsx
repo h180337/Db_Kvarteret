@@ -6,7 +6,7 @@ import {Button, Input, Table} from "semantic-ui-react";
 import {ITag} from '../../../app/models/Tag';
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import {v4 as uuid} from 'uuid';
-import DataSearch from '../../../app/common/searchFilter/DataSearch';
+import TagSearch from '../../../app/common/searchFilter/TagSearch';
 
 interface IProps {
     userId: string
@@ -16,7 +16,7 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {loadTags, tagsAsArray, loadingInitial, tagRegistry, createTag, filteredData} = rootStore.tagStore;
-    const {userTagRegistry, addTagToUser, removeTag, submitting, target, loadUser} = rootStore.userStore
+    const {userTagRegistry, addTagToUser, removeTag, submitting, target} = rootStore.userStore
     const [input, setInput] = useState('')
 
     useEffect(() => {
@@ -33,12 +33,13 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
         createTag({id: uuid(), tagText: input});
         setInput('');
     }
-    
+
     let data: Map<any,any> = filteredData.size === 0 ? tagRegistry : filteredData;
+
     return (
         <div>
             <h1>Tag Manager</h1>
-            <DataSearch dataArray={tagsAsArray} filteredData={filteredData}/>
+            <TagSearch tags={tagsAsArray} filteredData={filteredData} />
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>

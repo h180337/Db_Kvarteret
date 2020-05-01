@@ -1,11 +1,10 @@
 // @ts-ignore
-import React, {Fragment, useContext, useEffect} from 'react';
+import React, {Fragment, useContext} from 'react';
 import {Button, Label, Segment} from "semantic-ui-react";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import ProfileTagManager from "./ProfileTagManager";
 import {observer} from "mobx-react-lite";
 import { ITag } from '../../../app/models/Tag';
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface IProps {
     tags: ITag [];

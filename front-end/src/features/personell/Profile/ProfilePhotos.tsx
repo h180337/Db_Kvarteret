@@ -1,4 +1,4 @@
-import React, {Component, useContext, useState, Fragment} from 'react';
+import React, {useContext, Fragment} from 'react';
 import {Tab, Header, Card, Image, Button, Grid} from 'semantic-ui-react'
 import {IPersonel} from '../../../app/models/personel';
 import {RootStoreContext} from "../../../app/stores/rootStore";

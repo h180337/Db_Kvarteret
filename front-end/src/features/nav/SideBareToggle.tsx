@@ -1,7 +1,6 @@
 // @ts-ignore
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Image, Segment, Sidebar, Menu, Icon, Header, Grid, Container, Button, Responsive} from 'semantic-ui-react'
+import {Sidebar, Menu, Icon} from 'semantic-ui-react'
 import {NavLink, Link} from "react-router-dom";
 
 interface IProps {
@@ -10,11 +9,6 @@ interface IProps {
     LogiedInuser: any;
     logout: any;
 }
-
-const style = {
-    height: '100vh' as '100vh',
-}
-
 
 const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout}) => {
 

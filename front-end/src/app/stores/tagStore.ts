@@ -3,7 +3,6 @@ import {action, computed, observable, runInAction} from "mobx";
 import agent from "../api/agent";
 import {ITag} from "../models/Tag";
 import {toast} from "react-toastify";
-import {SyntheticEvent} from "react";
 import {v4 as uuid} from "uuid";
 
 export default class TagStore {

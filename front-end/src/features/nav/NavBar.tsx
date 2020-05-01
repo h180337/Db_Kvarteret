@@ -1,5 +1,5 @@
 import React, {Fragment, useContext, useState} from 'react';
-import {Button, Container, Dropdown, Header, Icon, Image, Menu, Responsive} from 'semantic-ui-react';
+import {Button, Container, Dropdown, Header, Icon, Menu, Responsive} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite';
 import {Link, NavLink} from 'react-router-dom';
 import {RootStoreContext} from "../../app/stores/rootStore";
@@ -9,7 +9,7 @@ import SideBareToggle from "./SideBareToggle";
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout, user} = rootStore.userStore
+    const {LogiedInuser, logout} = rootStore.userStore
     const [show, setShow] = useState(false)
 
     return (

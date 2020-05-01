@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, {Fragment, useContext, useEffect} from 'react';
-import {Button, Grid, Segment} from 'semantic-ui-react';
-import {Link, RouteComponentProps} from 'react-router-dom';
+import {Segment} from 'semantic-ui-react';
+import {RouteComponentProps} from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import {observer} from 'mobx-react-lite';
 import ProfileHeader from './ProfileHeader';
@@ -17,10 +17,7 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
     const {
         loadUser,
         loadingInitial, 
-        user,
-        target,
-        deleteUser,
-        submitting
+        user
     } = rootStore.userStore;
 
     useEffect(() => {

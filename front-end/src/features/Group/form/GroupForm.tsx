@@ -4,13 +4,12 @@ import {RootStoreContext} from "../../../app/stores/rootStore";
 import {GroupFormValues} from '../../../app/models/group';
 import {v4 as uuid} from "uuid";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Grid, Segment, Label} from "semantic-ui-react";
+import {Button, Form, Grid, Segment} from "semantic-ui-react";
 import {Field, Form as FinalForm} from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import {combineValidators, isRequired} from "revalidate";
 import SelectInput from '../../../app/common/form/SelectInput';
-import { workStatus } from '../../../app/common/options/workStatusOptions';
 import { groupType } from '../../../app/common/options/groupTypeOptions';
 import Headers from '../../../app/common/header/Headers'
 

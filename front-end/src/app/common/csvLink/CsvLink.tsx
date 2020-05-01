@@ -3,7 +3,6 @@ import {CSVLink} from "react-csv";
 import {observer} from 'mobx-react-lite';
 import {Button} from "semantic-ui-react";
 import {RootStoreContext} from "../../stores/rootStore";
-import LoadingComponent from "../../layout/LoadingComponent";
 
 interface IProp {
     dataArray: any [];
@@ -16,7 +15,7 @@ const CsvLink:React.FC<IProp> = ({filterData, dataArray}) => {
     
     useEffect(() => {
         filterData.length=== 0 ? setCsvData(dataArray) : setCsvData(filterData);
-    }, [filterData, setCsvData])
+    }, [filterData, setCsvData, dataArray])
     
 
     return (
