@@ -15,13 +15,13 @@ namespace Application.User
     {
         public class Command : IRequest //<//>>
         {
-            public Guid Id { get; set; }
+            public string Id { get; set; }
 
             public string fornavn { get; set; }
 
             public string etternavn { get; set; }
             
-            public string userName { get; set; }
+            public string workstatus { get; set; }
 
             public string kjonn { get; set; }
 
@@ -42,6 +42,8 @@ namespace Application.User
             {
                 RuleFor(x => x.fornavn).NotEmpty();
                 RuleFor(x => x.etternavn).NotEmpty();
+                RuleFor(x => x.workstatus).NotEmpty();
+
                 
             }
         }
@@ -57,22 +59,18 @@ namespace Application.User
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.FindAsync(request.Id.ToString());
+                var user = await _context.Users.FindAsync(request.Id);
 
                 if (user == null)
                 {
                     throw new RestException(HttpStatusCode.NotFound, new {personel = "Not found"});
                 }
                 
-                if (await _context.Users.Where(x => x.Email == request.email).AnyAsync())
-                {
-                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exist" });
-                }
-
                 user.fornavn = request.fornavn ?? user.fornavn;
                 user.etternavn = request.etternavn ?? user.etternavn;
                 user.kjonn = request.kjonn ?? user.kjonn;
                 user.Email = request.email ?? user.Email;
+                user.workstatus = request.workstatus ?? user.workstatus;
                 user.PhoneNumber = request.phoneNumber ?? user.PhoneNumber;
                 user.streetAddress = request.streetAddress ?? user.streetAddress;
                 user.areaCode = request.areaCode ?? user.areaCode;

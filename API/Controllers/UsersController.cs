@@ -51,7 +51,7 @@ namespace API.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Guid id ,EditUser.Command command)
+        public async Task<ActionResult<Unit>> Edit(string id ,EditUser.Command command)
         {
             command.Id = id;
             return await Mediator.Send(command);

@@ -1,5 +1,5 @@
 import React, {Fragment, useContext} from 'react';
-import {Grid, Header, Item, Button, Icon} from "semantic-ui-react";
+import {Grid, Header, Item, Button, Icon, Label} from "semantic-ui-react";
 import {IPersonel} from '../../../app/models/personel'
 import { observer } from 'mobx-react-lite';
 import {RootStoreContext} from "../../../app/stores/rootStore";
@@ -22,7 +22,10 @@ const ProfileHeader: React.FC<IProps> = ({user}) => {
                             <Item.Image avatar src={user.profilePhoto.url} size='tiny' alt='Profile image'/>
                         }
                         <Item.Content verticalAlign='middle'>
-                            <Header as='h1'> {`${user.fornavn} ${user.etternavn}`}</Header>
+                            <Header as='h1'> {`${user.fornavn} ${user.etternavn}`}
+                                <Label  color={user.workstatus ==='active' ? 'green' : 'red'}>{user.workstatus}</Label>
+                            </Header>
+                            <p>{user.userName}</p>
                         </Item.Content>
                     </Item>
                 </Item.Group>
