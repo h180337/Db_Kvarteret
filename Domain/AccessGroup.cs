@@ -1,10 +1,10 @@
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain
 {
-    public class AccessGroup
+    public class AccessGroup : IdentityRole
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        
     }
 }
