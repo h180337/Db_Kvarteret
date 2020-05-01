@@ -19,6 +19,7 @@ import OrganisationDetails from "../../features/Organisations/details/Organisati
 import OrganisationForm from '../../features/Organisations/form/OrganisationForm';
 import GroupDetails from "../../features/Group/details/GroupDetails";
 import GroupForm from '../../features/Group/form/GroupForm';
+import AdminCtrl from '../../features/adminCtrl/AdminCtrl';
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
 
@@ -46,6 +47,7 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                     <NavBar/>
                     <Container style={{marginTop: '7em'}}>
                         <Switch>
+                            <Route path='/admincontroller' exact component={AdminCtrl}/>
                             <Route path='/users' exact component={PesonellDashBoard}/>
                             <Route path='/users/:id' exact component={UserProfile}/>
                             <Route path='/group/:id' exact component={GroupDetails}/>

@@ -86,7 +86,7 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             <Menu.Item
                 onClick={() => logout()}
                 >
-                <Icon name='user'/>
+                <Icon name='power'/>
                 Logout
             </Menu.Item>
         </Sidebar>
