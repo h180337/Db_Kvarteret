@@ -1,17 +1,20 @@
-import React from 'react';
-import {Grid, Header, Item} from "semantic-ui-react";
+import React, {Fragment, useContext} from 'react';
+import {Grid, Header, Item, Button} from "semantic-ui-react";
 import {IPersonel} from '../../../app/models/personel'
 import { observer } from 'mobx-react-lite';
+import {RootStoreContext} from "../../../app/stores/rootStore";
+import ProfilePhotos from './ProfilePhotos';
  
 interface IProps {
     user: IPersonel;
 }
 
 const ProfileHeader: React.FC<IProps> = ({user}) => {
-    
-    console.log(user.profilePhoto)
+    const rootStore = useContext(RootStoreContext);
+    const {openModal, closeModal} = rootStore.modalStore;
     let image:string = user.profilePhoto === null ? '/assets/UserProfile.jpeg': user.profilePhoto.url;
     return (
+        <Fragment>
         <Grid>
             <Grid.Column mobile={16} computer={12} tablet={8} style={{marginTop: '20px'}}>
                 <Item.Group>
@@ -24,6 +27,14 @@ const ProfileHeader: React.FC<IProps> = ({user}) => {
                 </Item.Group>
             </Grid.Column>
         </Grid>
+    <Button
+        basic
+        floated='right'
+        content='Photo'
+        onClick={() => openModal(<ProfilePhotos profile={user} closeModal={closeModal}/>)}
+
+    />
+        </Fragment>
     );
 }
 

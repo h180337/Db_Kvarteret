@@ -37,21 +37,6 @@ const UserProfile: React.FC<RouteComponentProps<MyProfileParamas>> = ({match, hi
                         <ProfileHeader user={user}/>
             </Segment>
             <ProfileContent  user={user}/>
-
-            <Segment clearing>
-                <Button.Group floated='right'>
-                    <Button
-                        content='Go back'
-                        onClick={() => history.push('/users')}
-                    />
-                    <Button
-                        content='Edit'
-                        color='green'
-                        as={Link}
-                        to={`/manage/${user.id}`}
-                    />
-                </Button.Group>
-            </Segment>
         </Fragment>
     );
 }

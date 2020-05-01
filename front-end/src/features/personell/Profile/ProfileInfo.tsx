@@ -1,7 +1,8 @@
 // @ts-ignore
-import React from 'react';
-import {List} from "semantic-ui-react";
+import React, {Fragment} from 'react';
+import {Button, List, Segment} from "semantic-ui-react";
 import { IPersonel } from '../../../app/models/personel';
+import {Link} from "react-router-dom";
 interface IProps {
     user: IPersonel;
 }
@@ -33,9 +34,17 @@ const ProfileInfo: React.FC<IProps> = ({user}) => {
                 <List.Content>
                     {user.kjonn}
                 </List.Content>
+                <Button
+                    floated='right'
+                    content='Edit'
+                    color='green'
+                    as={Link}
+                    to={`/manage/${user.id}`}
+                />
             </List.Item>
         </List>
     )
 }
+
 
 export default ProfileInfo;
