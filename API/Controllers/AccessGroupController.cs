@@ -36,6 +36,12 @@ namespace API.Controllers
             return await Mediator.Send(new AddToUser.Command { RoleId = roleid, UserId = userid });
         }
 
+        [HttpPost("{roleid}/removeFromUser/{userid}")]
+        public async Task<ActionResult<Unit>> RemoveFromUser(string roleid, string userid)
+        {
+            return await Mediator.Send(new RemoveFromUser.Command { RoleId = roleid, UserId = userid });
+        }
+
         
     }
 }
