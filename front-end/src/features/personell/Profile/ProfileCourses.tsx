@@ -17,7 +17,7 @@ const ProfileCourses: React.FC<IProps> = ({courses}) => {
                 </Table.Header>
                 
                 <Table.Body>
-                    {courses.map( course =>(
+                    {courses && courses.map( course =>(
                         <Table.Row key={course.id}>
                             <Table.Cell>{course.navn}</Table.Cell>
                             <Table.Cell>{course.beskrivelse}</Table.Cell>

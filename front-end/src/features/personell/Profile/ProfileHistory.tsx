@@ -26,7 +26,7 @@ const ProfileHistory: React.FC<IProps> = ({user}) => {
                 </Table.Header>
 
                 <Table.Body>
-                    {user.historys.map((group: any) => (
+                    {user.historys && user.historys.map((group: any) => (
                         <Table.Row key={group.id}>
                             <Table.Cell>{`${group.semester} - ${group.year}`}</Table.Cell>
                             <Table.Cell>{group.groupType}</Table.Cell>

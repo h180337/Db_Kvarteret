@@ -103,9 +103,12 @@ export default class UserStore {
         if (user) {
             this.user = user;
             this.userTagRegistry.clear();
-            [...this.user!.tags].forEach((tag: ITag) => {
-                this.userTagRegistry.set(tag.id, tag);
-            })
+            if(this.user!.tags){
+                [...this.user!.tags].forEach((tag: ITag) => {
+                    this.userTagRegistry.set(tag.id, tag);
+                }) 
+            }
+           
         } else {
             this.loadingInitial = true;
             try {

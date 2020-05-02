@@ -19,7 +19,7 @@ const ProfileGroups: React.FC<IProps> = ({groups}) => {
             </Table.Header>
 
             <Table.Body>
-                {groups.map(group => (
+                {groups && groups.map(group => (
                     <Table.Row key={group.id}>
                         <Table.Cell>{group.navn}</Table.Cell>
                         <Table.Cell>{group.beskrivelse}</Table.Cell>
