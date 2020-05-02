@@ -14,6 +14,7 @@ export default class OrganisationStore {
         this.rootStore = rootStore
     }
     @observable loadingInitial = false;
+    @observable organisationLoaded = false;
     @observable organiasationsRegistry = new Map();
     @observable organiasationsGroupRegistry = new Map();
     @observable organiasation: IOrganisation | null = null;
@@ -26,22 +27,28 @@ export default class OrganisationStore {
         return Array.from(this.organiasationsRegistry.values());
     }
     @action loadOrganisations = async () => {
-        this.loadingInitial = true;
-        try {
-            const organiasations = await agent.Organisation.list();
-            runInAction('loading organisation', () => {
-                organiasations.forEach(organiasation => {
-                    this.organiasationsRegistry.set(organiasation.id, organiasation);
+        if (this.organisationLoaded) {
+            return this.organiasationsRegistry;
+        } else {
+            this.loadingInitial = true;
+            this.organiasationsRegistry.clear();
+            try {
+                const organiasations = await agent.Organisation.list();
+                runInAction('loading organisation', () => {
+                    organiasations.forEach(organiasation => {
+                        this.organiasationsRegistry.set(organiasation.id, organiasation);
+                    });
+                    this.loadingInitial = false
+                    this.organisationLoaded = true;
                 });
-                this.loadingInitial = false
-            });
-        } catch (e) {
-            runInAction('loading organisation error', () => {
-                this.loadingInitial = false;
-            });
-            console.log(e)}
+            } catch (e) {
+                runInAction('loading organisation error', () => {
+                    this.loadingInitial = false;
+                });
+                console.log(e)
+            }
+        }
     }
-
     //helper for loadUser
     getOrganisation = (id: string) => {
         return this.organiasationsRegistry.get(id);
