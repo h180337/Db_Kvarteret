@@ -1,7 +1,7 @@
 import React, {Fragment, useContext} from 'react';
 import {observer} from 'mobx-react-lite';
 import {IPersonel} from '../../../app/models/personel';
-import {Button, Table} from "semantic-ui-react";
+import {Button, Table, Segment} from "semantic-ui-react";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import ProfileHistoryManagerForm from '../form/ProfileHistoryManagerForm';
 
@@ -15,6 +15,7 @@ const ProfileHistory: React.FC<IProps> = ({user}) => {
     const {openModal, closeModal} = rootStore.modalStore;
     return (
         <Fragment>
+            <Segment clearing>
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
@@ -38,12 +39,12 @@ const ProfileHistory: React.FC<IProps> = ({user}) => {
                 </Table.Body>
             </Table>
             {user.workstatus === 'inactive' ? <Button
-                content='Edit history'
+                content='Add history'
                 onClick={() => openModal(<ProfileHistoryManagerForm close={closeModal}/>)}
                 color='green'
                 floated='right'
             /> : null}
-            
+            </Segment>
         </Fragment>
     );
 }

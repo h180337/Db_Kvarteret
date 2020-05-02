@@ -101,14 +101,15 @@ export default class UserStore {
     @action loadUser = async (id: string) => {
         let user = this.getUser(id)
         if (user) {
-            this.user = user;
             this.userTagRegistry.clear();
             if(this.user!.tags){
                 [...this.user!.tags].forEach((tag: ITag) => {
                     this.userTagRegistry.set(tag.id, tag);
                 }) 
             }
-           
+            this.user = user;
+            return user;
+
         } else {
             this.loadingInitial = true;
             try {
