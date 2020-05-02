@@ -201,10 +201,13 @@ export default class UserStore {
                                   userId: string, tag: ITag) => {
         this.submitting = true;
         this.target = event.currentTarget.name;
+        let user:IPersonel = this.getUser(userId)
         try {
             await agent.Tags.addTag(tagId, userId);
             runInAction('add Tag to user', () => {
                 this.userTagRegistry.set(tagId, tag);
+                user.tags.push(tag);
+                this.userRegistry.set(userId, user);
                 this.submitting = false;
                 this.target = '';
             })
@@ -218,10 +221,13 @@ export default class UserStore {
 
     @action removeTag = async (tagId: string, userId: string) => {
         this.submitting = true;
+        let user:IPersonel = this.getUser(userId)
         try {
             await agent.Tags.removeTag(tagId, userId);
             runInAction('remove Tag', () => {
                 this.userTagRegistry.delete(tagId);
+                user.tags = Array.from(this.userTagRegistry.values())
+                this.userRegistry.set(userId, user);
                 this.submitting = false;
             })
         } catch (e) {
