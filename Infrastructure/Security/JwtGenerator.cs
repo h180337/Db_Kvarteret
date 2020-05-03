@@ -23,7 +23,8 @@ namespace Infrastructure.Security
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                new Claim(ClaimTypes.Role, user.AccessGroup.Name)
             };
             
             //generate signing credentials

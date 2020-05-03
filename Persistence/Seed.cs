@@ -32,7 +32,7 @@ namespace Persistence
                         areaCode = "5004",
                         PhoneNumber = "45838282",
                         AccessGroup = new AccessGroup {
-                            Name = "Administrator"
+                            Name = "Course"
                         }
                     },
                     new AppUser
