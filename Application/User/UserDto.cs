@@ -58,7 +58,7 @@ namespace Application.User
         public ICollection<HistoryDto> UserHistory { get; set; }
 
         [JsonPropertyName("roles")]
-        public ICollection<AccessGroupDto> UserRoles { get; set; }
+        public ICollection<AccessGroupDto> AppUserRoles { get; set; }
 
     }
 }

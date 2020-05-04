@@ -17,7 +17,7 @@ namespace Application.AccessGroup
     {
         public class Command : IRequest
         {
-           public string Name { get; set; }
+            public string Name { get; set; }
 
         }
 
@@ -43,10 +43,10 @@ namespace Application.AccessGroup
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                
+
                 if (await _context.Roles.Where(x => x.Name == request.Name).AnyAsync())
                 {
-                    throw new RestException(HttpStatusCode.BadRequest, new { Username = "Rolename already exists" });
+                    throw new RestException(HttpStatusCode.BadRequest, new { RoleName = "Rolename already exists" });
                 }
 
                 var role = new Domain.AccessGroup

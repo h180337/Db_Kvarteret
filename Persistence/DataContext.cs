@@ -41,6 +41,8 @@ namespace Persistence
         
         public DbSet<Photo> ProfilePhoto { get; set; }
 
+        public DbSet<AppUserRoles> AppUserRoles { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -113,14 +115,14 @@ namespace Persistence
                 .HasForeignKey(uc => uc.AppUserId);
 
 
-            builder.Entity<UserRoles>()
+            builder.Entity<AppUserRoles>()
                 .HasOne(e => e.User)
-                .WithMany(e => e.UserRoles)
+                .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.UserId);
             
-            builder.Entity<UserRoles>()
+            builder.Entity<AppUserRoles>()
                 .HasOne(e => e.Role)
-                .WithMany(e => e.UserRoles)
+                .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.RoleId);
         }
     }

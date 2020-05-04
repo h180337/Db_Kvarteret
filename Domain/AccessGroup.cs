@@ -7,6 +7,6 @@ namespace Domain
 {
     public class AccessGroup : IdentityRole
     {
-        public virtual ICollection<UserRoles> UserRoles {get; set;}
+        public virtual ICollection<AppUserRoles> AppUserRoles { get; set; }
     }
 }

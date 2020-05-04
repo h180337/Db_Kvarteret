@@ -33,7 +33,7 @@ namespace Domain
 
         public virtual ICollection<UserHistory> UserHistory { get; set; }
 
-        public virtual ICollection<UserRoles> UserRoles { get; set; }
+        public virtual ICollection<AppUserRoles> AppUserRoles { get; set; }
 
         public virtual Photo ProfilePhoto { get; set; }
 

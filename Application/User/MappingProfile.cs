@@ -48,7 +48,7 @@ namespace Application.User
                 .ForMember(d => d.Year, o => o.MapFrom(m => m.History.Year))
                 .ForMember(d => d.Semester, o => o.MapFrom(m => m.History.Semester));
 
-            CreateMap<UserRoles, AccessGroupDto>()
+            CreateMap<AppUserRoles, AccessGroupDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.RoleId))
                 .ForMember(d => d.Name, o => o.MapFrom(m => m.Role.Name));
                 
