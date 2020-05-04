@@ -15,8 +15,12 @@ namespace Persistence
         {
             if (!userManager.Users.Any())
             {  
-                var role = new AccessGroup {Name = "Superuser"};
-                await roleManager.CreateAsync(role);
+                var role1 = new AccessGroup {Name = "Superuser"};
+                var role2 = new AccessGroup {Name = "Bruker"};
+                var role3 = new AccessGroup {Name = "Gruppeadministrator"};
+                await roleManager.CreateAsync(role1);
+                await roleManager.CreateAsync(role2);
+                await roleManager.CreateAsync(role3);
                 
                 var users = new List<AppUser>
                 {
@@ -71,7 +75,16 @@ namespace Persistence
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
-                    await userManager.AddToRoleAsync(user, role.ToString());
+                    if(user.Id == "a") {
+                        await userManager.AddToRoleAsync(user, role1.ToString());
+                    }
+                    if(user.Id == "b") {
+                        await userManager.AddToRoleAsync(user, role2.ToString());
+                    }
+                    if(user.Id == "c") {
+                        await userManager.AddToRoleAsync(user, role3.ToString());
+                    }
+                    
                 }
             }
             if (!context.AccessGroupLevels.Any())

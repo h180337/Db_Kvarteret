@@ -7,7 +7,12 @@ namespace Application.AccessGroup
     {
         public MappingProfile()
         {
-            CreateMap<Domain.AccessGroup, AccessGroupDto>();
+            AllowNullCollections = true;
+            AllowNullDestinationValues = true;
+
+            CreateMap<Domain.AccessGroup, AccessGroupDto>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
+                .ForMember(d => d.AppUserRoles, o => o.MapFrom(s => s.AppUserRoles));
             CreateMap<AppUserRoles, AccessGroupMemberDto>()
                 .ForMember(d => d.id, o => o.MapFrom(s => s.UserId))
                 .ForMember(d => d.Username, o => o.MapFrom(s => s.User.UserName))

@@ -9,7 +9,7 @@ namespace Application.AccessGroup
         public string Name { get; set; }
 
         [JsonPropertyName("members")]
-        public ICollection<AccessGroupMemberDto> AppUserRoles { get; set; }
+        public virtual ICollection<AccessGroupMemberDto> AppUserRoles { get; set; }
 
     }
 }
