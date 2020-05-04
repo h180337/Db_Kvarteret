@@ -42,6 +42,12 @@ namespace API.Controllers
             return await Mediator.Send(new RemoveFromUser.Command { RoleId = roleid, UserId = userid });
         }
 
+        [HttpGet("getRoles/{userid}")]
+        public async Task<ActionResult<List<AccessGroupDto>>> GetRoles(string userid)
+        {
+            return await Mediator.Send(new UserRoles.Query { UserId = userid });
+        }
+
         
     }
 }
