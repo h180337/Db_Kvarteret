@@ -1,3 +1,4 @@
+using Application.AccessGroup;
 using Application.Card;
 using Application.Course;
 using Application.Group;
@@ -5,6 +6,7 @@ using Application.History;
 using Application.Tags;
 using AutoMapper;
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.User
 {
@@ -45,6 +47,11 @@ namespace Application.User
                 .ForMember(d => d.GroupType, o => o.MapFrom(m => m.History.GroupType))
                 .ForMember(d => d.Year, o => o.MapFrom(m => m.History.Year))
                 .ForMember(d => d.Semester, o => o.MapFrom(m => m.History.Semester));
+
+            CreateMap<IdentityUserRole<string>, Domain.AccessGroup>()
+                .ForMember(d => d.Id, o => o.MapFrom(m => m.RoleId))
+                .ForMember(d => d.Name, o => o.MapFrom(m => m.RoleId));
+                
             
         }
     }

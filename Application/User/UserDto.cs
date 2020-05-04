@@ -8,6 +8,7 @@ using Application.Group;
 using Application.History;
 using Application.Tags;
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.User
 {
@@ -55,6 +56,9 @@ namespace Application.User
 
         [JsonPropertyName("historys")]
         public ICollection<HistoryDto> UserHistory { get; set; }
+
+        [JsonPropertyName("roles")]
+        public ICollection<IdentityUserRole<string>> UserRole { get; set; }
 
     }
 }
