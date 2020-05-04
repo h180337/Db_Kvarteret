@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Button, Header, Image, Item, Segment} from "semantic-ui-react";
 import {Link, NavLink} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
-import { observer } from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import AddGroupMemberForm from "../form/AddGroupMemberForm";
 
 
@@ -33,6 +33,8 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
 
     } = rootStore.groupStore;
     const {openModal} = rootStore.modalStore
+    const {LogiedInuser} = rootStore.userStore
+    const UserRole = LogiedInuser!.roles[0].name && LogiedInuser!.roles[0].name;
 
     return (
         <Segment.Group>
@@ -53,32 +55,37 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
-                <Button
-                    floated='left'
-                    content='Add new members'
-                    color='green'
-                    onClick={() =>openModal(<AddGroupMemberForm groupid={id}/>)}
-                />
-                <Button.Group>
+                {(UserRole === 'Superuser' || UserRole === 'Gruppeadministrator' || UserRole === 'OrgAdmin') &&
+                <Button.Group widths={3}>
                     <Button
-                        floated='right'
-                        content='Delete'
-                        color='red'
-                        as={Link}
-                        loading={target === group!.id && submitting}
-                        onClick={(event => {deleteGroup(event, id)})}
-                        to={'/organisation'}
+                        floated='left'
+                        content='Add new members'
+                        color='green'
+                        onClick={() => openModal(<AddGroupMemberForm groupid={id}/>)}
                     />
+                    
                     <Button
                         floated='right'
                         content='Edit'
                         color='orange'
                         as={NavLink}
                         to={`/managegroup/${group!.id}`}
-
+                    />
+                    <Button
+                        floated='right'
+                        content='Delete'
+                        color='red'
+                        as={Link}
+                        loading={target === group!.id && submitting}
+                        onClick={(event => {
+                            deleteGroup(event, id)
+                        })}
+                        to={'/organisation'}
                     />
                 </Button.Group>
-            
+                }
+
+
             </Segment>
         </Segment.Group>
     )

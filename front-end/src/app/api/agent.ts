@@ -99,9 +99,14 @@ const Tags = {
 
 }
 
+const AccssesRole = {
+    userrole:(id: string) => requests.get(`/accessgroup/getRoles/${id}`)
+}
+
 export default {
     Users,
     Organisation,
     Groups,
-    Tags
+    Tags,
+    AccssesRole
 }

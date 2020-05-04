@@ -46,12 +46,21 @@ export default class UserStore {
 }
 
     @action getLogedInUser = async () =>{
+        this.loadingInitial = true;
         try {
             const user = await agent.Users.currentUser();
+            user.roles = await agent.AccssesRole.userrole(user.id)
             runInAction(() =>{
                 this.LogiedInuser = user;
+                console.log(this.LogiedInuser.roles[0].name)
+                this.loadingInitial = false;
+
             })
+
         } catch (e) {
+            runInAction(() =>{
+                this.loadingInitial = false;
+            })
             console.log(e);
         }
     }

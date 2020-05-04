@@ -1,5 +1,6 @@
 import { ITag } from "./Tag";
 import { IPhoto } from "./Photo";
+import { IRole } from "./Roles";
 
 export interface IPersonel {
     id: string,
@@ -20,6 +21,7 @@ export interface IPersonel {
     tags: ITag [],
     historys: any [];
     profilePhoto: IPhoto | null;
+    roles: IRole [];
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{

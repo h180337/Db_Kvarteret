@@ -4,14 +4,17 @@ import {observer} from 'mobx-react-lite';
 import {Link, NavLink} from 'react-router-dom';
 import {RootStoreContext} from "../../app/stores/rootStore";
 import SideBareToggle from "./SideBareToggle";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout} = rootStore.userStore
-    const [show, setShow] = useState(false)
+    const {LogiedInuser, logout, getLogedInUser, loadingInitial} = rootStore.userStore
+    const [show, setShow] = useState(false);
+    if (loadingInitial) return <LoadingComponent inverted/>
 
+    const UserRole = LogiedInuser!.roles[0].name;
     return (
         <Fragment>
             <Menu fixed='top' inverted>
@@ -20,23 +23,27 @@ const NavBar: React.FC = () => {
                         <img src='/assets/LogoKvarteret.png' alt='Logo' style={{marginRight: '10px'}}/>
                         Db Kvarteret
                     </Menu.Item>
+                    {UserRole === 'Superuser' &&
                     <Menu.Item
                         as={NavLink}
                         to='/users'
                         name='Users'
-                    />
+                    />}
+                    {(UserRole === 'Superuser' || UserRole === 'orgAdmin') &&
                     <Menu.Item
                         name='Organisations'
                         as = {NavLink}
                         to = '/organisation'
-                    />
+                    />}
+                    {UserRole === 'Superuser' &&
                     <Menu.Item>
                         <Button
                             positive content='Create user'
                             as={NavLink}
                             to='/createUser'
                         />
-                    </Menu.Item>
+                    </Menu.Item>}
+                    {UserRole === 'Superuser' &&
                     <Menu.Item>
                         <Button
                             positive
@@ -44,7 +51,8 @@ const NavBar: React.FC = () => {
                             as={NavLink}
                             to='/createorganisation'
                         />
-                    </Menu.Item>
+                    </Menu.Item>}
+                    {UserRole === ('Superuser' || 'OrgAdmin') &&
                     <Menu.Item>
                         <Button
                             positive
@@ -53,7 +61,7 @@ const NavBar: React.FC = () => {
                             to='/creategroup'
                         />
                     </Menu.Item>
-
+                    }
                     {LogiedInuser &&
                     <Menu.Item position='right'>
                         <Icon name='user'/>
@@ -61,11 +69,12 @@ const NavBar: React.FC = () => {
                             <Dropdown.Menu>
                                 <Dropdown.Item as={Link} to={`/users/${LogiedInuser.id}`} text='My profile'
                                                icon='user'/>
+                                {UserRole ==='Superuser' &&
                                 <Dropdown.Item
                                     as={Link}
                                     to={`/admincontroller`}
                                     text='Admin controller'
-                                    icon='user secret'/>
+                                    icon='user secret'/>}
                                 <Dropdown.Item onClick={logout} text='Logout' icon='power'/>
                             </Dropdown.Menu>
                         </Dropdown>

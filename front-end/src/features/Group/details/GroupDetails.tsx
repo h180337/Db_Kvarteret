@@ -22,12 +22,14 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
         group,
 
     } = rootStore.groupStore;
-
+    const {LogiedInuser} = rootStore.userStore;
+    
     useEffect(() => {
             if (!group || group!.id !== match.params.id){
                 loadGroup(match.params.id);
             }
     }, [loadGroup, match.params.id,group]);
+    const UserRole = LogiedInuser!.roles[0].name;
 
     if (loadingInitial) return <LoadingComponent inverted content='Loading group'/>
     
@@ -38,12 +40,16 @@ const GroupDetails: React.FC<RouteComponentProps<GroupParams>> = ({match, histor
             <Grid.Column mobile={16} tablet={8} computer={13}>
                 <GroupDetailedHeader id={match.params.id}/>
                 <GroupDetailedInfo group={group}/>
-                <Segment><h2>Group Members</h2></Segment>
+                {(UserRole === 'Superuser' || UserRole === 'Gruppeadministrator' || UserRole === 'OrgAdmin') &&
                 <MembersTable groupId={match.params.id}/>
+                }
             </Grid.Column>
+            {(UserRole === 'Superuser' || UserRole === 'Gruppeadministrator' || UserRole === 'OrgAdmin') &&
             <Grid.Column mobile={16} tablet={8} computer={3}>
                 <GroupDetailedSideBar users={group.members} groupId={match.params.id}/>
             </Grid.Column>
+            }
+            
         </Grid>
     );
 }
