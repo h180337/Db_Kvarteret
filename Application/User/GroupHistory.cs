@@ -37,16 +37,15 @@ namespace Application.User
                 foreach (var group in groups)
                 {
                     var BrukerGrupper = group.UserGroups;
-                    foreach(var usergroup in BrukerGrupper) {
-                        if(usergroup.AppUserId == request.id && group.aktiv == "inactive") {
+                    foreach (var usergroup in BrukerGrupper)
+                    {
+                        if (usergroup.AppUserId == request.id && group.aktiv == "inactive")
+                        {
                             var groupToReturn = _mapper.Map<Domain.Group, GroupDto>(group);
                             newList.Add(groupToReturn);
                         }
                     }
-                    
-                    
                 }
-
                 return newList;
             }
         }

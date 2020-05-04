@@ -30,7 +30,8 @@ namespace Application.Card
                 var cards = await _context.Cards.ToListAsync();
                 var list = new List<CardDto>();
 
-                foreach(var card in cards) {
+                foreach (var card in cards)
+                {
                     list.Add(_mapper.Map<Domain.Card, CardDto>(card));
                 }
                 return list;

@@ -13,7 +13,7 @@ namespace API.Controllers
     {
         
         [HttpGet]
-        public async Task<ActionResult<List<Domain.AccessGroup>>> List()
+        public async Task<ActionResult<List<AccessGroupDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }

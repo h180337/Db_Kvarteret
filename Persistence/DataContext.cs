@@ -112,10 +112,16 @@ namespace Persistence
                 .WithMany(b => b.UserHistory)
                 .HasForeignKey(uc => uc.AppUserId);
 
-            builder.Entity<AppUser>()
-            .HasMany(p => p.UserRole)
-            .WithOne().HasForeignKey(p => p.UserId).IsRequired();
 
+            builder.Entity<UserRoles>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.UserRoles)
+                .HasForeignKey(e => e.UserId);
+            
+            builder.Entity<UserRoles>()
+                .HasOne(e => e.Role)
+                .WithMany(e => e.UserRoles)
+                .HasForeignKey(e => e.RoleId);
         }
     }
 }

@@ -11,11 +11,11 @@ namespace Application.AccessGroup
 {
     public class List
     {
-        public class Query : IRequest<List<Domain.AccessGroup>>
+        public class Query : IRequest<List<AccessGroupDto>>
         {
         }
 
-        public class Handler : IRequestHandler<Query, List<Domain.AccessGroup>>
+        public class Handler : IRequestHandler<Query, List<AccessGroupDto>>
 
         {
             private readonly DataContext _context;
@@ -27,11 +27,16 @@ namespace Application.AccessGroup
                 _mapper = mapper;
             }
 
-            public async Task<List<Domain.AccessGroup>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<AccessGroupDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var accessGroups = await _context.AccessGroups.ToListAsync();
-                
-                return accessGroups;
+                var accessgroups = await _context.AccessGroups.ToListAsync();
+                var list = new List<AccessGroupDto>();
+
+                foreach (var accessgroup in accessgroups)
+                {
+                    list.Add(_mapper.Map<Domain.AccessGroup, AccessGroupDto>(accessgroup));
+                }
+                return list;
             }
         }
     }
