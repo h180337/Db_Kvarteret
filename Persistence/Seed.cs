@@ -11,10 +11,13 @@ namespace Persistence
 {
     public class Seed
     {
-        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager, RoleManager<AccessGroup> roleManager)
         {
             if (!userManager.Users.Any())
-            {
+            {  
+                var role = new AccessGroup {Name = "Superuser"};
+                await roleManager.CreateAsync(role);
+                
                 var users = new List<AppUser>
                 {
                     new AppUser
@@ -31,9 +34,6 @@ namespace Persistence
                         streetAddress = "Olav Kyrres gate 1",
                         areaCode = "5004",
                         PhoneNumber = "45838282",
-                        AccessGroup = new AccessGroup {
-                            Name = "Course"
-                        }
                     },
                     new AppUser
                     {
@@ -66,10 +66,12 @@ namespace Persistence
                         PhoneNumber = "45283852",
                     }
                 };
+                
 
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
+                    await userManager.AddToRoleAsync(user, role.ToString());
                 }
             }
             if (!context.AccessGroupLevels.Any())

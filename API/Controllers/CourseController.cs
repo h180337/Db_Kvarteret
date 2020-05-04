@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     public class CourseController : BaseController
     {
-        [Authorize(Roles = "Course")]
+        [Authorize(Roles = "Superuser")]
         [HttpGet]
         public async Task<ActionResult<List<CourseDto>>> List()
         {

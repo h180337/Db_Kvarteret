@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Application.AccessGroup;
 using Application.Card;
 using Application.Course;
 using Application.Group;
@@ -13,7 +14,7 @@ namespace Application.User
     public class UserDto
     {
         public string Id { get; set; }
-        
+
         public string fornavn { get; set; }
 
         public string etternavn { get; set; }
@@ -23,9 +24,9 @@ namespace Application.User
         public string userName { get; set; }
 
         public string kjonn { get; set; }
-        
+
         public string Email { get; set; }
-        
+
         public string workstatus { get; set; }
 
         public DateTime created { get; set; }
@@ -37,15 +38,15 @@ namespace Application.User
         public string areaCode { get; set; }
 
         public string Token { get; set; }
-        
+
         public Photo ProfilePhoto { get; set; }
-        
+
         [JsonPropertyName("groups")]
         public ICollection<GroupDto> UserGroups { get; set; }
 
         [JsonPropertyName("courses")]
         public ICollection<CourseDto> UserCourses { get; set; }
-        
+
         [JsonPropertyName("cards")]
         public ICollection<CardDto> UserCards { get; set; }
 
@@ -54,5 +55,6 @@ namespace Application.User
 
         [JsonPropertyName("historys")]
         public ICollection<HistoryDto> UserHistory { get; set; }
+
     }
 }

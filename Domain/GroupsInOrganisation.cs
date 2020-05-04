@@ -10,6 +10,5 @@ namespace Domain
 
         public virtual Group Group { get; set; }
         
-        
     }
 }

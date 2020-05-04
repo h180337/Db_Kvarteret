@@ -45,6 +45,7 @@ namespace Application.User
                 .ForMember(d => d.GroupType, o => o.MapFrom(m => m.History.GroupType))
                 .ForMember(d => d.Year, o => o.MapFrom(m => m.History.Year))
                 .ForMember(d => d.Semester, o => o.MapFrom(m => m.History.Semester));
+            
         }
     }
 }

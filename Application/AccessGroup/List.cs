@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Application.AccessGroup
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
+
             public Handler(DataContext context, IMapper mapper)
             {
                 _context = context;

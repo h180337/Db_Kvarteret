@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using Application.Interfaces;
 using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -14,18 +15,22 @@ namespace Infrastructure.Security
     {
         private readonly SymmetricSecurityKey _key;
 
-        public JwtGenerator(IConfiguration configuration)
+        private readonly UserManager<AppUser> _userManager;
+
+        public JwtGenerator(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
+            _userManager = userManager;
         }
 
         public string CreateToken(AppUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
-                new Claim(ClaimTypes.Role, user.AccessGroup.Name)
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
             };
+
+            AddRolesToClaims(claims, user);
             
             //generate signing credentials
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
@@ -42,6 +47,16 @@ namespace Infrastructure.Security
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        private async void AddRolesToClaims(List<Claim> claims, AppUser user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                var roleClaim = new Claim(ClaimTypes.Role, role);
+                claims.Add(roleClaim);
+            }
         }
     }
 }

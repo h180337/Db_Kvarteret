@@ -22,6 +22,7 @@ namespace API
                 {
                     var context = services.GetRequiredService<DataContext>();
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<AccessGroup>>();
                     if (context.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
                     {
                         context.Database.EnsureCreated();
@@ -30,7 +31,7 @@ namespace API
                     {
                         context.Database.Migrate();
                     }
-                    Seed.SeedData(context, userManager).Wait();
+                    Seed.SeedData(context, userManager, roleManager).Wait();
                 }
                 catch (Exception e)
                 {

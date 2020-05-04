@@ -33,7 +33,6 @@ namespace Application.AccessGroup
 
         {
             private readonly DataContext _context;
-            
             private readonly RoleManager<Domain.AccessGroup> _roleManager;
 
             public Handler(DataContext context, RoleManager<Domain.AccessGroup> roleManager)
