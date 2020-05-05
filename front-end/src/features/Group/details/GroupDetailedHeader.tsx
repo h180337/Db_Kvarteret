@@ -49,6 +49,14 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
                                     content={group!.navn}
                                     style={{color: 'white'}}
                                 />
+                                <br/>
+                                <Header
+                                size='tiny'
+                                content={group!.organisation!.name}
+                                style={{color: 'white'}}
+                                as={Link}
+                                to={`organisation/${group!.organisation!.id}`}
+                                />
                             </Item.Content>
                         </Item>
                     </Item.Group>
