@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {Fragment, useContext, useState, useEffect} from 'react';
 import {Button, Container, Dropdown, Header, Icon, Menu, Responsive} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite';
 import {Link, NavLink} from 'react-router-dom';
@@ -10,12 +10,15 @@ import LoadingComponent from "../../app/layout/LoadingComponent";
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout, loadingInitial, isLoggedIn} = rootStore.userStore
+    const {LogiedInuser, logout, loadingInitial, isLoggedIn, getLogedInUser} = rootStore.userStore
     const [show, setShow] = useState(false);
+    useEffect(()=>{
+        getLogedInUser()
+    }, [getLogedInUser])
    
     if (loadingInitial) return <LoadingComponent inverted/>
 
-    const UserRole = (isLoggedIn && LogiedInuser) && LogiedInuser!.roles[0].name;
+    const UserRole = (LogiedInuser) ? LogiedInuser!.roles[0].name : 'Bruker';
     return (
         <Fragment>
             <Menu fixed='top' inverted>
