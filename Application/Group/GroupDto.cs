@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Application.Organisation;
 
 namespace Application.Group
 {
@@ -24,6 +25,6 @@ namespace Application.Group
         public ICollection<GroupMemberDto> UserGroups { get; set; }
 
         [JsonPropertyName("organisation")]
-        public Domain.Organisation Organisation {get; set;}
+        public OrganisationDto Organisation {get; set;}
     }
 }

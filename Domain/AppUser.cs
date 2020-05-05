@@ -35,6 +35,8 @@ namespace Domain
 
         public virtual ICollection<AppUserRoles> AppUserRoles { get; set; }
 
+        public virtual ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
+
         public virtual Photo ProfilePhoto { get; set; }
 
     }

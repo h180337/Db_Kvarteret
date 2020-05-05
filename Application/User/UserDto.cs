@@ -59,6 +59,9 @@ namespace Application.User
 
         [JsonPropertyName("roles")]
         public ICollection<AccessGroupDto> AppUserRoles { get; set; }
+        
+        [JsonPropertyName("organisationAdmin")]
+        public  ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
 
     }
 }

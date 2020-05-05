@@ -43,6 +43,8 @@ namespace Persistence
 
         public DbSet<AppUserRoles> AppUserRoles { get; set; }
 
+        public DbSet<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -132,6 +134,19 @@ namespace Persistence
             builder.Entity<Organisation>()
                 .HasMany<Group>(e => e.Groups)
                 .WithOne(e => e.Organisation);
+
+            builder.Entity<UserOrganisationAdmin>()
+            .HasKey(bc => new { bc.OrganisationId, bc.AppUserId });
+
+            builder.Entity<UserOrganisationAdmin>()
+                .HasOne(uc => uc.Organisation)
+                .WithMany(c => c.UserOrganisationAdmins)
+                .HasForeignKey(uc => uc.OrganisationId);
+
+            builder.Entity<UserOrganisationAdmin>()
+                .HasOne(uc => uc.AppUser)
+                .WithMany(b => b.UserOrganisationAdmins)
+                .HasForeignKey(uc => uc.AppUserId);
         }
     }
 }
