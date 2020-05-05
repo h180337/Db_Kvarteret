@@ -3,6 +3,7 @@ using Application.Card;
 using Application.Course;
 using Application.Group;
 using Application.History;
+using Application.Organisation;
 using Application.Tags;
 using AutoMapper;
 using Domain;
@@ -51,6 +52,11 @@ namespace Application.User
             CreateMap<AppUserRoles, AccessGroupDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.RoleId))
                 .ForMember(d => d.Name, o => o.MapFrom(m => m.Role.Name));
+
+            CreateMap<UserOrganisationAdmin, OrganisationDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(m => m.OrganisationId))
+                .ForMember(d => d.name, o => o.MapFrom(m => m.Organisation.name))
+                .ForMember(d => d.description, o => o.Ignore());
                 
             
         }

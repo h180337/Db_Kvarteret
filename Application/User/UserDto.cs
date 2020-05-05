@@ -6,6 +6,7 @@ using Application.Card;
 using Application.Course;
 using Application.Group;
 using Application.History;
+using Application.Organisation;
 using Application.Tags;
 using Domain;
 using Microsoft.AspNetCore.Identity;
@@ -61,7 +62,7 @@ namespace Application.User
         public ICollection<AccessGroupDto> AppUserRoles { get; set; }
         
         [JsonPropertyName("organisationAdmin")]
-        public  ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
+        public  ICollection<OrganisationDto> UserOrganisationAdmins { get; set; }
 
     }
 }
