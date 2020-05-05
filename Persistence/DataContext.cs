@@ -38,7 +38,7 @@ namespace Persistence
         public DbSet<AccessGroup> AccessGroups { get; set; }
 
         public DbSet<AccessGroupLevel> AccessGroupLevels { get; set; }
-        
+
         public DbSet<Photo> ProfilePhoto { get; set; }
 
         public DbSet<AppUserRoles> AppUserRoles { get; set; }
@@ -119,11 +119,19 @@ namespace Persistence
                 .HasOne(e => e.User)
                 .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.UserId);
-            
+
             builder.Entity<AppUserRoles>()
                 .HasOne(e => e.Role)
                 .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.RoleId);
+
+            builder.Entity<Group>()
+                .HasOne<Organisation>(e => e.Organisation)
+                .WithMany(e => e.Groups);
+
+            builder.Entity<Organisation>()
+                .HasMany<Group>(e => e.Groups)
+                .WithOne(e => e.Organisation);
         }
     }
 }

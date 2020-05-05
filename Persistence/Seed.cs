@@ -14,14 +14,14 @@ namespace Persistence
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager, RoleManager<AccessGroup> roleManager)
         {
             if (!userManager.Users.Any())
-            {  
-                var role1 = new AccessGroup {Name = "Superuser"};
-                var role2 = new AccessGroup {Name = "Bruker"};
-                var role3 = new AccessGroup {Name = "Gruppeadministrator"};
+            {
+                var role1 = new AccessGroup { Name = "Superuser" };
+                var role2 = new AccessGroup { Name = "Bruker" };
+                var role3 = new AccessGroup { Name = "Gruppeadministrator" };
                 await roleManager.CreateAsync(role1);
                 await roleManager.CreateAsync(role2);
                 await roleManager.CreateAsync(role3);
-                
+
                 var users = new List<AppUser>
                 {
                     new AppUser
@@ -70,21 +70,24 @@ namespace Persistence
                         PhoneNumber = "45283852",
                     }
                 };
-                
+
 
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
-                    if(user.Id == "a") {
+                    if (user.Id == "a")
+                    {
                         await userManager.AddToRoleAsync(user, role1.ToString());
                     }
-                    if(user.Id == "b") {
+                    if (user.Id == "b")
+                    {
                         await userManager.AddToRoleAsync(user, role2.ToString());
                     }
-                    if(user.Id == "c") {
+                    if (user.Id == "c")
+                    {
                         await userManager.AddToRoleAsync(user, role3.ToString());
                     }
-                    
+
                 }
             }
             if (!context.AccessGroupLevels.Any())
@@ -117,6 +120,81 @@ namespace Persistence
                     {
                         name = "Det Akademiske Kvarter",
                         description = "Knaksje den beste organisasjonen i landet",
+                        Groups = new List<Group>
+                            {
+                                new Group
+                                {
+                                    navn = "TestGruppen",
+                                    beskrivelse = "Gruppen som tester nummer 1",
+                                    aktiv = "active",
+                                    aktiv_til_og_med = DateTime.Now.AddMonths(-2),
+                                    opprettet = DateTime.Now.AddMonths(-2),
+                                    groupType = "group",
+                                    UserGroups = new List<UserGroup>
+                                    {
+                                        new UserGroup
+                                        {
+                                            AppUserId = "c",
+                                            GroupAdmin = true,
+                                            DateJoined = DateTime.Now.AddMonths(-2)
+                                        },
+                                        new UserGroup
+                                        {
+                                            AppUserId = "a",
+                                            GroupAdmin = false,
+                                            DateJoined = DateTime.Now.AddMonths(-2)
+                                        },
+                                    }
+                                },
+                                new Group
+                                {
+                                    navn = "TestGruppen2",
+                                    beskrivelse = "Gruppen som tester nummer 2",
+                                    aktiv = "active",
+                                    aktiv_til_og_med = DateTime.Now.AddMonths(-2),
+                                    opprettet = DateTime.Now.AddMonths(-2),
+                                    groupType = "commity",
+                                    UserGroups = new List<UserGroup>
+                                    {
+                                        new UserGroup
+                                        {
+                                            AppUserId = "b",
+                                            GroupAdmin = true,
+                                            DateJoined = DateTime.Now.AddMonths(-2)
+                                        }
+                                    }
+                                },
+                                new Group
+                                {
+                                    navn = "TestGruppen3",
+                                    beskrivelse = "Gruppen som tester nummer 3",
+                                    aktiv = "inactive",
+                                    groupType = "project",
+                                    aktiv_til_og_med = DateTime.Now.AddMonths(-2),
+                                    opprettet = DateTime.Now.AddMonths(-2),
+                                    UserGroups = new List<UserGroup>
+                                    {
+                                        new UserGroup
+                                        {
+                                            AppUserId = "c",
+                                            GroupAdmin = true,
+                                            DateJoined = DateTime.Now.AddMonths(-2)
+                                        },
+                                        new UserGroup
+                                        {
+                                            AppUserId = "a",
+                                            GroupAdmin = false,
+                                            DateJoined = DateTime.Now.AddMonths(-2)
+                                        },
+                                        new UserGroup
+                                        {
+                                            AppUserId = "b",
+                                            GroupAdmin = false,
+                                            DateJoined = DateTime.Now.AddMonths(-2)
+                                        }
+                                    }
+                                }
+                            }
                     },
                     new Organisation
                     {
@@ -237,7 +315,7 @@ namespace Persistence
                 context.SaveChanges();
             }
 
-              if (!context.Historys.Any())
+            if (!context.Historys.Any())
             {
                 var historys = new List<History>()
                 {
@@ -258,7 +336,7 @@ namespace Persistence
                                 AppUserId = "a"
                             },
                         }
-                        
+
                     },
                     new History
                     {
@@ -267,7 +345,7 @@ namespace Persistence
                         GroupType = "Group",
                         Year = 1994,
                         Semester = "H"
-                        
+
                     },
                     new History
                     {
@@ -276,7 +354,7 @@ namespace Persistence
                         GroupType = "Group",
                         Year = 1994,
                         Semester = "H"
-                        
+
                     },
                     new History
                     {
@@ -285,7 +363,7 @@ namespace Persistence
                         GroupType = "Group",
                         Year = 1994,
                         Semester = "H"
-                        
+
                     },
                 };
 
@@ -293,86 +371,7 @@ namespace Persistence
                 context.SaveChanges();
             }
 
-            if (!context.Groups.Any())
-            {
-                var groups = new List<Group>
-                {
-                    new Group
-                    {
-                        navn = "TestGruppen",
-                        beskrivelse = "Gruppen som tester nummer 1",
-                        aktiv = "active",
-                        aktiv_til_og_med = DateTime.Now.AddMonths(-2),
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        groupType = "group",
-                        UserGroups = new List<UserGroup>
-                        {
-                            new UserGroup
-                            {
-                                AppUserId = "c",
-                                GroupAdmin = true,
-                                DateJoined = DateTime.Now.AddMonths(-2)
-                            },
-                            new UserGroup
-                            {
-                                AppUserId = "a",
-                                GroupAdmin = false,
-                                DateJoined = DateTime.Now.AddMonths(-2)
-                            },
-                        }
-                    },
-                    new Group
-                    {
-                        navn = "TestGruppen2",
-                        beskrivelse = "Gruppen som tester nummer 2",
-                        aktiv = "active",
-                        aktiv_til_og_med = DateTime.Now.AddMonths(-2),
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        groupType = "commity",
-                        UserGroups = new List<UserGroup>
-                        {
-                            new UserGroup
-                            {
-                                AppUserId = "b",
-                                GroupAdmin = true,
-                                DateJoined = DateTime.Now.AddMonths(-2)
-                            }
-                        }
-                    },
-                    new Group
-                    {
-                        navn = "TestGruppen3",
-                        beskrivelse = "Gruppen som tester nummer 3",
-                        aktiv = "inactive",
-                        groupType = "project",
-                        aktiv_til_og_med = DateTime.Now.AddMonths(-2),
-                        opprettet = DateTime.Now.AddMonths(-2),
-                        UserGroups = new List<UserGroup>
-                        {
-                            new UserGroup
-                            {
-                                AppUserId = "c",
-                                GroupAdmin = true,
-                                DateJoined = DateTime.Now.AddMonths(-2)
-                            },
-                            new UserGroup
-                            {
-                                AppUserId = "a",
-                                GroupAdmin = false,
-                                DateJoined = DateTime.Now.AddMonths(-2)
-                            },
-                            new UserGroup
-                            {
-                                AppUserId = "b",
-                                GroupAdmin = false,
-                                DateJoined = DateTime.Now.AddMonths(-2)
-                            }
-                        }
-                    }
-                };
-                context.Groups.AddRange(groups);
-                context.SaveChanges();
-            }
+
             if (!context.Courses.Any())
             {
                 var courses = new List<Course>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Application.Group;
 
 namespace Application.Organisation
 {
@@ -13,6 +14,6 @@ namespace Application.Organisation
         public string description { get; set; }
         
         [JsonPropertyName("groups")]
-        public virtual ICollection<GroupInOrganisationDto> GroupsInOrganisations { get; set; }
+        public virtual ICollection<GroupDto> Groups { get; set; }
     }
 }

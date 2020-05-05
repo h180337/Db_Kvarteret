@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -23,5 +22,8 @@ namespace Application.Group
 
         [JsonPropertyName("members")]
         public ICollection<GroupMemberDto> UserGroups { get; set; }
+
+        [JsonPropertyName("organisation")]
+        public Domain.Organisation Organisation {get; set;}
     }
 }

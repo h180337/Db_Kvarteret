@@ -23,5 +23,7 @@ namespace Domain
         public DateTime opprettet { get; set; }
 
         public virtual ICollection<UserGroup> UserGroups { get; set; }
+        public Guid OrganisationId { get; set; }
+        public virtual Organisation Organisation { get; set; }
     }
 }

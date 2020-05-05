@@ -15,7 +15,7 @@ namespace Domain
         public string description { get; set; }
         
         [JsonIgnore]
-        public virtual ICollection<GroupsInOrganisation> GroupsInOrganisations { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
         
     }
 }

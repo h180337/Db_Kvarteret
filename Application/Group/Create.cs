@@ -24,6 +24,8 @@ namespace Application.Group
 
             public string groupType { get; set; }
 
+            public Guid OrganisationId { get; set; }
+
             public DateTime aktiv_til_og_med { get; set; }
 
             public DateTime opprettet { get; set; }
@@ -39,6 +41,7 @@ namespace Application.Group
                 RuleFor(x => x.aktiv_til_og_med).NotEmpty();
                 RuleFor(x => x.opprettet).NotEmpty();
                 RuleFor(x => x.groupType).NotEmpty();
+                RuleFor(x => x.OrganisationId).NotEmpty();
 
             }
         }
@@ -64,7 +67,8 @@ namespace Application.Group
                     aktiv = request.aktiv,
                     aktiv_til_og_med = request.aktiv_til_og_med,
                     opprettet = request.opprettet,
-                    groupType = request.groupType
+                    groupType = request.groupType,
+                    OrganisationId = request.OrganisationId
                 };
                 _context.Groups.Add(group);
 
