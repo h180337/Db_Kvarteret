@@ -31,15 +31,15 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}/addCourseMember/{userid}")]
-        public async Task<ActionResult<Unit>> AddCourseMember(Guid id, string userid)
+        public async Task<ActionResult<Unit>> AddCourseMember(Guid courseId, string userid)
         {
-            return await Mediator.Send(new AddToCourse.Command { CourseId = id, UserId = userid });
+            return await Mediator.Send(new AddToCourse.Command { CourseId = courseId, UserId = userid });
         }
 
         [HttpPost("{id}/removeCourseMember/{userid}")]
-        public async Task<ActionResult<Unit>> RemoveCourseMember(Guid id, string userid)
+        public async Task<ActionResult<Unit>> RemoveCourseMember(Guid courseId, string userid)
         {
-            return await Mediator.Send(new RemoveFromCourse.Command { CourseId = id, UserId = userid });
+            return await Mediator.Send(new RemoveFromCourse.Command { CourseId = courseId, UserId = userid });
         }
 
         [HttpDelete("{id}")]
