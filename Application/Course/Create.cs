@@ -29,7 +29,6 @@ namespace Application.Course
             {
                 RuleFor(x => x.navn).NotEmpty();
                 RuleFor(x => x.beskrivelse).NotEmpty();
-                RuleFor(x => x.opprettet).NotEmpty();
             }
         }
 
@@ -51,13 +50,12 @@ namespace Application.Course
                     Id = request.Id,
                     navn = request.navn,
                     beskrivelse = request.beskrivelse,
-                    opprettet = request.opprettet
                 };
                 _context.Courses.Add(course);
 
                 var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
                                                                           _userAccessor.GetCurrentUsername());
-                var admin = new UserCourse
+                /*var admin = new UserCourse
                 {
                     AppUser = user,
                     Course = course,
@@ -65,7 +63,7 @@ namespace Application.Course
                     DateJoined = DateTime.Now
                 };
 
-                _context.UserCourses.Add(admin);
+                _context.UserCourses.Add(admin);*/
 
                 var success = await _context.SaveChangesAsync() > 0;
 

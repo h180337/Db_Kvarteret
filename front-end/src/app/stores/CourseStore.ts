@@ -6,6 +6,7 @@ import {ITag} from "../models/Tag";
 import {IPersonel} from "../models/personel";
 import { ICourse } from "../models/Course";
 import {toast} from "react-toastify";
+import {v4 as uuid} from "uuid";
 
 export default class CourseStore {
 
@@ -16,11 +17,18 @@ export default class CourseStore {
     }
     @observable loadingInitial = false;
     @observable courseRegistry = new Map();
+    @observable courseMembersRegistry = new Map();
+    @observable MembersRegistrycourse = new Map();
     @observable submitting = false;
     @observable target = '';
 
     getCourse = (id: string) =>{
-        return this.courseRegistry.get(id);
+        const course:ICourse = this.courseRegistry.get(id);
+        this.courseMembersRegistry.clear();
+        course.members && course.members.forEach(member => {
+            this.courseMembersRegistry.set(member.id, member)
+        })
+        return course
     }
 
     @action loadCourses = async () => {
@@ -51,7 +59,10 @@ export default class CourseStore {
         try {
             await agent.Courses.addCourse(courseId, userId);
             runInAction('add course to user', () => {
-                this.rootStore.userStore.userRegistry.set(userId, user);
+                course.members.push(user)
+                user.courses.push(course)
+                this.rootStore.userStore.userRegistry.set(userId, user)
+                this.courseRegistry.set(courseId, course)
                 this.submitting = false;
                 this.target = '';
             })
@@ -63,12 +74,22 @@ export default class CourseStore {
         }
     }
 
-    @action removeTag = async (courseId: string, userId: string) => {
+    @action removeCourse = async (courseId: string, userId: string) => {
         this.submitting = true;
+        this.courseMembersRegistry.clear();
         let user:IPersonel = this.rootStore.userStore.getUser(userId)
+        user.courses.forEach(course => {
+            this.courseMembersRegistry.set(course.id, course)
+        })
+        let course:ICourse = this.getCourse(courseId)
         try {
             await agent.Courses.removeCourse(courseId, userId);
             runInAction('remove Tag', () => {
+                this.courseMembersRegistry.delete(userId)
+                course.members = Array.from(this.courseMembersRegistry.values())
+                this.courseRegistry.set(courseId, course);
+                this.courseMembersRegistry.delete(courseId)
+                user.courses = Array.from(this.courseMembersRegistry.values())
                 this.rootStore.userStore.userRegistry.set(userId, user);
                 this.submitting = false;
             })
@@ -76,6 +97,24 @@ export default class CourseStore {
             runInAction('error removing course', () => {
                 this.submitting = false;
             });
+        }
+    }
+
+    @action createCourse = async (course: ICourse) => {
+        this.submitting = true;
+        try {
+            course.id = uuid();
+            course.members = [];
+            await agent.Courses.create(course);
+            runInAction('create course', () => {
+                this.courseRegistry.set(course.id, course);
+            });
+            this.submitting = false;
+        } catch (e) {
+            runInAction('create course error', () => {
+                this.submitting = false;
+            });
+            console.log(e)
         }
     }
 }

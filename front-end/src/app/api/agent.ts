@@ -107,7 +107,9 @@ const AccssesRole = {
 const Courses = {
     list: (): Promise<ICourse[]> => requests.get('/course'),
     addCourse: (courseId: string, userid: string) => requests.post(`/course/${courseId}/addCourseMember/${userid}`, {}),
-    removeCourse: (courseId: string, userid: string) => requests.post(`/course/${courseId}/removeCourseMember/${userid}`, {})
+    removeCourse: (courseId: string, userid: string) => requests.post(`/course/${courseId}/removeCourseMember/${userid}`, {}),
+    create: (course: ICourse) => requests.post('/course', course),
+
 
 
 }

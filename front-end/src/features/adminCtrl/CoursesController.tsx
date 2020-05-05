@@ -4,6 +4,7 @@ import {Button, Dropdown, Header, Table} from 'semantic-ui-react';
 import {ICourse} from '../../app/models/Course';
 import {RootStoreContext} from "../../app/stores/rootStore";
 import AddCourseMembers from './AddCourseMembers';
+import AddNewCourse from "./addNewCourse";
 
 interface IProps {
     courseRegistry: Map<string, ICourse>
@@ -17,7 +18,7 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
         text: course.navn,
         value: course.id,
     }))
-    const {removeTag} = rootStore.courseStore
+    const {removeCourse, submitting, createCourse} = rootStore.courseStore
     const getValueHandler = (e: any, value: any) => {
         setValue(value)
     }
@@ -26,6 +27,11 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
     return (
         <Fragment>
             <Header size='medium' content='Course Controller'/>
+            <Button floated='right' positive content='create new course'
+            onClick={() => openModal(<AddNewCourse close={closeModal} createCourse={createCourse}
+                                                   submitting={submitting}
+            />)}
+            />
             <Dropdown placeholder='Course' search selection options={options}
                       onChange={(event, options) => getValueHandler(event, options.value)}
             />
@@ -39,15 +45,16 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {selectedCourse && selectedCourse.members.map(member =>
+                    {(selectedCourse && selectedCourse.members) && selectedCourse.members.map(member =>
                         <Table.Row key={member.id}>
                             <Table.Cell>{`${member.fornavn} ${member.etternavn}`}</Table.Cell>
                             <Table.Cell>{member.workstatus}</Table.Cell>
                             <Table.Cell>
-                                <Button 
+                                <Button
                                 negative 
                                 content='Remove'
-                                onClick={()=>removeTag( value, member.id)}
+                                loading={submitting}
+                                onClick={()=>removeCourse( value, member.id)}
                                 />
                             </Table.Cell>
                         
