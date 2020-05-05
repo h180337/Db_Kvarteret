@@ -62,7 +62,8 @@ export default class OrganisationStore {
                 runInAction('getting User', () => {
                     this.organiasation = organiasation;
                     this.organiasationsRegistry.set(organiasation.id, organiasation);
-                    organiasation.groups.forEach((group: IGroup) => {
+                    organiasation!.groups && this.organiasationsGroupRegistry.clear();
+                    organiasation!.groups && organiasation.groups.forEach((group: IGroup) => {
                         this.organiasationsGroupRegistry.set(group.id, group);
                     })
                     this.loadingInitial = false;

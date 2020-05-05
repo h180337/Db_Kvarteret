@@ -1,3 +1,4 @@
+import { IOrganisation } from "./organisations";
 
 export interface IGroup {
     id: string,
@@ -6,7 +7,9 @@ export interface IGroup {
     aktiv: string,
     groupType: string
     opprettet: string
-    members: any
+    members: any,
+    organisation: IOrganisation | undefined;
+    organiastionId: string;
 }
 
 export interface IGroupFormValues extends Partial<IGroup> {
@@ -20,6 +23,9 @@ export class GroupFormValues implements IGroupFormValues {
     opprettet: string = '';
     aktiv: string = '';
     groupType: string = '';
+    organiastionId: string = '';
+    organisation: IOrganisation | undefined;
+
 
 
     constructor(init?: IGroupFormValues) {

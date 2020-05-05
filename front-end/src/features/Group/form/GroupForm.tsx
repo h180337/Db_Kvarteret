@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, Fragment} from 'react';
 import {RouteComponentProps} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import {GroupFormValues} from '../../../app/models/group';
@@ -21,11 +21,13 @@ const validate = combineValidators({
     navn: isRequired({message: 'Name is required'}),
     beskrivelse: isRequired({message: 'description is required'}),
     groupType: isRequired({message: 'description is required'}),
+    organisation: isRequired({message: 'organiasation is required'})
 });
 
 const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) => {
     const rootStore = useContext(RootStoreContext);
     const {loadGroup, submitting, createGroup, editGroup} = rootStore.groupStore
+    const { loadOrganisations, organiasationsRegistry} = rootStore.organiastionStore
 
     const [group, setGroup] = useState(new GroupFormValues());
     const [loading, setLoading] = useState(false);
@@ -42,6 +44,17 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
                 });
         }
     }, [match.params.id, loadGroup]);
+    
+    useEffect(() =>{
+        loadOrganisations()
+    },[loadOrganisations])
+
+    const organisationOptions = Array.from(organiasationsRegistry.values()).map((org, index) => ({
+        key: org.name,
+        text: org.name,
+        value: org.id,
+
+    }))
 
     const handleFinalFormSubmit = (value: any) => {
         let today = new Date().toISOString().slice(0, 10)
@@ -99,6 +112,17 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
                                     component={SelectInput}
                                     options={groupType}
                                 />
+                                {group.organisation ? null :
+                                    <Fragment>
+                                    <label>Organisastion</label>
+                                    <Field
+                                    name='organisation'
+                                    placeholder='organisation'
+                                    value={group.organiastionId}
+                                    component={SelectInput}
+                                    options={organisationOptions}
+                                    />
+                                    </Fragment>}
                                 <Button
                                     loading={submitting}
                                     positive

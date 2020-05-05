@@ -69,13 +69,6 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
                     as={Link}
                     to={`/manageorganisation/${organiasation!.id}`}
                 />
-
-                <Button
-                    floated='left'
-                    content='Add group'
-                    color='green'
-                    onClick={() =>openModal(<AddGroups organisationId={organiasation!.id}/>)}
-                />
             </Segment>
         </Segment.Group>
 
