@@ -6,6 +6,7 @@ import {IOrganisation} from '../models/organisations'
 import {history} from '../..';
 import { toast } from 'react-toastify';
 import { IPhoto } from '../models/Photo';
+import { ICourse } from '../models/Course';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -103,10 +104,15 @@ const AccssesRole = {
     userrole:(id: string) => requests.get(`/accessgroup/getRoles/${id}`)
 }
 
+const Courses = {
+    list: (): Promise<ICourse[]> => requests.get('/course')
+}
+
 export default {
     Users,
     Organisation,
     Groups,
     Tags,
-    AccssesRole
+    AccssesRole,
+    Courses
 }

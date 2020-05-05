@@ -6,9 +6,10 @@ import { runInAction } from 'mobx';
 interface IProps {
     tags: any[]
     filteredData: Map<string,ITag>
+    setInput?: any
 }
 
-const TagSearch: React.FC<IProps> = ({tags, filteredData}) => {
+const TagSearch: React.FC<IProps> = ({tags, filteredData,setInput}) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) =>{
         filteredData.clear()
     tags.forEach((tag:ITag) => {
@@ -17,6 +18,7 @@ const TagSearch: React.FC<IProps> = ({tags, filteredData}) => {
                 filteredData.set(tag.id, tag)
             })
         }
+        setInput && setInput(event.target.value.toLowerCase())
     })  
         if (event.target.value === ''){
             filteredData.clear();

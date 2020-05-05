@@ -2,10 +2,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import {observer} from 'mobx-react-lite';
-import {Button, Input, Table, Label, Icon} from "semantic-ui-react";
+import {Button, Icon, Label, Table} from "semantic-ui-react";
 import {ITag} from '../../../app/models/Tag';
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import {v4 as uuid} from 'uuid';
 import TagSearch from '../../../app/common/searchFilter/TagSearch';
 
 interface IProps {
@@ -29,11 +28,6 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
         setInput(e.target.value); 
     }
     
-    const onclickHandler = () =>{
-        createTag({id: uuid(), tagText: input});
-        setInput('');
-    }
-
     let data: Map<any,any> = filteredData.size === 0 ? tagRegistry : filteredData;
 
     return (
@@ -80,19 +74,6 @@ const ProfileTagManager: React.FC<IProps> = ({userId}) => {
                         )}
                 </Table.Body>
             </Table>
-            <div>
-                <Input
-                    placeholder='New Tag input'
-                    onChange={(event) => getInputValue(event)}
-                    value={input}
-                />
-                <Button
-                    color='green'
-                    content='Add new Tag'
-                    onClick={() => onclickHandler()}
-                    loading={submitting}
-                /></div>
-
         </div>
     );
 }

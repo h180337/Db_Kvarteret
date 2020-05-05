@@ -1,7 +1,10 @@
 // @ts-ignore
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Sidebar, Menu, Icon} from 'semantic-ui-react'
 import {NavLink, Link} from "react-router-dom";
+import {RootStoreContext} from "../../app/stores/rootStore";
+import LoadingComponent from "../../app/layout/LoadingComponent";
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
     show: any;
@@ -10,7 +13,13 @@ interface IProps {
     logout: any;
 }
 
-const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout}) => {
+const SideBareToggle: React.FC<IProps> = ({setShow, show}) => {
+    const rootStore = useContext(RootStoreContext);
+    const {LogiedInuser, logout, loadingInitial, isLoggedIn, getLogedInUser} = rootStore.userStore
+   
+    if (loadingInitial) return <LoadingComponent inverted/>
+
+    const UserRole = (LogiedInuser) ? LogiedInuser!.roles[0].name : 'Bruker';
 
     return (
         <Sidebar
@@ -29,6 +38,7 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
                 <Icon name='home'/>
                 Home
             </Menu.Item>
+            {UserRole === 'Superuser' &&
             <Menu.Item
                 as={NavLink}
                 to='/users'
@@ -37,7 +47,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             >
                 <Icon name='users'/>
                 Users
-            </Menu.Item>
+            </Menu.Item>}
+            {(UserRole === 'Superuser' || UserRole === 'orgAdmin') &&
             <Menu.Item name='Organisations'
                        as={NavLink}
                        to='/organisation'
@@ -46,7 +57,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             >
                 <Icon name='building'/>
                 Organiasations
-            </Menu.Item>
+            </Menu.Item>}
+            {UserRole === 'Superuser' &&
             <Menu.Item
                 as={NavLink}
                 to='/createuser'
@@ -55,8 +67,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             >
                 <Icon name='add user'/>
                 create user
-            </Menu.Item>
-            <Menu.Item
+            </Menu.Item>}
+            {UserRole === 'Superuser' &&<Menu.Item
                 as={NavLink}
                 to='/createorganisation'
                 onClick={() => setShow(false)}
@@ -64,7 +76,8 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             >
                 <Icon name='building'/>
                 create organiasation
-            </Menu.Item>
+            </Menu.Item>}
+            {UserRole === ('Superuser' || 'OrgAdmin') &&
             <Menu.Item
                 as={NavLink}
                 to='/creategroup'
@@ -73,10 +86,11 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             >
                 <Icon name='group'/>
                 create group
-            </Menu.Item>
+            </Menu.Item>}
+            
             <Menu.Item
                 as={Link}
-                to={`/users/${LogiedInuser.id}`}
+                to={`/users/${LogiedInuser!.id}`}
                 onClick={() => setShow(false)}
 
             >
@@ -91,8 +105,7 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show, LogiedInuser, logout})
             </Menu.Item>
         </Sidebar>
     )
-    // @ts-ignore
-   // return ReactDOM.createPortal(test, document.getElementById('drawer-hook'));
+    
 }
 
-export default SideBareToggle;
+export default observer(SideBareToggle);
