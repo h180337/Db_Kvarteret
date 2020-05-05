@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, Fragment} from 'react';
 import {RouteComponentProps} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import {GroupFormValues} from '../../../app/models/group';
@@ -112,14 +112,17 @@ const GroupForm: React.FC<RouteComponentProps<GroupParams>> = ({match,history}) 
                                     component={SelectInput}
                                     options={groupType}
                                 />
-                                <label>Organisastion</label>
-                                <Field
+                                {group.organisation ? null :
+                                    <Fragment>
+                                    <label>Organisastion</label>
+                                    <Field
                                     name='organisation'
                                     placeholder='organisation'
                                     value={group.organiastionId}
                                     component={SelectInput}
                                     options={organisationOptions}
-                                />
+                                    />
+                                    </Fragment>}
                                 <Button
                                     loading={submitting}
                                     positive

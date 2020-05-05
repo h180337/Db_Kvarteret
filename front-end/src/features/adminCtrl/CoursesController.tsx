@@ -17,6 +17,7 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
         text: course.navn,
         value: course.id,
     }))
+    const {removeTag} = rootStore.courseStore
     const getValueHandler = (e: any, value: any) => {
         setValue(value)
     }
@@ -33,7 +34,8 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
                     <Table.Row>
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.HeaderCell>Worksatus</Table.HeaderCell>
-                        <Table.HeaderCell>Organisation</Table.HeaderCell>
+                        <Table.HeaderCell>Remove</Table.HeaderCell>
+                        
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -41,7 +43,14 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
                         <Table.Row key={member.id}>
                             <Table.Cell>{`${member.fornavn} ${member.etternavn}`}</Table.Cell>
                             <Table.Cell>{member.workstatus}</Table.Cell>
-                            <Table.Cell>Kommer</Table.Cell>
+                            <Table.Cell>
+                                <Button 
+                                negative 
+                                content='Remove'
+                                onClick={()=>removeTag( value, member.id)}
+                                />
+                            </Table.Cell>
+                        
                         </Table.Row>
                     )}
                 </Table.Body>
