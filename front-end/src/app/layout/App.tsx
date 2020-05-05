@@ -20,6 +20,7 @@ import OrganisationForm from '../../features/Organisations/form/OrganisationForm
 import GroupDetails from "../../features/Group/details/GroupDetails";
 import GroupForm from '../../features/Group/form/GroupForm';
 import AdminCtrl from '../../features/adminCtrl/AdminCtrl';
+import PrivateRoute from './PrivateRoute';
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
 
@@ -47,17 +48,17 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                     <NavBar/>
                     <Container style={{marginTop: '7em'}}>
                         <Switch>
-                            <Route path='/admincontroller' exact component={AdminCtrl}/>
-                            <Route path='/users' exact component={PesonellDashBoard}/>
-                            <Route path='/users/:id' exact component={UserProfile}/>
-                            <Route path='/group/:id' exact component={GroupDetails}/>
-                            <Route path='/organisation' exact component={OrganisationDashBoard}/>
-                            <Route path='/organisation/:id' exact component={OrganisationDetails}/>
-                            <Route key={location.key} path={['/creategroup', '/managegroup/:id']} exact
+                            <PrivateRoute path='/admincontroller' exact component={AdminCtrl}/>
+                            <PrivateRoute path='/users' exact component={PesonellDashBoard}/>
+                            <PrivateRoute path='/users/:id' exact component={UserProfile}/>
+                            <PrivateRoute path='/group/:id' exact component={GroupDetails}/>
+                            <PrivateRoute path='/organisation' exact component={OrganisationDashBoard}/>
+                            <PrivateRoute path='/organisation/:id' exact component={OrganisationDetails}/>
+                            <PrivateRoute key={location.key} path={['/creategroup', '/managegroup/:id']} exact
                                    component={GroupForm}/>
-                            <Route key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
+                            <PrivateRoute key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
                                    component={OrganisationForm}/>
-                            <Route key={location.key} path={['/createUser', '/manage/:id']} exact
+                            <PrivateRoute key={location.key} path={['/createUser', '/manage/:id']} exact
                                    component={PersonelForm}/>
                             <Route path='/login' component={LoginForm}/>
                             <Route component={NotFound}/>

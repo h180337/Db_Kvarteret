@@ -10,11 +10,12 @@ import LoadingComponent from "../../app/layout/LoadingComponent";
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout, getLogedInUser, loadingInitial} = rootStore.userStore
+    const {LogiedInuser, logout, loadingInitial, isLoggedIn} = rootStore.userStore
     const [show, setShow] = useState(false);
+   
     if (loadingInitial) return <LoadingComponent inverted/>
 
-    const UserRole = LogiedInuser!.roles[0].name;
+    const UserRole = isLoggedIn && LogiedInuser!.roles[0].name;
     return (
         <Fragment>
             <Menu fixed='top' inverted>
