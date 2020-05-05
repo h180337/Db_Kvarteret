@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     public class CourseController : BaseController
     {
-        [Authorize(Roles = "Superuser")]
+        
         [HttpGet]
         public async Task<ActionResult<List<CourseDto>>> List()
         {
@@ -31,13 +31,13 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}/addCourseMember/{userid}")]
-        public async Task<ActionResult<Unit>> AddCourseMember(string id, string userid)
+        public async Task<ActionResult<Unit>> AddCourseMember(Guid id, string userid)
         {
             return await Mediator.Send(new AddToCourse.Command { CourseId = id, UserId = userid });
         }
 
         [HttpPost("{id}/removeCourseMember/{userid}")]
-        public async Task<ActionResult<Unit>> RemoveCourseMember(Guid id, Guid userid)
+        public async Task<ActionResult<Unit>> RemoveCourseMember(Guid id, string userid)
         {
             return await Mediator.Send(new RemoveFromCourse.Command { CourseId = id, UserId = userid });
         }

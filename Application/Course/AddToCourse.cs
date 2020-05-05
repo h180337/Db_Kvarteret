@@ -15,7 +15,7 @@ namespace Application.Course
         public class Command : IRequest
         {
             public string UserId { get; set; }
-            public string CourseId { get; set; }
+            public Guid CourseId { get; set; }
 
         }
 
@@ -39,8 +39,7 @@ namespace Application.Course
                 }
 
                 var user = await _context.Users.FindAsync(request.UserId.ToString());
-                Console.WriteLine(user); 
-
+               
                 if (user == null)
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { User = " could not find user" });
