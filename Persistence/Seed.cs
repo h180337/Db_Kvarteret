@@ -90,28 +90,6 @@ namespace Persistence
 
                 }
             }
-            if (!context.AccessGroupLevels.Any())
-            {
-                var accessGroupLevels = new List<AccessGroupLevel>()
-                {
-                    new AccessGroupLevel
-                    {
-                        AccessName = "Group",
-                        Level = 1,
-                        AccessGroup = context.AccessGroups.FirstOrDefault()
-                    },
-                    new AccessGroupLevel
-                    {
-                        AccessName = "Course",
-                        Level = 2,
-                        AccessGroup = context.AccessGroups.FirstOrDefault()
-                    }
-                };
-
-                context.AccessGroupLevels.AddRange(accessGroupLevels);
-                context.SaveChanges();
-            }
-
             if (!context.Organisations.Any())
             {
                 var organisations = new List<Organisation>()

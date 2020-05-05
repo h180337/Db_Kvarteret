@@ -10,9 +10,7 @@ namespace Application.AccessGroup
             AllowNullCollections = true;
             AllowNullDestinationValues = true;
 
-            CreateMap<Domain.AccessGroup, AccessGroupDto>()
-                .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
-                .ForMember(d => d.AppUserRoles, o => o.MapFrom(s => s.AppUserRoles));
+            CreateMap<Domain.AccessGroup, AccessGroupDto>();
             CreateMap<AppUserRoles, AccessGroupMemberDto>()
                 .ForMember(d => d.id, o => o.MapFrom(s => s.UserId))
                 .ForMember(d => d.Username, o => o.MapFrom(s => s.User.UserName))

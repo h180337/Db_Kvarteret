@@ -123,7 +123,7 @@ namespace Persistence
                 .HasForeignKey(e => e.UserId);
 
             builder.Entity<AppUserRoles>()
-                .HasOne(e => e.Role)
+                .HasOne(e => e.AccessGroup)
                 .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.RoleId);
 
