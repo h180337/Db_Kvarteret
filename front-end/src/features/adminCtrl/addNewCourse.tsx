@@ -56,7 +56,7 @@ const AddNewCourse:React.FC<IProps> = ({close, createCourse, submitting}) => {
                                 <Button
                                     loading={submitting}
                                     positive
-                                    disabled={false || invalid || pristine}
+                                    disabled={submitting || invalid || pristine}
                                     floated='right'
                                     type='submit'
                                     content='Submit'
@@ -64,7 +64,7 @@ const AddNewCourse:React.FC<IProps> = ({close, createCourse, submitting}) => {
                                     style={{marginTop: '10px'}}/>
                                 <Button
                                     onClick={() =>close()}
-                                    disabled={false}
+                                    disabled={submitting}
                                     floated='right'
                                     content='Cancel'
                                     color='grey'
@@ -72,7 +72,6 @@ const AddNewCourse:React.FC<IProps> = ({close, createCourse, submitting}) => {
                             </Form>
                         )}
                     />
-
                 </Segment>
             </Grid.Column>
         </Grid>

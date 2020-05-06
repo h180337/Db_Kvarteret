@@ -27,10 +27,10 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
     return (
         <Fragment>
             <Header size='medium' content='Course Controller'/>
-            <Button floated='right' positive content='create new course'
-            onClick={() => openModal(<AddNewCourse close={closeModal} createCourse={createCourse}
-                                                   submitting={submitting}
-            />)}
+            <Button floated='right' positive content='new course'
+                    onClick={() => openModal(<AddNewCourse close={closeModal} createCourse={createCourse}
+                                                           submitting={submitting}
+                    />)}
             />
             <Dropdown placeholder='Course' search selection options={options}
                       onChange={(event, options) => getValueHandler(event, options.value)}
@@ -65,8 +65,9 @@ const CoursesController: React.FC<IProps> = ({courseRegistry}) => {
             {value !== '' && <Button
                 content='Add Course members'
                 color='green'
-                onClick={() => openModal(<AddCourseMembers courseId={value}
-                                                           members={selectedCourse && selectedCourse!.members}/>)}
+                onClick={() => openModal(<AddCourseMembers
+                    courseId={value}
+                    members={selectedCourse && selectedCourse!.members}/>)}
             />}
         </Fragment>
 

@@ -108,8 +108,9 @@ export default class CourseStore {
             await agent.Courses.create(course);
             runInAction('create course', () => {
                 this.courseRegistry.set(course.id, course);
+                this.submitting = false;
             });
-            this.submitting = false;
+            
         } catch (e) {
             runInAction('create course error', () => {
                 this.submitting = false;

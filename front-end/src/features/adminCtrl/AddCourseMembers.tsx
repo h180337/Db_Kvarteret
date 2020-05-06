@@ -30,6 +30,7 @@ const AddCourseMembers:React.FC<IProps> = ({courseId, members}) => {
                         content='Add'
                         color='green'
                         onClick={(e) =>addCourseToUser(e, courseId,props.original.id)}
+                        loading={submitting}
                     />
                 )
         }
