@@ -16,7 +16,6 @@ namespace Domain
 
         public virtual ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
 
-        [JsonIgnore]
         public virtual ICollection<Group> Groups { get; set; }
 
     }

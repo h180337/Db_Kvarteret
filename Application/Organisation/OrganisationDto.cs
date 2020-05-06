@@ -17,7 +17,7 @@ namespace Application.Organisation
         [JsonPropertyName("admins")]
         public virtual ICollection<OrganisationAdminDto> UserOrganisationAdmins { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<GroupDto> Groups { get; set; }
+        
+        public virtual ICollection<OrganisationGroupDto> Groups { get; set; }
     }
 }
