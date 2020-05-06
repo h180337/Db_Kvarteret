@@ -20,7 +20,6 @@ export default class AccessGroupStore {
 
     getAccessGroup = (id: string) =>{
         const accessGroup:IAccessGroup = this.AccessGroupRegistry.get(id);
-        this.AccessGroupRegistry.clear();
         accessGroup.members && accessGroup.members.forEach(member => {
             this.AccessGroupRegistry.set(member.id, member)
         })
