@@ -15,13 +15,14 @@ export default class AccessGroupStore {
     }
     @observable loadingInitial = false;
     @observable AccessGroupRegistry = new Map();
+    @observable AccessGroupMembersRegistry = new Map();
     @observable submitting = false;
     @observable target = '';
 
     getAccessGroup = (id: string) =>{
         const accessGroup:IAccessGroup = this.AccessGroupRegistry.get(id);
         accessGroup.members && accessGroup.members.forEach(member => {
-            this.AccessGroupRegistry.set(member.id, member)
+            this.AccessGroupMembersRegistry.set(member.id, member)
         })
         return accessGroup
     }
