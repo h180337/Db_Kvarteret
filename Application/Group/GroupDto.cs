@@ -25,6 +25,6 @@ namespace Application.Group
         public ICollection<GroupMemberDto> UserGroups { get; set; }
 
         [JsonPropertyName("organisation")]
-        public OrganisationDto Organisation {get; set;}
+        public GroupOrganisationDto Organisation {get; set;}
     }
 }

@@ -47,7 +47,6 @@ namespace Application.Course
             {
                 var course = new Domain.Course
                 {
-                    Id = request.Id,
                     navn = request.navn,
                     beskrivelse = request.beskrivelse,
                 };
