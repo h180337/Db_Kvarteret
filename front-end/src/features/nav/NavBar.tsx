@@ -15,9 +15,7 @@ const NavBar: React.FC = () => {
     useEffect(()=>{
         getLogedInUser()
     }, [getLogedInUser])
-   
-    if (loadingInitial) return <LoadingComponent inverted/>
-
+    
     const UserRole = (LogiedInuser) ? LogiedInuser!.roles[0].name : 'Bruker';
     return (
         <Fragment>

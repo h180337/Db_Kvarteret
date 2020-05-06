@@ -5,12 +5,15 @@ import CoursesController from './CoursesController';
 import {RootStoreContext} from "../../app/stores/rootStore";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import TagController from './TagController';
+import AccessController from './AccessController';
 
 const AdminCtrl = () => {
     const rootStore = useContext(RootStoreContext);
     const {loadCourses,loadingInitial, courseRegistry} = rootStore.courseStore;
     const {loadTags, tagsAsArray, tagRegistry, loadingInitial: Li} = rootStore.tagStore
     const {loadUsers, loadingInitial: loadinguser} = rootStore.userStore;
+    const {loadAccessGroups, loadingInitial: loadingAccessgroup, AccessGroupRegistry} = rootStore.accessGroupStore;
+
 
 
     useEffect(() =>{
@@ -23,13 +26,16 @@ const AdminCtrl = () => {
     useEffect(() =>{
         loadUsers();
     }, [loadUsers])
+    useEffect(() =>{
+        loadAccessGroups();
+    }, [loadAccessGroups])
 
-    if (loadingInitial || Li || loadinguser) return <LoadingComponent inverted content='Loading'/>
+    if (loadingInitial || Li || loadinguser || loadingAccessgroup) return <LoadingComponent inverted content='Loading'/>
 
     return (
        <Fragment>
            <Segment>
-               Accress Controller(work in progress)
+               <AccessController accessGroupRegistry={AccessGroupRegistry}/>
            </Segment>
            <Segment>
                <CoursesController courseRegistry={courseRegistry}/>

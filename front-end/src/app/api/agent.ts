@@ -7,6 +7,7 @@ import {history} from '../..';
 import { toast } from 'react-toastify';
 import { IPhoto } from '../models/Photo';
 import { ICourse } from '../models/Course';
+import { IAccessGroup } from '../models/AccessGroups';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -101,7 +102,11 @@ const Tags = {
 }
 
 const AccssesRole = {
-    userrole:(id: string) => requests.get(`/accessgroup/getRoles/${id}`)
+    list: (): Promise<IAccessGroup[]> => requests.get('/accessgroup'),
+    userrole:(id: string) => requests.get(`/accessgroup/getRoles/${id}`),
+    addAccessLevel: (accessId: string, userid: string) => requests.post(`/accessgroup/${accessId}/addToUser/${userid}`, {}),
+    removeAccessLevel: (accessId: string, userid: string) => requests.post(`/accessgroup/${accessId}/removeFromUser/${userid}`, {}),
+
 }
 
 const Courses = {

@@ -7,6 +7,7 @@ import OrganisationStore from './organisationStore'
 import GroupStore from './groupStore'
 import TagStore from './tagStore'
 import CourseStore from './CourseStore'
+import AccessGroupStore from './accessGroupStore'
 
 
 
@@ -20,6 +21,7 @@ export class RootStore {
     groupStore: GroupStore;
     tagStore: TagStore;
     courseStore: CourseStore;
+    accessGroupStore: AccessGroupStore
     
     constructor() {
         this.userStore = new UserStore(this)
@@ -29,6 +31,7 @@ export class RootStore {
         this.groupStore = new GroupStore(this);
         this.tagStore = new TagStore(this);
         this.courseStore = new CourseStore(this);
+        this.accessGroupStore = new AccessGroupStore(this);
 
 
     }
