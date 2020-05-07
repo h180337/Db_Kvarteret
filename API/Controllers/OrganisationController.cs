@@ -60,5 +60,11 @@ namespace API.Controllers
         {
             return await Mediator.Send(new AddAdmin.Command { OrganisationId = organisationId, UserId = userId });
         }
+
+        [HttpPost("{organisationId}/RemoveAdmin/{userId}")]
+        public async Task<ActionResult<Unit>> RemoveAdmin(Guid organisationId, string userId)
+        {
+            return await Mediator.Send(new RemoveAdmin.Command { OrganisationId = organisationId, UserId = userId });
+        }
     }
 }
