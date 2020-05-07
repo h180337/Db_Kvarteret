@@ -11,7 +11,7 @@ namespace Domain
 
         public string beskrivelse { get; set; }
 
-        public int opprettet { get; set; }
+        public DateTime opprettet { get; set; }
 
         public virtual ICollection<UserCourse> UserCourses { get; set; }
 

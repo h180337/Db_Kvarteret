@@ -12,7 +12,7 @@ namespace Application.Course
 
         public string beskrivelse { get; set; }
 
-        public int opprettet { get; set; }
+        public DateTime opprettet { get; set; }
 
         [JsonPropertyName("members")]
         public ICollection<CourseMemberDto> UserCourses { get; set; }

@@ -20,7 +20,7 @@ namespace Application.Course
 
             public string beskrivelse { get; set; }
 
-            public int opprettet { get; set; }
+            public DateTime opprettet { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>

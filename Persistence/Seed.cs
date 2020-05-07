@@ -358,7 +358,7 @@ namespace Persistence
                     {
                         navn = "Test kurs",
                         beskrivelse = "Kurs i .net helvet",
-                        opprettet = 1020303,
+                        opprettet = DateTime.Now,
                         UserCourses = new List<UserCourse>
                         {
                             new UserCourse
@@ -377,7 +377,7 @@ namespace Persistence
                     {
                         navn = "TestGruppen2",
                         beskrivelse = "Gruppen som tester nummer 2",
-                        opprettet = 1020303,
+                        opprettet = DateTime.Now,
                         UserCourses = new List<UserCourse>
                         {
                             new UserCourse
@@ -391,7 +391,7 @@ namespace Persistence
                     {
                         navn = "TestGruppen3",
                         beskrivelse = "Gruppen som tester nummer 3",
-                        opprettet = 1020303,
+                        opprettet = DateTime.Now,
                         UserCourses = new List<UserCourse>
                         {
                             new UserCourse
