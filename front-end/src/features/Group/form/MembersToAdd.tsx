@@ -6,6 +6,7 @@ import {Button, Segment} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite'
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import DataSearch from '../../../app/common/searchFilter/DataSearch';
 
 interface IProps {
     groupid: string
@@ -15,14 +16,14 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {addMemberToGroup, groupMembersRegistry, submitting, target} = rootStore.groupStore
-    const {loadingInitial, loadUsers, userRegistry, usersAsArray} = rootStore.userStore;
+    const {loadingInitial, loadUsers, userRegistry, usersAsArray, filteredData} = rootStore.userStore;
     useEffect(() => {
         loadUsers()
     }, [loadUsers]);
     
     if (loadingInitial) return <LoadingComponent content='Loading Users...' inverted={true}/>
     
-    Array.from(groupMembersRegistry.values()).forEach(member => userRegistry.delete(member.id))
+    //Array.from(groupMembersRegistry.values()).forEach(member => userRegistry.delete(member.id))
     
     const columns = [
         {Header: 'FirstName', accessor: 'fornavn'},
@@ -49,11 +50,12 @@ const MembersToAdd: React.FC<IProps> = ({groupid}) => {
 
     return (
         <Fragment>
+            <DataSearch filteredData={filteredData} dataArray={usersAsArray}/>
             <Segment clearing>
                 <ReactTable
                     style={{marginTop: '10px'}}
                     className='center'
-                    data={usersAsArray}
+                    data={Array.from(filteredData.values())}
                     columns={columns}
                     defaultPageSize={5}
                     pageSizeOptions={[5, 10, 20, 30]}

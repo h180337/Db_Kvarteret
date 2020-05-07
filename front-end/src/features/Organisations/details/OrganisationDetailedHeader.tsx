@@ -55,15 +55,6 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
             <Segment clearing attached='bottom'>
                 <Button
                     floated='right'
-                    content='Delete'
-                    color='red'
-                    as={Link}
-                    loading={target === id && submitting}
-                    onClick={(event => {deleteOrganisation(event, id)})}
-                    to={'/organisation'}
-                />
-                <Button
-                    floated='right'
                     content='Edit'
                     color='orange'
                     as={Link}
