@@ -10,7 +10,7 @@ namespace Domain
         }
 
         public virtual AppUser User { get; set; }
-        public virtual AccessGroup AccessGroup { get; set; }
+        public virtual AccessGroup Role { get; set; }
         public override string UserId { get => base.UserId; set => base.UserId = value; }
         public override string RoleId { get => base.RoleId; set => base.RoleId = value; }
 

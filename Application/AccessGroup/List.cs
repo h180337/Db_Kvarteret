@@ -29,7 +29,7 @@ namespace Application.AccessGroup
 
             public async Task<List<AccessGroupDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var accessgroups = await _context.AccessGroups.ToListAsync();
+                var accessgroups = await _context.Roles.ToListAsync();
                 var list = new List<AccessGroupDto>();
 
                 foreach (var accessgroup in accessgroups)

@@ -51,7 +51,7 @@ namespace Application.User
 
             CreateMap<AppUserRoles, AccessGroupDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.RoleId))
-                .ForMember(d => d.Name, o => o.MapFrom(m => m.AccessGroup.Name));
+                .ForMember(d => d.Name, o => o.MapFrom(m => m.Role.Name));
 
             CreateMap<UserOrganisationAdmin, OrganisationDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.OrganisationId))

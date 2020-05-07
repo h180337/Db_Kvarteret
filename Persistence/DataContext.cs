@@ -1,13 +1,23 @@
 ﻿using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
 {
-    public class DataContext : IdentityDbContext<AppUser>
+    public class DataContext : IdentityDbContext<AppUser,
+    AccessGroup,
+    string,
+    IdentityUserClaim<string>,
+    AppUserRoles,
+    IdentityUserLogin<string>,
+    IdentityRoleClaim<string>,
+    IdentityUserToken<string>
+    >
     {
         public DataContext(DbContextOptions options) : base(options)
         {
+            
         }
 
         //table name inside sqlite
@@ -35,13 +45,9 @@ namespace Persistence
 
         public DbSet<UserHistory> UserHistory { get; set; }
 
-        public DbSet<AccessGroup> AccessGroups { get; set; }
-
         public DbSet<AccessGroupLevel> AccessGroupLevels { get; set; }
 
         public DbSet<Photo> ProfilePhoto { get; set; }
-
-        public DbSet<AppUserRoles> AppUserRoles { get; set; }
 
         public DbSet<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
 
@@ -116,6 +122,8 @@ namespace Persistence
                 .WithMany(b => b.UserHistory)
                 .HasForeignKey(uc => uc.AppUserId);
 
+            builder.Entity<AppUserRoles>()
+                .HasKey(bc => new { bc.RoleId, bc.UserId });
 
             builder.Entity<AppUserRoles>()
                 .HasOne(e => e.User)
@@ -123,7 +131,7 @@ namespace Persistence
                 .HasForeignKey(e => e.UserId);
 
             builder.Entity<AppUserRoles>()
-                .HasOne(e => e.AccessGroup)
+                .HasOne(e => e.Role)
                 .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.RoleId);
 

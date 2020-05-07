@@ -50,7 +50,7 @@ namespace Application.AccessGroup
 
                 foreach (var role in roles)
                 {
-                    var accessgroup = await _context.AccessGroups.SingleOrDefaultAsync(x =>
+                    var accessgroup = await _context.Roles.SingleOrDefaultAsync(x =>
                         x.Name == role);
                     list.Add(_mapper.Map<Domain.AccessGroup, AccessGroupDto>(accessgroup));
                 }
