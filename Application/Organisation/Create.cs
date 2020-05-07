@@ -1,8 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Interfaces;
+using Domain;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Organisation
@@ -32,10 +35,13 @@ namespace Application.Organisation
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
+            private readonly IuserAccessor _userAccessor;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context,
+                IuserAccessor userAccessor)
             {
                 _context = context;
+                _userAccessor = userAccessor;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -45,10 +51,22 @@ namespace Application.Organisation
                     Id = request.Id,
                     name = request.name,
                     description = request.description,
-                    
+
                 };
                 _context.Organisations.Add(organisation);
+                
+                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
+                                                                          _userAccessor.GetCurrentUsername());
+                
+                var admin = new UserOrganisationAdmin
+                {
+                    AppUser = user,
+                    Organisation = organisation,
+                    orgAdmin = true
+                };
 
+                _context.UserOrganisationAdmins.Add(admin);
+                
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;
