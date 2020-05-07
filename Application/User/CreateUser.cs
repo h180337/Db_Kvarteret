@@ -63,17 +63,19 @@ namespace Application.User
             private readonly DataContext _context;
             private readonly UserManager<AppUser> _userManager;
             private readonly IJwtGenerator _jwtGenerator;
+            private readonly RoleManager<Domain.AccessGroup> _roleManager;
 
-            public Handler(DataContext context, UserManager<AppUser> userManager, IJwtGenerator jwtGenerator)
+            public Handler(DataContext context, UserManager<AppUser> userManager, IJwtGenerator jwtGenerator, RoleManager<Domain.AccessGroup> roleManager)
             {
                 _context = context;
                 _userManager = userManager;
                 _jwtGenerator = jwtGenerator;
+                _roleManager = roleManager;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                
+
                 if (await _context.Users.Where(x => x.UserName == request.userName).AnyAsync())
                 {
                     throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exist" });
@@ -94,11 +96,16 @@ namespace Application.User
                     dateOfBirth = request.dateOfBirth,
                     workstatus = request.workstatus,
                 };
-
-                var results = await _userManager.CreateAsync(user, request.Password);
-                if (results.Succeeded)
+                var defaultRole = await _context.Roles.Where(x => x.Name == "Bruker").FirstAsync();
+                var UserCreated = await _userManager.CreateAsync(user, request.Password);
+                
+                if (UserCreated.Succeeded)
                 {
-                    return Unit.Value;
+                    var RoleAdded = await _userManager.AddToRoleAsync(user, defaultRole.Name);
+                    if (RoleAdded.Succeeded)
+                    {
+                        return Unit.Value;
+                    }
                 }
 
                 throw new Exception("Problem creating user");
