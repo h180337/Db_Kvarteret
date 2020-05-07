@@ -31,7 +31,6 @@ namespace Application.Course
             {
                 var course = await _context.Courses.FindAsync(request.Id);
 
-
                 if (course == null)
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { course = "Not found" });

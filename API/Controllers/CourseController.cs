@@ -54,5 +54,11 @@ namespace API.Controllers
             command.Id = id;
             return await Mediator.Send(command);
         }
+
+        [HttpPost("{courseId}/editAdmin/{userid}")]
+        public async Task<ActionResult<Unit>> EditAdmin(Guid courseId, string userid)
+        {
+            return await Mediator.Send(new EditAdmin.Command { CourseId = courseId, UserId = userid });
+        }
     }
 }
