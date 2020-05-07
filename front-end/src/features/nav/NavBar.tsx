@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
         getLogedInUser()
     }, [getLogedInUser])
     
-    const UserRole = (LogiedInuser) ? LogiedInuser!.roles[0].name : 'Bruker';
+    const UserRole = (LogiedInuser &&LogiedInuser.roles.length>0) ? LogiedInuser!.roles[0].name : 'Bruker';
     return (
         <Fragment>
             <Menu fixed='top' inverted>
