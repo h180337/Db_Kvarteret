@@ -5,6 +5,7 @@ import { IPersonel } from '../../../app/models/personel';
 import AddAdmin from "../../Group/form/AddAdmin";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import EditOrgAdmin from '../form/EditOrgAdmin';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
     admins: IPersonel [];
@@ -14,7 +15,7 @@ interface IProps {
 const OrganisationDetailedSidebar: React.FC<IProps> = ({admins, orgId}) => {
     const rootStore = useContext(RootStoreContext);
     const {openModal} = rootStore.modalStore
-
+    const {organiasationsAdminRegistry} = rootStore.organiastionStore
     return (
         <Fragment>
             <Segment.Group>
@@ -30,7 +31,7 @@ const OrganisationDetailedSidebar: React.FC<IProps> = ({admins, orgId}) => {
                 </Segment>
                 <Segment attached clearing>
                     <List relaxed divided>
-                        {admins.map(admin => (
+                        {Array.from(organiasationsAdminRegistry.values()).map((admin:IPersonel) => (
                             <Item key={admin.id} style={{ position: 'relative' }}>
                                 <Item.Content verticalAlign='middle'>
                                     <Item.Header as='h3'>
@@ -57,4 +58,4 @@ const OrganisationDetailedSidebar: React.FC<IProps> = ({admins, orgId}) => {
     );
 }
 
-export default OrganisationDetailedSidebar;
+export default observer(OrganisationDetailedSidebar);

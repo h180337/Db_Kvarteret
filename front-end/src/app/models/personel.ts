@@ -22,6 +22,7 @@ export interface IPersonel {
     historys: any [];
     profilePhoto: IPhoto | null;
     roles: IRole [];
+    organisationAdmin: any [];
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{

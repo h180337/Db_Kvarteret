@@ -19,7 +19,7 @@ const SideBareToggle: React.FC<IProps> = ({setShow, show}) => {
    
     if (loadingInitial) return <LoadingComponent inverted/>
 
-    const UserRole = (LogiedInuser) ? LogiedInuser!.roles[0].name : 'Bruker';
+    const UserRole = LogiedInuser!.roles[0].name;
 
     return (
         <Sidebar
