@@ -49,6 +49,8 @@ namespace Persistence
 
         public DbSet<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
 
+        public DbSet<Dependent> Dependents { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -293,6 +293,48 @@ namespace Persistence
                 context.SaveChanges();
             }
 
+            if (!context.Dependents.Any())
+            {
+                var dependents = new List<Dependent>()
+                {
+                    new Dependent
+                    {
+                        Name = "Stine Stinesen",
+                        Telephone = "98564342",
+                        AppUser = context.Users.Find("a"),
+                        Created = DateTime.Now.AddMonths(-2),
+
+
+                    },
+                    new Dependent
+                    {
+                        Name = "John Johnsen",
+                        Telephone = "95678665",
+                        AppUser = context.Users.Find("c"),
+                        Created = DateTime.Now.AddMonths(-1),
+
+                    },
+                    new Dependent
+                    {
+                        Name = "Per Persen",
+                        Telephone = "92394939",
+                        AppUser = context.Users.Find("b"),
+                        Created = DateTime.Now.AddMonths(-3),
+
+                    },
+                    new Dependent
+                    {
+                        Name = "Kjell Kjellesen",
+                        Telephone = "93566656",
+                        AppUser = context.Users.Find("a"),
+                        Created = DateTime.Now.AddMonths(-4),
+                    },
+                };
+
+                context.Dependents.AddRange(dependents);
+                context.SaveChanges();
+            }
+
             if (!context.Historys.Any())
             {
                 var historys = new List<History>()
@@ -305,14 +347,8 @@ namespace Persistence
                         Year = 1994,
                         Semester = "H",
                         UserHistory = new List<UserHistory> {
-                            new UserHistory
-                            {
-                                AppUserId = "c",
-                            },
-                            new UserHistory
-                            {
-                                AppUserId = "a"
-                            },
+                            new UserHistory { AppUserId = "c" },
+                            new UserHistory { AppUserId = "a" },
                         }
 
                     },

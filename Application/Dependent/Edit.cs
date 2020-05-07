@@ -7,19 +7,16 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Card
+namespace Application.Dependent
 {
     public class Edit
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-
-            public Guid UserId { get; set; }
-
-            public string KortNummer { get; set; }
-
-            public DateTime Opprettet { get; set; }
+            public string Name { get; set; }
+            public string Telephone { get; set; }
+            public string AppUserId { get; set; }
         }
 
         //FormValidation
@@ -27,8 +24,7 @@ namespace Application.Card
         {
             public CommandValidator()
             {
-                RuleFor(x => x.KortNummer).NotEmpty();
-                RuleFor(x => x.Opprettet).NotEmpty();
+                RuleFor(x => x.Id).NotEmpty();
             }
         }
 
@@ -44,16 +40,26 @@ namespace Application.Card
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var card = await _context.Cards.FindAsync(request.Id);
+                var dependent = await _context.Dependents.FindAsync(request.Id);
 
-                if (card == null)
+                if (dependent == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { dependent = "Not found" });
                 }
 
-                card.KortNummer = request.KortNummer ?? card.KortNummer;
-                card.Opprettet = card.Opprettet;
+                dependent.Name = request.Name ?? dependent.Name;
+                dependent.Telephone = request.Telephone ?? dependent.Telephone;
 
+                if (request.AppUserId != dependent.AppUser.Id)
+                {
+                    var newUser = await _context.Users.FindAsync(request.AppUserId);
+                    if (newUser == null)
+                    {
+                        throw new RestException(HttpStatusCode.NotFound, new { dependent = "New AppUser not found" });
+                    }
+                    dependent.AppUser = newUser;
+                }
+                
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

@@ -6,7 +6,7 @@ using Application.Errors;
 using MediatR;
 using Persistence;
 
-namespace Application.Card
+namespace Application.Dependent
 {
     public class Delete
     {
@@ -28,14 +28,14 @@ namespace Application.Card
             public async Task<Unit> Handle(Command request,
             CancellationToken cancellationToken)
             {
-                var card = await _context.Cards.FindAsync(request.Id);
+                var dependent = await _context.Dependents.FindAsync(request.Id);
 
-                if (card == null)
+                if (dependent == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { dependent = "Not found" });
                 }
 
-                _context.Remove(card);
+                _context.Remove(dependent);
 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
