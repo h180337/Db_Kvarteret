@@ -123,9 +123,6 @@ namespace Persistence
                 .HasForeignKey(uc => uc.AppUserId);
 
             builder.Entity<AppUserRoles>()
-                .HasKey(bc => new { bc.RoleId, bc.UserId });
-
-            builder.Entity<AppUserRoles>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.AppUserRoles)
                 .HasForeignKey(e => e.UserId);
