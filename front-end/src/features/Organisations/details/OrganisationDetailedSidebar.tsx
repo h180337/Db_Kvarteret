@@ -1,8 +1,20 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useContext} from 'react';
 import { Segment, List, Item, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { IPersonel } from '../../../app/models/personel';
+import AddAdmin from "../../Group/form/AddAdmin";
+import {RootStoreContext} from "../../../app/stores/rootStore";
+import EditOrgAdmin from '../form/EditOrgAdmin';
 
-const OrganisationDetailedSidebar = () => {
+interface IProps {
+    admins: IPersonel [];
+    orgId: string
+}
+
+const OrganisationDetailedSidebar: React.FC<IProps> = ({admins, orgId}) => {
+    const rootStore = useContext(RootStoreContext);
+    const {openModal} = rootStore.modalStore
+
     return (
         <Fragment>
             <Segment.Group>
@@ -18,21 +30,25 @@ const OrganisationDetailedSidebar = () => {
                 </Segment>
                 <Segment attached clearing>
                     <List relaxed divided>
-                        <Item style={{ position: 'relative' }}>
-
-                            <Image size='tiny' src={'/assets/Profile.png'} />
-                            <Item.Content verticalAlign='middle'>
-                                <Item.Header as='h3'>
-                                    <Link to={`#`}>Bob</Link>
-                                </Item.Header>
-                            </Item.Content>
-                            <Button floated='right' color='red' content='Remove' />
-                        </Item>
+                        {admins.map(admin => (
+                            <Item key={admin.id} style={{ position: 'relative' }}>
+                                <Item.Content verticalAlign='middle'>
+                                    <Item.Header as='h3'>
+                                        <Link to={`/users/${admin.id}`}>{`${admin.fornavn} ${admin.etternavn}`}</Link>
+                                    </Item.Header>
+                                </Item.Content>
+                            </Item>
+                        ))}
                     </List>
                 </Segment>
                 <Segment clearing>
                     <Button.Group floated='right'>
-                        <Button color='blue' content='Add admin' />
+                        <Button
+                            color='blue'
+                            content='Manage admins'
+                            onClick={() =>openModal(<EditOrgAdmin orgId={orgId} admins={admins}/>)}
+
+                        />
                     </Button.Group>
                 </Segment>
             </Segment.Group>

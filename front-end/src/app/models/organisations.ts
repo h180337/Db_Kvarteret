@@ -1,9 +1,11 @@
+import { IPersonel } from "./personel";
 
 export interface IOrganisation {
     id: string,
     name: string,
     description: string
-    groups: any
+    groups: any,
+    admins: IPersonel []
 }
 
 export interface IOrganisationFormValues extends Partial<IOrganisation>{

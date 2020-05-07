@@ -6,6 +6,7 @@ import {history} from "../../index";
 import {toast} from "react-toastify";
 import {SyntheticEvent} from "react";
 import {IGroup} from "../models/group";
+import { IPersonel } from "../models/personel";
 
 export default class OrganisationStore {
     rootStore: RootStore;
@@ -16,6 +17,7 @@ export default class OrganisationStore {
     @observable loadingInitial = false;
     @observable organisationLoaded = false;
     @observable organiasationsRegistry = new Map();
+    @observable organiasationsAdminRegistry = new Map();
     @observable organiasationsGroupRegistry = new Map();
     @observable organiasation: IOrganisation | null = null;
     @observable submitting = false;
@@ -58,13 +60,17 @@ export default class OrganisationStore {
        
             this.loadingInitial = true;
             try {
-                const organiasation = await agent.Organisation.details(id);
+                const organiasation:IOrganisation = await agent.Organisation.details(id);
                 runInAction('getting User', () => {
                     this.organiasation = organiasation;
                     this.organiasationsRegistry.set(organiasation.id, organiasation);
                     organiasation!.groups && this.organiasationsGroupRegistry.clear();
                     organiasation!.groups && organiasation.groups.forEach((group: IGroup) => {
                         this.organiasationsGroupRegistry.set(group.id, group);
+                    })
+                    this.organiasationsAdminRegistry && this.organiasationsAdminRegistry.clear();
+                    organiasation!.admins && organiasation.admins.forEach((admin: IPersonel) => {
+                        this.organiasationsAdminRegistry.set(admin.id, admin);
                     })
                     this.loadingInitial = false;
                 });

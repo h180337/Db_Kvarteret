@@ -35,7 +35,7 @@ const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = 
                <GroupTable/>
            </Grid.Column>
            <Grid.Column mobile={16} tablet={8} computer={3}>
-                <OrganisationDetailedSidebar/>
+                <OrganisationDetailedSidebar admins={organiasation.admins} orgId={organiasation.id}/>
            </Grid.Column>
        </Grid>
     );
