@@ -77,6 +77,9 @@ const Organisation = {
     delete: (id: string) => requests.del(`/organisation/${id}`),
     addGroup: (organisationId: string, Groupid: string) => requests.post(`/organisation/${organisationId}/addGroupToOrganisation/${Groupid}`, {}),
     removeGroup: (organisationId: string, Groupid: string) => requests.del(`/organisation/${organisationId}/remove/${Groupid}`),
+    addAdmin: (organisationId: string, userid: string) => requests.post(`/organisation/${organisationId}/AddAdmin/${userid}`,{}),
+    removeAdmin: (organisationId: string, userid: string) => requests.post(`/organisation/${organisationId}/RemoveAdmin/${userid}`, {})
+
 
 }
 

@@ -185,4 +185,50 @@ export default class OrganisationStore {
             })
         }
     }
+    @action addAdminToOrganisation = async (event: SyntheticEvent<HTMLButtonElement>,
+                                            organisastonId: string, userId: string) => {
+
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        let organisation:IOrganisation = this.getOrganisation(organisastonId);
+        let user:IPersonel = this.rootStore.userStore.getUser(userId);
+        try {
+            await agent.Organisation.addAdmin(organisastonId,userId);
+            runInAction('add Admin to organisation', () =>{
+                user.organisationAdmin.push(organisation);
+                this.rootStore.userStore.userRegistry.set(userId, user);
+                organisation.admins.push(this.rootStore.userStore.getUser(userId));
+                this.organiasationsAdminRegistry.set(userId, user);
+                this.organiasation = organisation;
+                this.submitting = false;
+                this.target = '';
+            })
+
+        } catch (e) {
+            runInAction('error adding user', () => {
+                this.submitting = false;
+                this.target = '';
+            });
+            toast.error('error adding the user')
+        }
+    }
+
+    @action removeAdmin = async (event: SyntheticEvent<HTMLButtonElement>, orgId: string, userId: string) => {
+        this.submitting = true;
+        this.target = event.currentTarget.name;
+        try {
+            await agent.Organisation.removeAdmin(orgId, userId);
+            runInAction('remove admin', () => {
+                this.organiasationsAdminRegistry.delete(userId)
+                this.submitting = false;
+                this.target = '';
+            });
+        } catch (e) {
+            runInAction('remove admin error', () => {
+                this.submitting = false;
+                this.target = '';
+            });
+            console.log(e)
+        }
+    }
 }

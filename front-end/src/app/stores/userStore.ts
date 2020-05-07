@@ -27,7 +27,9 @@ export default class UserStore {
     @observable LogiedInuser: IPersonel | null = null;
     @observable submitting = false;
     @observable target = '';
-    
+    @observable LoginUserRolesRegistry = new Map();
+
+
     @computed get isLoggedIn() {return !this.LogiedInuser}
     
     @action login = async (values:IPersonFormValues) => {
@@ -49,10 +51,8 @@ export default class UserStore {
         this.loadingInitial = true;
         try {
             const user = await agent.Users.currentUser();
-            user.roles = await agent.AccssesRole.userrole(user.id)
             runInAction(() =>{
                 this.LogiedInuser = user;
-                console.log(this.LogiedInuser.roles[0].name)
                 this.loadingInitial = false;
 
             })
