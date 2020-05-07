@@ -28,20 +28,7 @@ namespace API.Controllers
         {
             return await Mediator.Send(command);
         }
-        
-        [HttpPost("{OrganisationId}/addGroupToOrganisation/{groupId}")]
-        public async Task<ActionResult<Unit>> AddGroupToOrganisation(Guid OrganisationId, Guid GroupId)
-        {
-            return await Mediator.Send(new AddGroupToOrganisation.Command { OrganisationId = OrganisationId, GroupId = GroupId });
-        }
-        
-        [HttpDelete("{organisationId}/remove/{groupId}")]
-        //[Authorize(Policy = "isAdmin")]
-        public async Task<ActionResult<Unit>> RemoveGroup(Guid organisationId, Guid groupId)
-        {
-            return await Mediator.Send(new removeGroupFromOrganisation.Command { OrganisationId = organisationId, GroupId = groupId });
-        }
-
+ 
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(Guid id ,Edit.Command command)
         {
