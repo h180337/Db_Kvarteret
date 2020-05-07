@@ -14,7 +14,7 @@ namespace Application.Group
         public string beskrivelse { get; set; }
 
         public string aktiv { get; set; }
-        
+
         public string groupType { get; set; }
 
         public DateTime aktiv_til_og_med { get; set; }
@@ -25,6 +25,6 @@ namespace Application.Group
         public ICollection<GroupMemberDto> UserGroups { get; set; }
 
         [JsonPropertyName("organisation")]
-        public GroupOrganisationDto Organisation {get; set;}
+        public GroupOrganisationDto Organisation { get; set; }
     }
 }

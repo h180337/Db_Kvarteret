@@ -51,7 +51,7 @@ namespace Application.Course
                 if (members != null)
                 {
                     _context.UserCourses.Remove(members);
-                    
+
                     var success = await _context.SaveChangesAsync() > 0;
                     if (success)
                     {

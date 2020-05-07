@@ -51,7 +51,7 @@ namespace Application.Course
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { User = " user not member of course" });
                 }
-                
+
                 members.CourseAdmin = !members.CourseAdmin;
 
                 var success = await _context.SaveChangesAsync() > 0;
