@@ -6,6 +6,7 @@ namespace Application.Dependent
 {
     public class DependentDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Telephone { get; set; }
         public DateTime Created { get; set; }

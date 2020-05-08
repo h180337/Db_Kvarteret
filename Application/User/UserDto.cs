@@ -38,7 +38,7 @@ namespace Application.User
         public ICollection<CourseDto> UserCourses { get; set; }
 
         [JsonPropertyName("cards")]
-        public ICollection<CardDto> UserCards { get; set; }
+        public ICollection<CardUserDto> Cards { get; set; }
 
         [JsonPropertyName("tags")]
         public ICollection<TagsDto> UserTags { get; set; }
@@ -53,7 +53,7 @@ namespace Application.User
         public ICollection<OrganisationDto> UserOrganisationAdmins { get; set; }
 
         [JsonPropertyName("dependent")]
-        public DependentDto Dependent { get; set; }
+        public DependentUserDto Dependent { get; set; }
 
     }
 }

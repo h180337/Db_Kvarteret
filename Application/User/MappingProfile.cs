@@ -34,11 +34,6 @@ namespace Application.User
                 .ForMember(d => d.beskrivelse, o => o.MapFrom(s => s.Course.beskrivelse))
                 .ForMember(d => d.opprettet, o => o.MapFrom(s => s.Course.opprettet));
 
-            CreateMap<UserCards, CardDto>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.Card.Id))
-                .ForMember(d => d.KortNummer, o => o.MapFrom(s => s.Card.KortNummer))
-                .ForMember(d => d.Opprettet, o => o.MapFrom(s => s.Card.Opprettet));
-
             CreateMap<UserTags, TagsDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.Tag.Id))
                 .ForMember(d => d.tagText, o => o.MapFrom(m => m.Tag.tagText));
@@ -61,6 +56,8 @@ namespace Application.User
                 .ForMember(d => d.description, o => o.Ignore());
 
             CreateMap<Domain.Dependent, DependentUserDto>();
+
+            CreateMap<Domain.Card, CardUserDto>();
         }
     }
 }

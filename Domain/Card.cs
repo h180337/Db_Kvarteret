@@ -7,12 +7,12 @@ namespace Domain
     {
         public Guid Id { get; set; }
 
-        public string KortNummer { get; set; }
+        public string CardNumber { get; set; }
 
-        public DateTime Opprettet { get; set; }
+        public DateTime Created { get; set; }
 
         public string AppUserId { get; set; }
 
-        public virtual ICollection<UserCards> UserCards { get; set; }
+        public virtual AppUser AppUser { get; set; }
     }
 }

@@ -8,10 +8,10 @@ namespace Application.Card
     public class CardDto
     {
         public Guid Id { get; set; }
-        public String KortNummer { get; set; }
-        public DateTime Opprettet { get; set; }
+        public string CardNumber { get; set; }
+        public DateTime Created { get; set; }
 
         [JsonPropertyName("members")]
-        public virtual ICollection<CardMemberDto> UserCards { get; set; }
+        public virtual CardMemberDto AppUser { get; set; }
     }
 }

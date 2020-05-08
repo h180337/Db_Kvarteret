@@ -46,8 +46,8 @@ namespace Application.Card
                     throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
                 }
 
-                card.KortNummer = request.KortNummer ?? card.KortNummer;
-                card.Opprettet = card.Opprettet;
+                card.CardNumber = request.KortNummer ?? card.CardNumber;
+                card.Created = card.Created;
 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)

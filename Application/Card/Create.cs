@@ -43,8 +43,8 @@ namespace Application.Card
             {
                 var card = new Domain.Card
                 {
-                    KortNummer = request.KortNummer,
-                    Opprettet = request.Opprettet
+                    CardNumber = request.KortNummer,
+                    Created = request.Opprettet
                 };
                 _context.Cards.Add(card);
 

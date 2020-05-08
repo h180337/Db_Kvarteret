@@ -27,8 +27,6 @@ namespace Domain
 
         public virtual ICollection<UserCourse> UserCourses { get; set; }
 
-        public virtual ICollection<UserCards> UserCards { get; set; }
-
         public virtual ICollection<UserTags> UserTags { get; set; }
 
         public virtual ICollection<UserHistory> UserHistory { get; set; }
@@ -36,6 +34,8 @@ namespace Domain
         public virtual ICollection<AppUserRoles> AppUserRoles { get; set; }
 
         public virtual ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
+
+        public virtual ICollection<Card> Cards { get; set; }
 
         public virtual Dependent Dependent { get; set; }
 

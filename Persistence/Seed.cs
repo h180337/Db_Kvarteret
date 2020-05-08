@@ -250,42 +250,29 @@ namespace Persistence
                 {
                     new Card
                     {
-                        KortNummer = "3254543",
-                        Opprettet = DateTime.Now.AddMonths(-2),
-                        UserCards = new List<UserCards> {
-                            new UserCards
-                            {
-                                AppUserId = "b",
-                            }
-                        }
-
+                        CardNumber = "3254543",
+                        Created = DateTime.Now.AddMonths(-2),
+                        AppUser = context.Users.FirstOrDefault()
                     },
                     new Card
                     {
-                        KortNummer = "1023020",
-                        Opprettet = DateTime.Now.AddMonths(-1),
-                        UserCards = new List<UserCards> {
-                            new UserCards
-                            {
-                                AppUserId = "b",
-                            }
-                        }
+                        CardNumber = "1023020",
+                        Created = DateTime.Now.AddMonths(-1),
+                        AppUser = context.Users.FirstOrDefault()
+                        
                     },
                     new Card
                     {
-                        KortNummer = "432576",
-                        Opprettet = DateTime.Now.AddMonths(-3),
-                        UserCards = new List<UserCards> {
-                            new UserCards
-                            {
-                                AppUserId = "b",
-                            }
-                        }
+                        CardNumber = "432576",
+                        Created = DateTime.Now.AddMonths(-3),
+                        AppUser = context.Users.FirstOrDefault()
+                        
                     },
                     new Card
                     {
-                        KortNummer = "123465",
-                        Opprettet = DateTime.Now.AddMonths(-4),
+                        CardNumber = "123465",
+                        Created = DateTime.Now.AddMonths(-4),
+                        AppUser = context.Users.FirstOrDefault()
                     },
                 };
 
