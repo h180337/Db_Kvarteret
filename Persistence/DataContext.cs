@@ -41,8 +41,6 @@ namespace Persistence
 
         public DbSet<UserHistory> UserHistory { get; set; }
 
-        public DbSet<AccessGroupLevel> AccessGroupLevels { get; set; }
-
         public DbSet<Photo> ProfilePhoto { get; set; }
 
         public DbSet<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }

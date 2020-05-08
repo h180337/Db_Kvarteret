@@ -14,6 +14,5 @@ namespace Domain
         public DateTime opprettet { get; set; }
 
         public virtual ICollection<UserCourse> UserCourses { get; set; }
-
     }
 }
