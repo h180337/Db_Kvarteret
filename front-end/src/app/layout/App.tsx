@@ -29,7 +29,7 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
-    const {getLogedInUser, LogiedInuser} = rootStore.userStore
+    const {getLogedInUser, LogiedInuser, UserHelper} = rootStore.userStore
     
     useEffect( () =>{
         if (token){
@@ -48,7 +48,7 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
             <Route path='/' exact component={HomePage}/>
             <Route path={'/(.+)'} render={() => (
                 <Fragment>
-                    <NavBar/>
+                    {LogiedInuser && <NavBar/>}
                     <Container style={{marginTop: '7em'}}>
                         <Switch>
                             <AdminRoute path='/admincontroller' exact component={AdminCtrl}/>
@@ -64,7 +64,7 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                             <AdminRoute key={location.key} path={['/createUser', '/manage/:id']} exact
                                    component={PersonelForm}/>
                             <Route path='/login' component={LoginForm}/>
-                            <Route path='/unauth' component={UnAuth}/>
+                            <PrivateRoute path='/unauth' component={UnAuth}/>
                             <Route component={NotFound}/>
                            
                         </Switch>
