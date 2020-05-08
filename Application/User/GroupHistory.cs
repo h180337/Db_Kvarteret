@@ -17,7 +17,6 @@ namespace Application.User
         }
 
         public class Handler : IRequestHandler<Query, List<GroupDto>>
-
         {
             private readonly DataContext _context;
 

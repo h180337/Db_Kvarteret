@@ -16,7 +16,6 @@ namespace Application.Organisation
         }
 
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
 
@@ -31,7 +30,7 @@ namespace Application.Organisation
 
                 if (organisation == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {organisation = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { organisation = "Not found" });
                 }
 
                 _context.Remove(organisation);

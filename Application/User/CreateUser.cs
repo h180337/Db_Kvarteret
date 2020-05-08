@@ -98,7 +98,7 @@ namespace Application.User
                 };
                 var defaultRole = await _context.Roles.Where(x => x.Name == "Bruker").FirstAsync();
                 var UserCreated = await _userManager.CreateAsync(user, request.Password);
-                
+
                 if (UserCreated.Succeeded)
                 {
                     var RoleAdded = await _userManager.AddToRoleAsync(user, defaultRole.Name);

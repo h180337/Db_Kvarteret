@@ -31,10 +31,10 @@ namespace Application.Organisation
             public async Task<OrganisationDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var organisation = await _context.Organisations.FindAsync(request.Id);
-                
+
                 if (organisation == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {organisation = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { organisation = "Not found" });
                 }
 
                 var organisationToReturn = _mapper.Map<Domain.Organisation, OrganisationDto>(organisation);

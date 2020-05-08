@@ -12,13 +12,12 @@ namespace Application.Photos
 {
     public class Add
     {
-        public class Command : IRequest <Photo>
+        public class Command : IRequest<Photo>
         {
             public IFormFile File { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Photo>
-
         {
             private readonly DataContext _context;
             private readonly IuserAccessor _userAccessor;
@@ -37,7 +36,7 @@ namespace Application.Photos
 
                 var user = await _context.Users.SingleOrDefaultAsync(x =>
                     x.UserName == _userAccessor.GetCurrentUsername());
-                
+
                 var photo = new Photo
                 {
                     Url = photoUploadResult.Url,
@@ -45,7 +44,7 @@ namespace Application.Photos
                 };
 
                 user.ProfilePhoto = photo;
-                
+
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

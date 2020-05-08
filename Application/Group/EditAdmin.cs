@@ -15,11 +15,9 @@ namespace Application.Group
         {
             public string UserId { get; set; }
             public Guid GroupId { get; set; }
-            
         }
 
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
 
@@ -34,20 +32,20 @@ namespace Application.Group
 
                 if (group == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {Group = " could not find group"});
+                    throw new RestException(HttpStatusCode.NotFound, new { Group = " could not find group" });
                 }
 
                 var user = await _context.Users.FindAsync(request.UserId);
 
                 if (user == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {User = " could not find user"});
+                    throw new RestException(HttpStatusCode.NotFound, new { User = " could not find user" });
                 }
 
                 var members =
                     await _context.UserGroups.SingleOrDefaultAsync(x =>
                         x.GroupId == group.Id && x.AppUserId == user.Id);
-                
+
                 members.GroupAdmin = !members.GroupAdmin;
 
                 var success = await _context.SaveChangesAsync() > 0;

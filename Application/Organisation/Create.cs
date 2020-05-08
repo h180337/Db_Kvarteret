@@ -15,9 +15,7 @@ namespace Application.Organisation
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-
             public string name { get; set; }
-        
             public string description { get; set; }
         }
 
@@ -27,10 +25,9 @@ namespace Application.Organisation
             {
                 RuleFor(x => x.name).NotEmpty();
                 RuleFor(x => x.description).NotEmpty();
-                
+
             }
         }
-        
 
         public class Handler : IRequestHandler<Command>
         {
@@ -54,10 +51,10 @@ namespace Application.Organisation
 
                 };
                 _context.Organisations.Add(organisation);
-                
+
                 var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
                                                                           _userAccessor.GetCurrentUsername());
-                
+
                 var admin = new UserOrganisationAdmin
                 {
                     AppUser = user,
@@ -66,11 +63,11 @@ namespace Application.Organisation
                 };
 
                 _context.UserOrganisationAdmins.Add(admin);
-                
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;
-                
+
                 throw new Exception("Problem saving changes");
             }
         }

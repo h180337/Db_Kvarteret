@@ -11,16 +11,13 @@ namespace Application.Organisation
 {
     public class Edit
     {
-        public class Command : IRequest 
+        public class Command : IRequest
         {
             public Guid Id { get; set; }
-
             public string name { get; set; }
-
             public string description { get; set; }
         }
 
-        //FormValidation
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
@@ -46,7 +43,7 @@ namespace Application.Organisation
 
                 if (organisation == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {personel = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { personel = "Not found" });
                 }
 
                 organisation.name = request.name ?? organisation.name;

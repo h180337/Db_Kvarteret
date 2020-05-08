@@ -15,11 +15,9 @@ namespace Application.Organisation
         {
             public string UserId { get; set; }
             public Guid OrganisationId { get; set; }
-
         }
 
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
 

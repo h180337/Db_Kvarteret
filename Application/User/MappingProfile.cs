@@ -59,7 +59,7 @@ namespace Application.User
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.OrganisationId))
                 .ForMember(d => d.name, o => o.MapFrom(m => m.Organisation.name))
                 .ForMember(d => d.description, o => o.Ignore());
-            
+
             CreateMap<Domain.Dependent, DependentUserDto>();
         }
     }

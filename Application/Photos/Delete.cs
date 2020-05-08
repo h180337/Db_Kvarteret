@@ -18,7 +18,6 @@ namespace Application.Photos
         }
 
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
             private readonly IuserAccessor _userAccessor;
@@ -33,12 +32,12 @@ namespace Application.Photos
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == 
+                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
                                                                     _userAccessor.GetCurrentUsername());
 
                 if (user.ProfilePhoto == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new{photo="Not Found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { photo = "Not Found" });
                 }
 
                 var result = _photoAccessor.DeletePhoto(user.ProfilePhoto.Id);
@@ -49,7 +48,7 @@ namespace Application.Photos
                 }
 
                 user.ProfilePhoto = null;
-                
+
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

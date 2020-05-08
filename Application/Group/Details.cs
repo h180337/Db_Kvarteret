@@ -14,7 +14,7 @@ namespace Application.Group
     {
         public class Query : IRequest<GroupDto>
         {
-            public Guid Id {get; set;}
+            public Guid Id { get; set; }
         }
         public class Handler : IRequestHandler<Query, GroupDto>
         {
@@ -31,10 +31,9 @@ namespace Application.Group
             {
                 var group = await _context.Groups.FindAsync(request.Id);
 
-                
                 if (group == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {group = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { group = "Not found" });
                 }
 
                 var groupToReturn = _mapper.Map<Domain.Group, GroupDto>(group);

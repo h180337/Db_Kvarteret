@@ -15,19 +15,12 @@ namespace Application.Group
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-
             public string navn { get; set; }
-
             public string beskrivelse { get; set; }
-
             public string aktiv { get; set; }
-
             public string groupType { get; set; }
-
             public Guid organisation { get; set; }
-
             public DateTime aktiv_til_og_med { get; set; }
-
             public DateTime opprettet { get; set; }
         }
 
@@ -42,7 +35,6 @@ namespace Application.Group
                 RuleFor(x => x.opprettet).NotEmpty();
                 RuleFor(x => x.groupType).NotEmpty();
                 RuleFor(x => x.organisation).NotEmpty();
-
             }
         }
 
@@ -84,7 +76,6 @@ namespace Application.Group
                 };
 
                 _context.UserGroups.Add(admin);
-                
 
                 var success = await _context.SaveChangesAsync() > 0;
 

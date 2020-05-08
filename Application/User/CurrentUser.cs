@@ -32,13 +32,8 @@ namespace Application.User
 
             public async Task<UserDto> Handle(Query request, CancellationToken cancellationToken)
             {
-                {
-                    var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
-
-                    return _mapper.Map<AppUser, UserDto>(user);
-
-                }
-
+                var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
+                return _mapper.Map<AppUser, UserDto>(user);
             }
         }
     }
