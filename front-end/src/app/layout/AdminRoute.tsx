@@ -5,15 +5,15 @@ import { RootStoreContext } from '../stores/rootStore';
 interface IProps extends RouteProps{
     component: React.ComponentType<RouteComponentProps<any>>
 }
-const PrivateRoute: React.FC<IProps> = ({component: Component, ...rest}) => {
+const AdminRoute: React.FC<IProps> = ({component: Component, ...rest}) => {
     const rootStore = useContext(RootStoreContext);
-    const {isLoggedIn} = rootStore.userStore;
+    const {isLoggedIn, LogiedInuser} = rootStore.userStore
     return (
-       <Route
-           {...rest}
-           render={(props => !isLoggedIn ? <Component {...props}/> : <Redirect to={'/'}/>)}
-       />
+        <Route
+            {...rest}
+            render={(props => (!isLoggedIn && LogiedInuser!.roles[0].name ==='Superuser') ? <Component {...props}/> : <Redirect to={'/unauth'}/>)}
+        />
     );
 }
 
-export default observer(PrivateRoute);
+export default observer(AdminRoute);

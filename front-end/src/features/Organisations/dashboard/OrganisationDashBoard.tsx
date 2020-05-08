@@ -5,19 +5,21 @@ import {RootStoreContext} from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { observer } from 'mobx-react-lite';
 import Headers from '../../../app/common/header/Headers'
+import { Route } from 'react-router-dom';
+import UserProfile from '../../personell/Profile/UserProfile';
 
 const OrganisationDashBoard = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {loadOrganisations, loadingInitial } = rootStore.organiastionStore
+    const {loadOrganisations, loadingInitial } = rootStore.organiastionStore;
+    const {LogiedInuser} = rootStore.userStore
 
 
     useEffect(() => {
         loadOrganisations();
     }, [loadOrganisations]);
-
+    
     if (loadingInitial) return <LoadingComponent content='Loading Organisations...' inverted={true}/>
-
     return (
         <Fragment>
             <Grid>

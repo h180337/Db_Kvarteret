@@ -21,12 +21,15 @@ import GroupDetails from "../../features/Group/details/GroupDetails";
 import GroupForm from '../../features/Group/form/GroupForm';
 import AdminCtrl from '../../features/adminCtrl/AdminCtrl';
 import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
+import MyProfilePrivateRoute from './MyProfilePrivateRoute';
+import UnAuth from '../common/Auth/UnAuth';
 
 const App: React.FC<RouteComponentProps> = ({location}) => {
 
     const rootStore = useContext(RootStoreContext);
     const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
-    const {getLogedInUser} = rootStore.userStore
+    const {getLogedInUser, LogiedInuser} = rootStore.userStore
     
     useEffect( () =>{
         if (token){
@@ -48,20 +51,22 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                     <NavBar/>
                     <Container style={{marginTop: '7em'}}>
                         <Switch>
-                            <PrivateRoute path='/admincontroller' exact component={AdminCtrl}/>
-                            <PrivateRoute path='/users' exact component={PesonellDashBoard}/>
-                            <PrivateRoute path='/users/:id' exact component={UserProfile}/>
+                            <AdminRoute path='/admincontroller' exact component={AdminCtrl}/>
+                            <AdminRoute path='/users' exact component={PesonellDashBoard}/>
+                            <MyProfilePrivateRoute path='/users/:id' exact component={UserProfile}/>
                             <PrivateRoute path='/group/:id' exact component={GroupDetails}/>
-                            <PrivateRoute path='/organisation' exact component={OrganisationDashBoard}/>
-                            <PrivateRoute path='/organisation/:id' exact component={OrganisationDetails}/>
-                            <PrivateRoute key={location.key} path={['/creategroup', '/managegroup/:id']} exact
+                            <AdminRoute path='/organisation' exact component={OrganisationDashBoard}/>
+                            <AdminRoute path='/organisation/:id' exact component={OrganisationDetails}/>
+                            <AdminRoute key={location.key} path={['/creategroup', '/managegroup/:id']} exact
                                    component={GroupForm}/>
-                            <PrivateRoute key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
+                            <AdminRoute key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
                                    component={OrganisationForm}/>
-                            <PrivateRoute key={location.key} path={['/createUser', '/manage/:id']} exact
+                            <AdminRoute key={location.key} path={['/createUser', '/manage/:id']} exact
                                    component={PersonelForm}/>
                             <Route path='/login' component={LoginForm}/>
+                            <Route path='/unauth' component={UnAuth}/>
                             <Route component={NotFound}/>
+                           
                         </Switch>
                     </Container>
                 </Fragment>

@@ -29,10 +29,11 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
         organiasation,
         submitting,
         deleteOrganisation,
-        target
+        target,
+        organiasationsAdminRegistry
 
     } = rootStore.organiastionStore;
-
+    const {LogiedInuser} = rootStore.userStore
     const {openModal} = rootStore.modalStore
     return (
         <Segment.Group>
@@ -53,13 +54,13 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
-                <Button
+                {organiasationsAdminRegistry.has(LogiedInuser!.id) && <Button
                     floated='right'
                     content='Edit'
                     color='orange'
                     as={Link}
                     to={`/manageorganisation/${organiasation!.id}`}
-                />
+                />}
             </Segment>
         </Segment.Group>
 

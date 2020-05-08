@@ -7,6 +7,7 @@ export interface IGroup {
     aktiv: string,
     groupType: string
     opprettet: string
+    aktiv_til_og_med: string,
     members: any,
     organisation: IOrganisation | undefined;
     organiastionId: string;

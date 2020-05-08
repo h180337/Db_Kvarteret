@@ -23,7 +23,6 @@ const GroupTable: React.FC = () => {
         {Header: 'Group Type', accessor: 'groupType'},
         {Header: 'Active', accessor: 'aktiv'},
         {Header: 'Active until', accessor: 'aktiv_til_og_med'},
-        {Header: 'Created', accessor: 'ipprettet'},
         {
             Header: 'View', Cell: (props: any) =>
                 (<Button
@@ -33,7 +32,7 @@ const GroupTable: React.FC = () => {
                         color='blue'/>
                 )
         },
-        {
+       /* {
             Header: 'View', Cell: (props: any) =>
                 (<Button
                         name={props.original.id}
@@ -43,7 +42,7 @@ const GroupTable: React.FC = () => {
                         content='Remove'
                         color='red'/>
                 )
-        }
+        }*/
     ];
     return (
         <Fragment>

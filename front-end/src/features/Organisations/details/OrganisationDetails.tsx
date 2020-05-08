@@ -14,10 +14,12 @@ interface OranisationParamas {
 }
 const OrganisationDetails : React.FC<RouteComponentProps<OranisationParamas>> = ({match, history}) => {
     const rootStore = useContext(RootStoreContext);
+    const {LogiedInuser} = rootStore.userStore
     const {
         loadOrg,
         loadingInitial,
-        organiasation
+        organiasation,
+        organiasationsAdminRegistry
     } = rootStore.organiastionStore;
 
     useEffect(() => {

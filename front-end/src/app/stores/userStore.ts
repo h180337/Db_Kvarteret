@@ -31,6 +31,9 @@ export default class UserStore {
 
 
     @computed get isLoggedIn() {return !this.LogiedInuser}
+    @action UserHelper = async () =>{
+        this.user = this.LogiedInuser
+    }
     
     @action login = async (values:IPersonFormValues) => {
         try {
@@ -53,6 +56,7 @@ export default class UserStore {
             const user = await agent.Users.currentUser();
             runInAction(() =>{
                 this.LogiedInuser = user;
+                this.user = user;
                 this.loadingInitial = false;
 
             })

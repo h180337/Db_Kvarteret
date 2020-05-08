@@ -66,6 +66,7 @@ export default class OrganisationStore {
                     this.organiasationsRegistry.set(organiasation.id, organiasation);
                     organiasation!.groups && this.organiasationsGroupRegistry.clear();
                     organiasation!.groups && organiasation.groups.forEach((group: IGroup) => {
+                        group.aktiv_til_og_med= group.aktiv_til_og_med.split('T')[0];
                         this.organiasationsGroupRegistry.set(group.id, group);
                     })
                     this.organiasationsAdminRegistry && this.organiasationsAdminRegistry.clear();

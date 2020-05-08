@@ -10,7 +10,7 @@ import LoadingComponent from "../../app/layout/LoadingComponent";
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout, loadingInitial, isLoggedIn, getLogedInUser} = rootStore.userStore
+    const {LogiedInuser, logout, loadingInitial, isLoggedIn, getLogedInUser, LoginUserRolesRegistry} = rootStore.userStore
     const [show, setShow] = useState(false);
     useEffect(()=>{
         getLogedInUser()
