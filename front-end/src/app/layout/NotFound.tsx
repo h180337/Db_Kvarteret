@@ -9,11 +9,6 @@ const NotFound = () => {
                 <Icon name='search' />
                 Oops - we've looked everywhere but couldn't find this.
             </Header>
-            <Segment.Inline>
-                <Button as={Link} to='/users' primary>
-                    Return to Users page
-                </Button>
-            </Segment.Inline>
         </Segment>
     );
 };

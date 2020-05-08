@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useEffect} from 'react';
 import { Header, Button, Segment, Grid, Container } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../stores/rootStore";
@@ -7,7 +7,10 @@ const UnAuth = () => {
     const rootStore = useContext(RootStoreContext);
     const {isLoggedIn, LogiedInuser, user, UserHelper} = rootStore.userStore
     
-    UserHelper();
+    useEffect(() =>{
+        UserHelper();
+    }, [UserHelper])
+  
     return (
         <Segment>
             <Container textAlign='center'>

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {observer} from 'mobx-react-lite';
 import {Redirect, Route, RouteComponentProps, RouteProps} from 'react-router-dom';
 import {RootStoreContext} from '../stores/rootStore';
@@ -9,7 +9,11 @@ interface IProps extends RouteProps {
 
 const MyProfilePrivateRoute: React.FC<IProps> = ({component: Component, ...rest}) => {
     const rootStore = useContext(RootStoreContext);
-    const {isLoggedIn, user, LogiedInuser} = rootStore.userStore;
+    const {isLoggedIn, user, LogiedInuser, loadUser} = rootStore.userStore;
+    
+    useEffect(()=>{
+        loadUser(LogiedInuser!.id)
+    }, [LogiedInuser])
     const ProfileAccess = LogiedInuser!.roles[0].name === 'Bruker' ? <Route
         {...rest}
         render={((props:any) => (!isLoggedIn && user!.id === LogiedInuser!.id) ? <Component {...props}/> :
