@@ -1,6 +1,7 @@
 using Application.AccessGroup;
 using Application.Card;
 using Application.Course;
+using Application.Dependent;
 using Application.Group;
 using Application.History;
 using Application.Organisation;
@@ -58,6 +59,8 @@ namespace Application.User
                 .ForMember(d => d.Id, o => o.MapFrom(m => m.OrganisationId))
                 .ForMember(d => d.name, o => o.MapFrom(m => m.Organisation.name))
                 .ForMember(d => d.description, o => o.Ignore());
+            
+            CreateMap<Domain.Dependent, DependentUserDto>();
                 
             
         }

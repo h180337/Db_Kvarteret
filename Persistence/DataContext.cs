@@ -152,6 +152,11 @@ namespace Persistence
                 .HasOne(uc => uc.AppUser)
                 .WithMany(b => b.UserOrganisationAdmins)
                 .HasForeignKey(uc => uc.AppUserId);
+            
+            builder.Entity<Dependent>()
+            .HasOne<AppUser>(s => s.AppUser)
+            .WithOne(ad => ad.Dependent)
+            .HasForeignKey<Dependent>(ad => ad.AppUserId);
         }
     }
 }

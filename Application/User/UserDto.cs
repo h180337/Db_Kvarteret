@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Application.AccessGroup;
 using Application.Card;
 using Application.Course;
+using Application.Dependent;
 using Application.Group;
 using Application.History;
 using Application.Organisation;
@@ -63,6 +64,9 @@ namespace Application.User
         
         [JsonPropertyName("organisationAdmin")]
         public  ICollection<OrganisationDto> UserOrganisationAdmins { get; set; }
+
+        [JsonPropertyName("dependent")]
+        public  DependentUserDto Dependent { get; set; }
 
     }
 }

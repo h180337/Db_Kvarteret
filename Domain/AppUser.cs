@@ -37,6 +37,8 @@ namespace Domain
 
         public virtual ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
 
+        public virtual Dependent Dependent { get; set; }
+
         public virtual Photo ProfilePhoto { get; set; }
 
     }

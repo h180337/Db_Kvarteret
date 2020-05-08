@@ -301,7 +301,7 @@ namespace Persistence
                     {
                         Name = "Stine Stinesen",
                         Telephone = "98564342",
-                        AppUser = context.Users.Find("a"),
+                        AppUser = context.Users.Find("c"),
                         Created = DateTime.Now.AddMonths(-2),
 
 
