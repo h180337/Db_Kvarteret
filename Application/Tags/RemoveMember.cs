@@ -19,7 +19,6 @@ namespace Application.Tags
         }
 
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
 
@@ -49,7 +48,7 @@ namespace Application.Tags
                 if (members != null)
                 {
                     _context.UserTags.Remove(members);
-                    
+
                     var success = await _context.SaveChangesAsync() > 0;
                     if (success)
                     {
@@ -61,7 +60,6 @@ namespace Application.Tags
                 }
 
                 throw new RestException(HttpStatusCode.BadRequest, new { members = "could not find user on tag" });
-
             }
         }
     }

@@ -9,7 +9,7 @@ namespace Application.Tags
 {
     public class Create
     {
-        public class Command : IRequest //<//>>
+        public class Command : IRequest
         {
             public Guid Id { get; set; }
             public string tagText { get; set; }
@@ -23,7 +23,6 @@ namespace Application.Tags
 
         }
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
 

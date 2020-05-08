@@ -59,7 +59,7 @@ namespace Application.Dependent
                     }
                     dependent.AppUser = newUser;
                 }
-                
+
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)
                 {

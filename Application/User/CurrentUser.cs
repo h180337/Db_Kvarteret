@@ -36,9 +36,9 @@ namespace Application.User
                     var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
 
                     return _mapper.Map<AppUser, UserDto>(user);
-                    
+
                 }
-                
+
             }
         }
     }

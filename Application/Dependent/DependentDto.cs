@@ -9,7 +9,7 @@ namespace Application.Dependent
         public string Name { get; set; }
         public string Telephone { get; set; }
         public DateTime Created { get; set; }
-        
+
         [JsonPropertyName("user")]
         public virtual DependentUserDto AppUser { get; set; }
     }

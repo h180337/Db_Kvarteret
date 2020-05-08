@@ -61,8 +61,6 @@ namespace Application.User
                 .ForMember(d => d.description, o => o.Ignore());
             
             CreateMap<Domain.Dependent, DependentUserDto>();
-                
-            
         }
     }
 }

@@ -15,7 +15,6 @@ namespace Application.Tags
         }
 
         public class Handler : IRequestHandler<Query, List<TagsDto>>
-
         {
             private readonly DataContext _context;
 
@@ -30,12 +29,8 @@ namespace Application.Tags
             public async Task<List<TagsDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var tags = await _context.Tags.ToListAsync();
-                var list = new List<TagsDto>();
-
-                foreach(var tag in tags) {
-                    list.Add(_mapper.Map<Domain.Tags, TagsDto>(tag));
-                }
-                return list;
+               
+                return _mapper.Map<List<Domain.Tags>, List<TagsDto>>(tags);
             }
         }
     }

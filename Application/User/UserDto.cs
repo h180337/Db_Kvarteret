@@ -66,7 +66,7 @@ namespace Application.User
         public  ICollection<OrganisationDto> UserOrganisationAdmins { get; set; }
 
         [JsonPropertyName("dependent")]
-        public  DependentUserDto Dependent { get; set; }
+        public  DependentDto Dependent { get; set; }
 
     }
 }

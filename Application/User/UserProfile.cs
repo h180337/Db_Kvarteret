@@ -32,12 +32,12 @@ namespace Application.User
             public async Task<UserDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FindAsync(request.Id.ToString());
-                
+
                 if (user == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {user = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
                 }
-                
+
                 var UserToReturn = _mapper.Map<AppUser, UserDto>(user);
                 return UserToReturn;
             }

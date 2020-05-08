@@ -31,7 +31,7 @@ namespace Application.User
 
                 if (user == null)
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {personel = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new { personel = "Not found" });
                 }
 
                 _context.Remove(user);
