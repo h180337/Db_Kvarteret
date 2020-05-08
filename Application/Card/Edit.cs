@@ -14,17 +14,17 @@ namespace Application.Card
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-            public Guid UserId { get; set; }
-            public string KortNummer { get; set; }
-            public DateTime Opprettet { get; set; }
+            public string UserId { get; set; }
+            public string CardNumber { get; set; }
+            public DateTime Created { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.KortNummer).NotEmpty();
-                RuleFor(x => x.Opprettet).NotEmpty();
+                RuleFor(x => x.Id).NotEmpty();
+                RuleFor(x => x.CardNumber).NotEmpty();
             }
         }
 
@@ -46,8 +46,7 @@ namespace Application.Card
                     throw new RestException(HttpStatusCode.NotFound, new { card = "Not found" });
                 }
 
-                card.CardNumber = request.KortNummer ?? card.CardNumber;
-                card.Created = card.Created;
+                card.CardNumber = request.CardNumber ?? card.CardNumber;
 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success)

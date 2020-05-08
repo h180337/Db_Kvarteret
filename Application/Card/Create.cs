@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using Application.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -14,17 +16,18 @@ namespace Application.Card
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-            public Guid UserId { get; set; }
-            public string KortNummer { get; set; }
-            public DateTime Opprettet { get; set; }
+            public string UserId { get; set; }
+            public string CardNumber { get; set; }
+            public DateTime Created { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.KortNummer).NotEmpty();
-                RuleFor(x => x.Opprettet).NotEmpty();
+                RuleFor(x => x.CardNumber).NotEmpty();
+                RuleFor(x => x.Created).NotEmpty();
+                RuleFor(x => x.UserId).NotEmpty();
             }
         }
 
@@ -41,18 +44,23 @@ namespace Application.Card
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var user = await _context.Users.FindAsync(request.UserId);
+
+                if (user == null)
+                {
+                    throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
+                }
+
                 var card = new Domain.Card
                 {
-                    CardNumber = request.KortNummer,
-                    Created = request.Opprettet
+                    AppUser = user,
+                    CardNumber = request.CardNumber,
+                    Created = DateTime.Now
                 };
+
                 _context.Cards.Add(card);
 
-                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
-                                                                          _userAccessor.GetCurrentUsername());
-
                 var success = await _context.SaveChangesAsync() > 0;
-
                 if (success) return Unit.Value;
 
                 throw new Exception("Problem saving changes");
