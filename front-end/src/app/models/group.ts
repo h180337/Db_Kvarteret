@@ -1,4 +1,5 @@
 import { IOrganisation } from "./organisations";
+import { IPhoto } from "./Photo";
 
 export interface IGroup {
     id: string,
@@ -9,8 +10,9 @@ export interface IGroup {
     opprettet: string
     aktiv_til_og_med: string,
     members: any,
-    organisation: IOrganisation | undefined;
-    organiastionId: string;
+    organisation: IOrganisation | undefined,
+    organiastionId: string,
+    groupPhoto : IPhoto
 }
 
 export interface IGroupFormValues extends Partial<IGroup> {

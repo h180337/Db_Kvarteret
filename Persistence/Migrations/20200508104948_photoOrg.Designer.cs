@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200508104948_photoOrg")]
+    partial class photoOrg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,9 +245,6 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("GroupPhotoId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("OrganisationId")
                         .HasColumnType("TEXT");
 
@@ -268,8 +267,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupPhotoId");
 
                     b.HasIndex("OrganisationId");
 
@@ -587,10 +584,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Group", b =>
                 {
-                    b.HasOne("Domain.Photo", "GroupPhoto")
-                        .WithMany()
-                        .HasForeignKey("GroupPhotoId");
-
                     b.HasOne("Domain.Organisation", "Organisation")
                         .WithMany("Groups")
                         .HasForeignKey("OrganisationId")

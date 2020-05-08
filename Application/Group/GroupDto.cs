@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Application.Organisation;
+using Domain;
 
 namespace Application.Group
 {
@@ -20,7 +21,9 @@ namespace Application.Group
         public DateTime aktiv_til_og_med { get; set; }
 
         public DateTime opprettet { get; set; }
-
+        
+        public Photo GroupPhoto { get; set; }
+        
         [JsonPropertyName("members")]
         public ICollection<GroupMemberDto> UserGroups { get; set; }
 

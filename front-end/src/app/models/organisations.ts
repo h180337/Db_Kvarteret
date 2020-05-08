@@ -1,11 +1,13 @@
 import { IPersonel } from "./personel";
+import {IPhoto} from "./Photo";
 
 export interface IOrganisation {
     id: string,
     name: string,
     description: string
     groups: any,
-    admins: IPersonel []
+    admins: IPersonel [],
+    organisationPhoto:IPhoto | null
 }
 
 export interface IOrganisationFormValues extends Partial<IOrganisation>{

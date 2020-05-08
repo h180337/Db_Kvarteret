@@ -13,10 +13,13 @@ namespace Domain
         public string name { get; set; }
 
         public string description { get; set; }
+        public virtual Photo organisationPhoto { get; set; }
 
         public virtual ICollection<UserOrganisationAdmin> UserOrganisationAdmins { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }
+        
+
 
     }
 }

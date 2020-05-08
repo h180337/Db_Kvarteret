@@ -25,7 +25,7 @@ const ProfilePhotos: React.FC<IProp> = ({profile, closeModal}) => {
                 </Grid.Column>
                 <Grid.Column width={16}>
                     {LogiedInuser!.id === profile!.id ? (
-                        <PhotoUpload loading={uploadingPhoto} uploadPhoto={uploadPhoto}/>
+                        <PhotoUpload loading={uploadingPhoto} uploadPhoto={uploadPhoto} id={profile.id}/>
                     ) : (
                         <Card.Group>
                             {profile.profilePhoto ?  (

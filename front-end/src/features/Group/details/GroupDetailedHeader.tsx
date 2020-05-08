@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
+import React, {useContext, Fragment} from 'react';
 import {Button, Header, Image, Item, Segment} from "semantic-ui-react";
 import {Link, NavLink} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import {observer} from 'mobx-react-lite';
 import AddGroupMemberForm from "../form/AddGroupMemberForm";
+import PhotoUpload from "../../../app/common/photoUpload/PhotoUpload";
 
 
 interface IProps {
@@ -29,7 +30,9 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
         group,
         submitting,
         target,
-        deleteGroup
+        deleteGroup,
+        uploadPhoto,
+        uploadingPhoto
 
     } = rootStore.groupStore;
     const {openModal} = rootStore.modalStore
@@ -39,7 +42,8 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
-                <Image src={`/assets/GroupImage.png`} fluid style={activityImageStyle}/>
+                <Image src={group!.groupPhoto! ?
+                    group!.groupPhoto!.url: '/assets/OrgDefultimg.png'} fluid style={activityImageStyle}/>
                 <Segment basic style={activityImageTextStyle}>
                     <Item.Group>
                         <Item>
@@ -60,37 +64,47 @@ const GroupDetailedHeader: React.FC<IProps> = ({id}) => {
                             </Item.Content>
                         </Item>
                     </Item.Group>
+                    
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
                 {(UserRole === 'Superuser' || UserRole === 'Gruppeadministrator' || UserRole === 'OrgAdmin') &&
-                <Button.Group widths={3}>
-                    <Button
-                        floated='left'
-                        content='Add new members'
-                        color='green'
-                        onClick={() => openModal(<AddGroupMemberForm groupid={id}/>)}
-                    />
-                    
-                    <Button
-                        floated='right'
-                        content='Edit'
-                        color='orange'
-                        as={NavLink}
-                        to={`/managegroup/${group!.id}`}
-                    />
-                    <Button
-                        floated='right'
-                        content='Delete'
-                        color='red'
-                        as={Link}
-                        loading={target === group!.id && submitting}
-                        onClick={(event => {
-                            deleteGroup(event, id)
-                        })}
-                        to={'/organisation'}
-                    />
-                </Button.Group>
+                    <Fragment>
+                        <Button.Group widths={3}>
+                            <Button
+                                floated='left'
+                                content='Add new members'
+                                color='green'
+                                onClick={() => openModal(<AddGroupMemberForm groupid={id}/>)}
+                            />
+
+                            <Button
+                                floated='right'
+                                content='Edit'
+                                color='orange'
+                                as={NavLink}
+                                to={`/managegroup/${group!.id}`}
+                            />
+                            <Button
+                                floated='right'
+                                content='Delete'
+                                color='red'
+                                as={Link}
+                                loading={target === group!.id && submitting}
+                                onClick={(event => {
+                                    deleteGroup(event, id)
+                                })}
+                                to={'/organisation'}
+                            />
+                        </Button.Group>
+                        <Button
+                            basic
+                            floated='right'
+                            content='Photo'
+                            onClick={() => openModal(<PhotoUpload loading={uploadingPhoto} uploadPhoto={uploadPhoto} id={group!.id}/>)}
+                        />
+                    </Fragment>
+                
                 }
 
 

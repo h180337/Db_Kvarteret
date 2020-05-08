@@ -16,6 +16,7 @@ export default class GroupStore {
 
 
     @observable loadingInitial = false;
+    @observable uploadingPhoto = false;
     @observable groupRegistry = new Map();
     @observable groupMembersRegistry = new Map();
     @observable filteredData = new Map();
@@ -195,6 +196,24 @@ export default class GroupStore {
                 this.target = '';
             });
             console.log(e)
+        }
+    }
+    @action uploadPhoto = async (groupId: string, file: Blob) =>{
+        this.uploadingPhoto = true;
+        try {
+            const photo = await agent.Groups.uploadGroupPhoto(groupId, file);
+            runInAction(() => {
+                if (this.group) {
+                    this.group.groupPhoto = photo
+                }
+                this.groupRegistry.set(this.group!.id, this.group);
+                this.uploadingPhoto = false;
+            })
+        }catch (e) {
+            toast.error('Problem uploading photo')
+            runInAction(() =>{
+                this.uploadingPhoto = false;
+            })
         }
     }
 

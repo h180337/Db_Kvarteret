@@ -16,6 +16,7 @@ export default class OrganisationStore {
     }
     @observable loadingInitial = false;
     @observable organisationLoaded = false;
+    @observable uploadingPhoto = false;
     @observable organiasationsRegistry = new Map();
     @observable organiasationsAdminRegistry = new Map();
     @observable organiasationsGroupRegistry = new Map();
@@ -230,6 +231,24 @@ export default class OrganisationStore {
                 this.target = '';
             });
             console.log(e)
+        }
+    }
+    @action uploadPhoto = async (orgId: string, file: Blob) =>{
+        this.uploadingPhoto = true;
+        try {
+            const photo = await agent.Organisation.uploadOrgPhoto(orgId, file);
+            runInAction(() => {
+                if (this.organiasation) {
+                    this.organiasation.organisationPhoto = photo
+                }
+                this.organiasationsRegistry.set(this.organiasation!.id, this.organiasation);
+                this.uploadingPhoto = false;
+            })
+        }catch (e) {
+            toast.error('Problem uploading photo')
+            runInAction(() =>{
+                this.uploadingPhoto = false;
+            })
         }
     }
 }

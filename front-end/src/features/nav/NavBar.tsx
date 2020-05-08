@@ -1,22 +1,21 @@
 import React, {Fragment, useContext, useState, useEffect} from 'react';
 import {Button, Container, Dropdown, Header, Icon, Menu, Responsive} from 'semantic-ui-react';
 import {observer} from 'mobx-react-lite';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, Route, Switch} from 'react-router-dom';
 import {RootStoreContext} from "../../app/stores/rootStore";
 import SideBareToggle from "./SideBareToggle";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+import LoginForm from "../personell/form/LoginForm";
 
 
 const NavBar: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
-    const {LogiedInuser, logout, loadingInitial, isLoggedIn, getLogedInUser, LoginUserRolesRegistry} = rootStore.userStore
+    const {LogiedInuser, logout, loadingInitial, getLogedInUser, isLoggedIn} = rootStore.userStore
     const [show, setShow] = useState(false);
     useEffect(()=>{
         getLogedInUser()
     }, [getLogedInUser])
-    
-    const UserRole = LogiedInuser!.roles[0].name;
     return (
         <Fragment>
             <Menu fixed='top' inverted>
@@ -25,19 +24,19 @@ const NavBar: React.FC = () => {
                         <img src='/assets/LogoKvarteret.png' alt='Logo' style={{marginRight: '10px'}}/>
                         Db Kvarteret
                     </Menu.Item>
-                    {UserRole === 'Superuser' &&
+                    {LogiedInuser!.roles[0].name === 'Superuser' &&
                     <Menu.Item
                         as={NavLink}
                         to='/users'
                         name='Users'
                     />}
-                    {(UserRole === 'Superuser' || UserRole === 'orgAdmin') &&
+                    {(LogiedInuser!.roles[0].name === 'Superuser' || LogiedInuser!.roles[0].name === 'orgAdmin') &&
                     <Menu.Item
                         name='Organisations'
                         as = {NavLink}
                         to = '/organisation'
                     />}
-                    {UserRole === 'Superuser' &&
+                    {LogiedInuser!.roles[0].name === 'Superuser' &&
                     <Menu.Item>
                         <Button
                             positive content='Create user'
@@ -45,7 +44,7 @@ const NavBar: React.FC = () => {
                             to='/createUser'
                         />
                     </Menu.Item>}
-                    {UserRole === 'Superuser' &&
+                    {LogiedInuser!.roles[0].name === 'Superuser' &&
                     <Menu.Item>
                         <Button
                             positive
@@ -54,7 +53,7 @@ const NavBar: React.FC = () => {
                             to='/createorganisation'
                         />
                     </Menu.Item>}
-                    {UserRole === ('Superuser' || 'OrgAdmin') &&
+                    {LogiedInuser!.roles[0].name === ('Superuser' || 'OrgAdmin') &&
                     <Menu.Item>
                         <Button
                             positive
@@ -71,7 +70,7 @@ const NavBar: React.FC = () => {
                             <Dropdown.Menu>
                                 <Dropdown.Item as={Link} to={`/users/${LogiedInuser.id}`} text='My profile'
                                                icon='user'/>
-                                {UserRole ==='Superuser' &&
+                                {LogiedInuser!.roles[0].name ==='Superuser' &&
                                 <Dropdown.Item
                                     as={Link}
                                     to={`/admincontroller`}

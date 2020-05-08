@@ -21,6 +21,8 @@ namespace Domain
         public DateTime aktiv_til_og_med { get; set; }
 
         public DateTime opprettet { get; set; }
+        
+        public virtual Photo GroupPhoto { get; set; }
 
         public virtual ICollection<UserGroup> UserGroups { get; set; }
         public Guid OrganisationId { get; set; }

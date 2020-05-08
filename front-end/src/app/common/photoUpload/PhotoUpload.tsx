@@ -6,11 +6,12 @@ import MyDropzone from "./PhotoDropZone";
 import PhotoUploadCropper from "./PhotoUploadCropper";
 
 interface IProps {
+    id?: string;
     loading: boolean;
-    uploadPhoto: (file: Blob) => any
+    uploadPhoto: (id: string, file: Blob) => any
 }
 
-const PhotoUpload: React.FC<IProps> = ({loading, uploadPhoto}) => {
+const PhotoUpload: React.FC<IProps> = ({loading, uploadPhoto, id}) => {
 
     const [files, setFiles] = useState<any[]>([]);
     const [image, setImage] = useState<Blob | null>(null)
@@ -22,8 +23,8 @@ const PhotoUpload: React.FC<IProps> = ({loading, uploadPhoto}) => {
             })
         }
     })
-    const handleUploadImage = (photo:Blob) =>{
-        uploadPhoto(photo).then(() => setFiles([]))
+    const handleUploadImage = (id: string, photo:Blob) =>{
+        uploadPhoto(id, photo).then(() => setFiles([]))
     }
     
     return(
@@ -51,7 +52,7 @@ const PhotoUpload: React.FC<IProps> = ({loading, uploadPhoto}) => {
                                     content='Upload'
                                     positive
                                     loading={loading}
-                                    onClick={() => handleUploadImage(image!)}
+                                    onClick={() => handleUploadImage(id!, image!)}
                                     icon='check'
                                 />
                                 <Button 

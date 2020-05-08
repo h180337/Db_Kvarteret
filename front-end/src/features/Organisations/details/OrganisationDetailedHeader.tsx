@@ -1,9 +1,11 @@
 import React, {useContext} from 'react';
-import {Button, Header, Image, Item, Segment} from 'semantic-ui-react'
+import {Button, Header, Image, Item, Segment, Icon} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 import {RootStoreContext} from "../../../app/stores/rootStore";
 import AddGroups from "../form/AddGroups";
 import { observer } from 'mobx-react-lite';
+import ProfilePhotos from "../../personell/Profile/ProfilePhotos";
+import PhotoUpload from '../../../app/common/photoUpload/PhotoUpload';
 
 interface IProps {
     id: string;
@@ -30,7 +32,9 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
         submitting,
         deleteOrganisation,
         target,
-        organiasationsAdminRegistry
+        organiasationsAdminRegistry,
+        uploadPhoto,
+        uploadingPhoto
 
     } = rootStore.organiastionStore;
     const {LogiedInuser} = rootStore.userStore
@@ -38,7 +42,8 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
-                <Image  src={`/assets/organis.jpg`} fluid style={activityImageStyle}/>
+                <Image  src={organiasation!.organisationPhoto! ? 
+                    organiasation!.organisationPhoto!.url: '/assets/OrgDefultimg.png'} fluid style={activityImageStyle}/>
                 <Segment basic style={activityImageTextStyle}>
                     <Item.Group>
                         <Item>
@@ -61,6 +66,13 @@ const OrganisationDetailedHeader: React.FC<IProps> = ({id}) => {
                     as={Link}
                     to={`/manageorganisation/${organiasation!.id}`}
                 />}
+
+                <Button
+                    basic
+                    floated='right'
+                    content='Photo'
+                    onClick={() => openModal(<PhotoUpload loading={uploadingPhoto} uploadPhoto={uploadPhoto} id={organiasation!.id}/>)}
+                />
             </Segment>
         </Segment.Group>
 

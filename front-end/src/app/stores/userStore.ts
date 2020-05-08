@@ -255,7 +255,7 @@ export default class UserStore {
         }
     }
     
-    @action uploadPhoto = async (file: Blob) =>{
+    @action uploadPhoto = async (id: string, file: Blob) =>{
         this.uploadingPhoto = true;
       
         try {

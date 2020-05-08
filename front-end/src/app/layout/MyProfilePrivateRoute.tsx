@@ -14,7 +14,7 @@ const MyProfilePrivateRoute: React.FC<IProps> = ({component: Component, ...rest}
     useEffect(()=>{
         loadUser(LogiedInuser!.id)
     }, [LogiedInuser])
-    const ProfileAccess = LogiedInuser!.roles[0].name === 'Bruker' ? <Route
+    const ProfileAccess = !isLoggedIn && LogiedInuser!.roles && LogiedInuser!.roles[0].name === 'Bruker' ? <Route
         {...rest}
         render={((props:any) => (!isLoggedIn && user!.id === LogiedInuser!.id) ? <Component {...props}/> :
             <Redirect to={'/unauth'}/>)}

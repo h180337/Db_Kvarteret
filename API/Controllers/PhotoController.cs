@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Application.Photos;
 using Domain;
@@ -11,6 +12,19 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Photo>> Add([FromForm]Add.Command command)
         {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("{orgid}")]
+        public async Task<ActionResult<Photo>> AddOrgPhoto(Guid orgId, [FromForm]AddOrganisationPhoto.Command command)
+        {
+            command.Id = orgId; 
+            return await Mediator.Send(command);
+        }
+        
+        [HttpPost("{groupId}/group")]
+        public async Task<ActionResult<Photo>> AddGroupPhoto(Guid groupId, [FromForm]AddGroupPhoto.Command command)
+        {
+            command.Id = groupId; 
             return await Mediator.Send(command);
         }
 

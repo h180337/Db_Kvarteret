@@ -78,7 +78,8 @@ const Organisation = {
     addGroup: (organisationId: string, Groupid: string) => requests.post(`/organisation/${organisationId}/addGroupToOrganisation/${Groupid}`, {}),
     removeGroup: (organisationId: string, Groupid: string) => requests.del(`/organisation/${organisationId}/remove/${Groupid}`),
     addAdmin: (organisationId: string, userid: string) => requests.post(`/organisation/${organisationId}/AddAdmin/${userid}`,{}),
-    removeAdmin: (organisationId: string, userid: string) => requests.post(`/organisation/${organisationId}/RemoveAdmin/${userid}`, {})
+    removeAdmin: (organisationId: string, userid: string) => requests.post(`/organisation/${organisationId}/RemoveAdmin/${userid}`, {}),
+    uploadOrgPhoto: (orgId:string, photo: Blob): Promise<IPhoto> => requests.postForm(`/photo/${orgId}`, photo),
 
 
 }
@@ -91,7 +92,9 @@ const Groups = {
     delete: (id: string) => requests.del(`/group/${id}`),
     addUser: (groupid: string, userid: string) => requests.post(`/group/${groupid}/addgroupmember/${userid}`, {}),
     removeUser: (groupid: string, userid: string) => requests.del(`/group/${groupid}/remove/${userid}`),
-    editAdmin: (groupid: string, userid: string) => requests.put(`/group/${groupid}/editadmin/${userid}`,{})
+    editAdmin: (groupid: string, userid: string) => requests.put(`/group/${groupid}/editadmin/${userid}`,{}),
+    uploadGroupPhoto: (groupId:string, photo: Blob): Promise<IPhoto> => requests.postForm(`/photo/${groupId}/group`, photo),
+
 }
 
 const Tags = {
