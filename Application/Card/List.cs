@@ -15,7 +15,6 @@ namespace Application.Card
         }
 
         public class Handler : IRequestHandler<Query, List<CardDto>>
-
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -28,13 +27,8 @@ namespace Application.Card
             public async Task<List<CardDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var cards = await _context.Cards.ToListAsync();
-                var list = new List<CardDto>();
-
-                foreach (var card in cards)
-                {
-                    list.Add(_mapper.Map<Domain.Card, CardDto>(card));
-                }
-                return list;
+                
+                return _mapper.Map<List<Domain.Card>, List<CardDto>>(cards);
             }
         }
     }

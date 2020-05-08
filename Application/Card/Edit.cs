@@ -14,15 +14,11 @@ namespace Application.Card
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-
             public Guid UserId { get; set; }
-
             public string KortNummer { get; set; }
-
             public DateTime Opprettet { get; set; }
         }
 
-        //FormValidation
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
@@ -33,7 +29,6 @@ namespace Application.Card
         }
 
         public class Handler : IRequestHandler<Command>
-
         {
             private readonly DataContext _context;
 

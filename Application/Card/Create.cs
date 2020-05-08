@@ -14,11 +14,8 @@ namespace Application.Card
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-
             public Guid UserId { get; set; }
-
             public string KortNummer { get; set; }
-
             public DateTime Opprettet { get; set; }
         }
 
@@ -53,7 +50,6 @@ namespace Application.Card
 
                 var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName ==
                                                                           _userAccessor.GetCurrentUsername());
-               
 
                 var success = await _context.SaveChangesAsync() > 0;
 
