@@ -25,7 +25,7 @@ namespace API.Controllers
         {
             return await Mediator.Send(command);
         }
-        [Authorize(Roles = "Superuser, Bruker")]
+        [Authorize(Roles = "Superuser, Bruker, Gruppeadministrator")]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> Profile(string id)
         {

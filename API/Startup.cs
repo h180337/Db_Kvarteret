@@ -67,7 +67,7 @@ namespace API
             {
                 opt.AddPolicy("OwnsData", policy => { policy.AddRequirements(new OwnsDataRequirement()); });
             });
-            
+
             services.AddTransient<IAuthorizationHandler, IsAdminRequirementHandler>();
             services.AddTransient<IAuthorizationHandler, OwnsDataRequirementHandler>();
 
@@ -101,16 +101,22 @@ namespace API
             }
 
             //app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
 
             app.UseRouting();
-
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
 
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
+            });
         }
     }
 }
