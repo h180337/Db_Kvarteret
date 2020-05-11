@@ -61,12 +61,13 @@ const App: React.FC<RouteComponentProps> = ({location}) => {
                                    component={GroupForm}/>
                             <AdminRoute key={location.key} path={['/createorganisation', '/manageorganisation/:id']} exact
                                    component={OrganisationForm}/>
-                            <AdminRoute key={location.key} path={['/createUser', '/manage/:id']} exact
+                                   
+                             {/*need to fix this route access*/}
+                            <PrivateRoute key={location.key} path={['/createUser', '/manage/:id']} exact
                                    component={PersonelForm}/>
                             <Route path='/login' component={LoginForm}/>
                             <PrivateRoute path='/unauth' component={UnAuth}/>
                             <Route component={NotFound}/>
-                           
                         </Switch>
                     </Container>
                 </Fragment>
