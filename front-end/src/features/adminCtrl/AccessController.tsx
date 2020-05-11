@@ -51,6 +51,7 @@ const AccessController: React.FC<IProps> = ({accessGroupRegistry}) => {
                                     negative
                                     content='Remove'
                                     loading={submitting}
+                                    disabled={true}
                                 />
                             </Table.Cell>
 
@@ -61,6 +62,7 @@ const AccessController: React.FC<IProps> = ({accessGroupRegistry}) => {
             {value !== '' && <Button
                 content='Add access'
                 color='green'
+                disabled={true}
                 onClick={() => openModal(<AddAccessLevel AccessGroupId={value}/>)}
             />}
         </Fragment>
