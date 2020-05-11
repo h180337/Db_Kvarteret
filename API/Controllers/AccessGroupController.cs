@@ -17,7 +17,7 @@ namespace API.Controllers
         {
             return await Mediator.Send(new List.Query());
         }
-
+        
         [HttpPost("create")]
         public async Task<ActionResult<Unit>> CreateRole(Create.Command command)
         {

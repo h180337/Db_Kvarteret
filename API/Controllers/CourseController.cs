@@ -17,7 +17,7 @@ namespace API.Controllers
         {
             return await Mediator.Send(new List.Query());
         }
-
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> Profile(Guid id)
         {

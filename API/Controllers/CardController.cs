@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Card;
 using Domain;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    //[Authorize(Roles = "Kursforvalter")]
+    
     public class CardController : BaseController
     {
         [HttpGet]

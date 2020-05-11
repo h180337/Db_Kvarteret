@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
+using static Infrastructure.Security.OwnsDataRequirement;
 
 namespace API
 {
@@ -64,9 +65,11 @@ namespace API
 
             services.AddAuthorization(opt =>
             {
-                opt.AddPolicy("IsAdmin", policy => { policy.AddRequirements(new IsAdminRequirement()); });
+                opt.AddPolicy("OwnsData", policy => { policy.AddRequirements(new OwnsDataRequirement()); });
             });
+            
             services.AddTransient<IAuthorizationHandler, IsAdminRequirementHandler>();
+            services.AddTransient<IAuthorizationHandler, OwnsDataRequirementHandler>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

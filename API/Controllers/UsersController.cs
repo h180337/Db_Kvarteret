@@ -19,18 +19,19 @@ namespace API.Controllers
             return await Mediator.Send(query);
         }
 
+        [Authorize(Roles = "Superuser")]
         [HttpPost("createuser")]
         public async Task<ActionResult<Unit>> createUser(CreateUser.Command command)
         {
             return await Mediator.Send(command);
         }
-
+        [Authorize(Roles = "Superuser, Bruker")]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> Profile(string id)
         {
             return await Mediator.Send(new UserProfile.Query { Id = id });
         }
-
+        [Authorize(Roles = "Bruker, Superuser")]
         [HttpGet("user")]
         public async Task<ActionResult<UserDto>> CurrentUser()
         {
@@ -42,20 +43,20 @@ namespace API.Controllers
         {
             return await Mediator.Send(new GroupHistory.Query { id = Id });
         }
-
+        [Authorize(Roles = "Superuser")]
         [HttpGet]
         public async Task<ActionResult<List<UserDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
-
+        [Authorize(Roles = "Superuser")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(string id, EditUser.Command command)
         {
             command.Id = id;
             return await Mediator.Send(command);
         }
-
+        [Authorize(Roles = "Superuser")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
