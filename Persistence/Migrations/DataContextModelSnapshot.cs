@@ -42,28 +42,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("Domain.AccessGroupLevel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccessGroupId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccessName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccessGroupId");
-
-                    b.ToTable("AccessGroupLevels");
-                });
-
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -181,13 +159,15 @@ namespace Persistence.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("KortNummer")
+                    b.Property<string>("CardNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Opprettet")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Cards");
                 });
@@ -232,7 +212,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
 
                     b.ToTable("Dependents");
                 });
@@ -349,27 +330,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("Domain.UserCards", b =>
-                {
-                    b.Property<Guid>("CardId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CardId", "AppUserId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("UserCards");
                 });
 
             modelBuilder.Entity("Domain.UserCourse", b =>
@@ -549,13 +509,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.AccessGroupLevel", b =>
-                {
-                    b.HasOne("Domain.AccessGroup", "AccessGroup")
-                        .WithMany()
-                        .HasForeignKey("AccessGroupId");
-                });
-
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.HasOne("Domain.Photo", "ProfilePhoto")
@@ -578,11 +531,18 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Card", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AppUser")
+                        .WithMany("Cards")
+                        .HasForeignKey("AppUserId");
+                });
+
             modelBuilder.Entity("Domain.Dependent", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
+                        .WithOne("Dependent")
+                        .HasForeignKey("Domain.Dependent", "AppUserId");
                 });
 
             modelBuilder.Entity("Domain.Group", b =>
@@ -603,21 +563,6 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Photo", "organisationPhoto")
                         .WithMany()
                         .HasForeignKey("organisationPhotoId");
-                });
-
-            modelBuilder.Entity("Domain.UserCards", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("UserCards")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Card", "Card")
-                        .WithMany("UserCards")
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.UserCourse", b =>

@@ -9,14 +9,40 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200423083640_UserHistoryEntityAdded")]
-    partial class UserHistoryEntityAdded
+    [Migration("20200511121053_AppCreated")]
+    partial class AppCreated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.2");
+
+            modelBuilder.Entity("Domain.AccessGroup", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
 
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
@@ -59,6 +85,9 @@ namespace Persistence.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProfilePhotoId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
@@ -103,7 +132,24 @@ namespace Persistence.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
+                    b.HasIndex("ProfilePhotoId");
+
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Domain.AppUserRoles", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Domain.Card", b =>
@@ -115,13 +161,15 @@ namespace Persistence.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("KortNummer")
+                    b.Property<string>("CardNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Opprettet")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Cards");
                 });
@@ -138,18 +186,50 @@ namespace Persistence.Migrations
                     b.Property<string>("navn")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("opprettet")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("opprettet")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
                 });
 
+            modelBuilder.Entity("Domain.Dependent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telephone")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("Dependents");
+                });
+
             modelBuilder.Entity("Domain.Group", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupPhotoId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("OrganisationId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("aktiv")
@@ -172,28 +252,11 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("Domain.GroupsInOrganisation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("GroupId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("OrganisationId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
+                    b.HasIndex("GroupPhotoId");
 
                     b.HasIndex("OrganisationId");
 
-                    b.ToTable("GroupsInOrganisations");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("Domain.History", b =>
@@ -234,9 +297,27 @@ namespace Persistence.Migrations
                     b.Property<string>("name")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("organisationPhotoId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("organisationPhotoId");
+
                     b.ToTable("Organisations");
+                });
+
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilePhoto");
                 });
 
             modelBuilder.Entity("Domain.Tags", b =>
@@ -251,27 +332,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("Domain.UserCards", b =>
-                {
-                    b.Property<Guid>("CardId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CardId", "AppUserId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("UserCards");
                 });
 
             modelBuilder.Entity("Domain.UserCourse", b =>
@@ -331,6 +391,24 @@ namespace Persistence.Migrations
                     b.ToTable("UserHistory");
                 });
 
+            modelBuilder.Entity("Domain.UserOrganisationAdmin", b =>
+                {
+                    b.Property<Guid>("OrganisationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("orgAdmin")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("OrganisationId", "AppUserId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("UserOrganisationAdmins");
+                });
+
             modelBuilder.Entity("Domain.UserTags", b =>
                 {
                     b.Property<Guid>("TagId")
@@ -344,32 +422,6 @@ namespace Persistence.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("UserTags");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -440,21 +492,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
@@ -474,30 +511,60 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.GroupsInOrganisation", b =>
+            modelBuilder.Entity("Domain.AppUser", b =>
                 {
-                    b.HasOne("Domain.Group", "Group")
+                    b.HasOne("Domain.Photo", "ProfilePhoto")
                         .WithMany()
-                        .HasForeignKey("GroupId");
-
-                    b.HasOne("Domain.Organisation", "Organisation")
-                        .WithMany("GroupsInOrganisations")
-                        .HasForeignKey("OrganisationId");
+                        .HasForeignKey("ProfilePhotoId");
                 });
 
-            modelBuilder.Entity("Domain.UserCards", b =>
+            modelBuilder.Entity("Domain.AppUserRoles", b =>
                 {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("UserCards")
-                        .HasForeignKey("AppUserId")
+                    b.HasOne("Domain.AccessGroup", "Role")
+                        .WithMany("AppUserRoles")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Card", "Card")
-                        .WithMany("UserCards")
-                        .HasForeignKey("CardId")
+                    b.HasOne("Domain.AppUser", "User")
+                        .WithMany("AppUserRoles")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Card", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AppUser")
+                        .WithMany("Cards")
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("Domain.Dependent", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AppUser")
+                        .WithOne("Dependent")
+                        .HasForeignKey("Domain.Dependent", "AppUserId");
+                });
+
+            modelBuilder.Entity("Domain.Group", b =>
+                {
+                    b.HasOne("Domain.Photo", "GroupPhoto")
+                        .WithMany()
+                        .HasForeignKey("GroupPhotoId");
+
+                    b.HasOne("Domain.Organisation", "Organisation")
+                        .WithMany("Groups")
+                        .HasForeignKey("OrganisationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Organisation", b =>
+                {
+                    b.HasOne("Domain.Photo", "organisationPhoto")
+                        .WithMany()
+                        .HasForeignKey("organisationPhotoId");
                 });
 
             modelBuilder.Entity("Domain.UserCourse", b =>
@@ -545,6 +612,21 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.UserOrganisationAdmin", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AppUser")
+                        .WithMany("UserOrganisationAdmins")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Organisation", "Organisation")
+                        .WithMany("UserOrganisationAdmins")
+                        .HasForeignKey("OrganisationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.UserTags", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
@@ -562,7 +644,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Domain.AccessGroup", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -580,21 +662,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Domain.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")

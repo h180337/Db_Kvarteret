@@ -30,6 +30,25 @@ namespace API
         {
             Configuration = configuration;
         }
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(opt =>
+            {
+                opt.UseLazyLoadingProxies();
+                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(opt =>
+            {
+                opt.UseLazyLoadingProxies();
+                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            ConfigureServices(services);
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -43,11 +62,6 @@ namespace API
                 })
                 .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Create>(); });
 
-            services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseLazyLoadingProxies();
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-            });
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy",
@@ -68,7 +82,6 @@ namespace API
                 opt.AddPolicy("OwnsData", policy => { policy.AddRequirements(new OwnsDataRequirement()); });
             });
 
-            services.AddTransient<IAuthorizationHandler, IsAdminRequirementHandler>();
             services.AddTransient<IAuthorizationHandler, OwnsDataRequirementHandler>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
