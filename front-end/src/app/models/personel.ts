@@ -1,6 +1,7 @@
 import { ITag } from "./Tag";
 import { IPhoto } from "./Photo";
 import { IRole } from "./Roles";
+import { IDependent } from "./dependent";
 
 export interface IPersonel {
     id: string,
@@ -23,6 +24,7 @@ export interface IPersonel {
     profilePhoto: IPhoto | null;
     roles: IRole [];
     organisationAdmin: any [];
+    dependent: IDependent;
 }
 
 export interface IPersonFormValues extends Partial<IPersonel>{
