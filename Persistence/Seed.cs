@@ -27,9 +27,9 @@ namespace Persistence
                     new AppUser
                     {
                         Id = "c",
-                        fornavn = "Khim",
+                        fornavn = "Khiem",
                         etternavn = "Bruker",
-                        UserName = "khim",
+                        UserName = "khiem",
                         kjonn = "man",
                         Email = "epost@epost.test",
                         workstatus = "active",
