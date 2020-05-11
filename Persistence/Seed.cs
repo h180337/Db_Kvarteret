@@ -27,9 +27,9 @@ namespace Persistence
                     new AppUser
                     {
                         Id = "c",
-                        fornavn = "Ørjan",
-                        etternavn = "Enes",
-                        UserName = "OrjanE",
+                        fornavn = "Khim",
+                        etternavn = "Bruker",
+                        UserName = "khim",
                         kjonn = "man",
                         Email = "epost@epost.test",
                         workstatus = "active",
@@ -37,28 +37,28 @@ namespace Persistence
                         dateOfBirth = DateTime.Now.AddMonths(-24),
                         streetAddress = "Olav Kyrres gate 1",
                         areaCode = "5004",
-                        PhoneNumber = "45838282",
+                        PhoneNumber = "90807060",
                     },
                     new AppUser
                     {
                         Id = "b",
-                        fornavn = "Kjetil",
-                        etternavn = "Hunshammer",
-                        UserName = "kjetilhunshammer",
+                        fornavn = "Oda",
+                        etternavn = "Superuser",
+                        UserName = "oda",
                         kjonn = "man",
-                        Email = "kjetil.hunshammer@gmail.com",
+                        Email = "oda@testmail.com",
                         workstatus = "active",
                         created = DateTime.Now,
                         dateOfBirth = DateTime.Now.AddMonths(+2),
-                        streetAddress = "Bøhmergaten 35",
+                        streetAddress = "Olav Kyrres Gate 1",
                         areaCode = "5057",
-                        PhoneNumber = "46843482",
+                        PhoneNumber = "90807060",
                     },
                     new AppUser
                     {
                         Id = "a",
                         fornavn = "Tone",
-                        etternavn = "Hansen",
+                        etternavn = "Superuser",
                         UserName = "tonehans",
                         kjonn = "woman",
                         Email = "tonehansen@hotmail.com",
@@ -102,8 +102,8 @@ namespace Persistence
                             {
                                 new Group
                                 {
-                                    navn = "TestGruppen",
-                                    beskrivelse = "Gruppen som tester nummer 1",
+                                    navn = "Personalgruppen",
+                                    beskrivelse = "Har ansvar for rekruttering, ivaretaking av kompetanse og opprettholdelse av et godt arbeids og internsosialt miljø. Etablert i mai 2007.",
                                     aktiv = "active",
                                     aktiv_til_og_med = DateTime.Now.AddMonths(-2),
                                     opprettet = DateTime.Now.AddMonths(-2),
@@ -126,12 +126,12 @@ namespace Persistence
                                 },
                                 new Group
                                 {
-                                    navn = "TestGruppen2",
-                                    beskrivelse = "Gruppen som tester nummer 2",
+                                    navn = "Kvarterstyret",
+                                    beskrivelse = "Kvarterstyret er det husets daglige styre og har overordnet ansvar for driften av Det Akademiske Kvarter.",
                                     aktiv = "active",
                                     aktiv_til_og_med = DateTime.Now.AddMonths(-2),
                                     opprettet = DateTime.Now.AddMonths(-2),
-                                    groupType = "commity",
+                                    groupType = "group",
                                     UserGroups = new List<UserGroup>
                                     {
                                         new UserGroup
@@ -144,9 +144,9 @@ namespace Persistence
                                 },
                                 new Group
                                 {
-                                    navn = "TestGruppen3",
-                                    beskrivelse = "Gruppen som tester nummer 3",
-                                    aktiv = "inactive",
+                                    navn = "PR-etaten",
+                                    beskrivelse = "Opprettet for å styrke satsningen på PR ved sammenslåing av informasjonsgruppen og eksponeringsetaten på 35. ordinære GF (Vår2012).",
+                                    aktiv = "active",
                                     groupType = "project",
                                     aktiv_til_og_med = DateTime.Now.AddMonths(-2),
                                     opprettet = DateTime.Now.AddMonths(-2),
@@ -176,18 +176,18 @@ namespace Persistence
                     },
                     new Organisation
                     {
-                        name = "BSI",
-                        description = "Say no more",
+                        name = "Studentersamfunnet i Bergen",
+                        description = "",
                     },
                     new Organisation
                     {
-                        name = "AUFs studenter Bergen",
-                        description = "Say even less",
+                        name = "Mannskoret Arme Riddere",
+                        description = "Det offisielle mannskoret ved Universitetet i Bergen.",
                     },
                     new Organisation
                     {
-                        name = "bstv",
-                        description = "Tv i 2020?",
+                        name = "Bergen Realistforening",
+                        description = "Bergen realistforening arrangerer konserter og andre arrangementer for i hovedsak studenter i Bergen. Vi driv på ideelt grunnlag.",
                     },
                 };
 
@@ -201,7 +201,7 @@ namespace Persistence
                 {
                     new Tags
                     {
-                        tagText = "It",
+                        tagText = "IT-Personell",
                         UserTags = new List<UserTags>
                         {
                             new UserTags
@@ -213,7 +213,7 @@ namespace Persistence
                     },
                     new Tags
                     {
-                        tagText = "DramaQueen",
+                        tagText = "Leder",
                         UserTags = new List<UserTags>
                         {
                             new UserTags
@@ -236,7 +236,15 @@ namespace Persistence
                     },
                     new Tags
                     {
-                        tagText = "Model"
+                        tagText = "Utvikler"
+                    },
+                    new Tags
+                    {
+                        tagText = "Arbeidsledig"
+                    },
+                    new Tags
+                    {
+                        tagText = "Løsningsorientert"
                     }
                 };
                 context.Tags.AddRange(tags);
@@ -250,27 +258,27 @@ namespace Persistence
                 {
                     new Card
                     {
-                        CardNumber = "3254543",
+                        CardNumber = "1198",
                         Created = DateTime.Now.AddMonths(-2),
                         AppUser = context.Users.FirstOrDefault()
                     },
                     new Card
                     {
-                        CardNumber = "1023020",
+                        CardNumber = "14",
                         Created = DateTime.Now.AddMonths(-1),
                         AppUser = context.Users.FirstOrDefault()
                         
                     },
                     new Card
                     {
-                        CardNumber = "432576",
+                        CardNumber = "1047",
                         Created = DateTime.Now.AddMonths(-3),
                         AppUser = context.Users.FirstOrDefault()
                         
                     },
                     new Card
                     {
-                        CardNumber = "123465",
+                        CardNumber = "1060",
                         Created = DateTime.Now.AddMonths(-4),
                         AppUser = context.Users.FirstOrDefault()
                     },
@@ -328,7 +336,7 @@ namespace Persistence
                 {
                     new History
                     {
-                        GroupName = "Gamlegruppen",
+                        GroupName = "Ledergruppen",
                         Position = "Leder",
                         GroupType = "Group",
                         Year = 1994,
@@ -337,15 +345,6 @@ namespace Persistence
                             new UserHistory { AppUserId = "c" },
                             new UserHistory { AppUserId = "a" },
                         }
-
-                    },
-                    new History
-                    {
-                        GroupName = "Testgruppen",
-                        Position = "Leder",
-                        GroupType = "Group",
-                        Year = 1994,
-                        Semester = "H"
 
                     },
                     new History
@@ -379,8 +378,8 @@ namespace Persistence
                 {
                     new Course
                     {
-                        navn = "Test kurs",
-                        beskrivelse = "Kurs i .net helvet",
+                        navn = "Ordensvaktkurs",
+                        beskrivelse = "Ordensvaktkurset som vakt og kvartene får mot 3 semesters binding",
                         opprettet = DateTime.Now,
                         UserCourses = new List<UserCourse>
                         {
@@ -398,8 +397,8 @@ namespace Persistence
                     },
                     new Course
                     {
-                        navn = "TestGruppen2",
-                        beskrivelse = "Gruppen som tester nummer 2",
+                        navn = "Ansvarlig Vertskap",
+                        beskrivelse = "Dette kurset er beregnet å gis til medlemme av skjenkegruppen for å sørge for at dens medlemmer har en god forståelse for skjenkeregler. Kurset krever et semesters binding",
                         opprettet = DateTime.Now,
                         UserCourses = new List<UserCourse>
                         {
@@ -412,8 +411,8 @@ namespace Persistence
                     },
                     new Course
                     {
-                        navn = "TestGruppen3",
-                        beskrivelse = "Gruppen som tester nummer 3",
+                        navn = "Skjenkeopplæring",
+                        beskrivelse = "Opplæring i Alkoholloven er gjennomført og har signert på dette.",
                         opprettet = DateTime.Now,
                         UserCourses = new List<UserCourse>
                         {

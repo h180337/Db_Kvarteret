@@ -47,8 +47,6 @@ namespace Persistence
 
         public DbSet<Dependent> Dependents { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

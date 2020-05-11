@@ -21,27 +21,16 @@ namespace Application.User
         {
             public string Id { get; set; }
             public string fornavn { get; set; }
-
             public string etternavn { get; set; }
-
             public string phoneNumber { get; set; }
-
             public string userName { get; set; }
-
             public string kjonn { get; set; }
-
             public string Email { get; set; }
-
             public string Password { get; set; }
-
             public string workstatus { get; set; }
-
             public DateTime created { get; set; }
-
             public DateTime dateOfBirth { get; set; }
-
             public string streetAddress { get; set; }
-
             public string areaCode { get; set; }
         }
 
@@ -101,8 +90,8 @@ namespace Application.User
 
                 if (UserCreated.Succeeded)
                 {
-                    var RoleAdded = await _userManager.AddToRoleAsync(user, defaultRole.Name);
-                    if (RoleAdded.Succeeded)
+                    var AddRole = await _userManager.AddToRoleAsync(user, defaultRole.Name);
+                    if (AddRole.Succeeded)  
                     {
                         return Unit.Value;
                     }
