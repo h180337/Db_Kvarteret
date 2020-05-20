@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    
+
     public class AccessGroupController : BaseController
     {
-        
+
         [HttpGet]
         public async Task<ActionResult<List<AccessGroupDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
-        
+
         [HttpPost("create")]
         public async Task<ActionResult<Unit>> CreateRole(Create.Command command)
         {
@@ -48,6 +48,6 @@ namespace API.Controllers
             return await Mediator.Send(new UserRoles.Query { UserId = userid });
         }
 
-        
+
     }
 }

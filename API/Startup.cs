@@ -21,6 +21,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using static Infrastructure.Security.OwnsDataRequirement;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace API
 {
@@ -32,6 +34,36 @@ namespace API
         }
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API Docs", Version = "v1" });
+                c.CustomSchemaIds(x => x.FullName);
+                c.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme
+                {
+                    Description = "Api key needed to access the endpoints. Authorization: My_API_Key",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Name = "Authorization",
+                            Type = SecuritySchemeType.ApiKey,
+                            In = ParameterLocation.Header,
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Authorization"
+                            },
+                        },
+                        new string[] {}
+                    }
+                });
+            });
+
             services.AddDbContext<DataContext>(opt =>
             {
                 opt.UseLazyLoadingProxies();
@@ -112,7 +144,13 @@ namespace API
             {
                 //app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                c.RoutePrefix = "swagger";
+            });
             app.UseXContentTypeOptions();
             app.UseReferrerPolicy(opt => opt.NoReferrer());
             app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
@@ -126,7 +164,7 @@ namespace API
                 .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com", "blob:", "data:"))
                 .ScriptSources(s => s.Self().CustomSources("sha256-Wzy5oh0SKbx/NmFOH9qoIz9y4EnttWQF7tPmjNKtcrI="))
                 );
-            
+
 
             //app.UseHttpsRedirection();
             app.UseDefaultFiles();
